@@ -1,21 +1,25 @@
 import { useState } from "react"
-import { StyleSheet } from "react-native"
+import { StyleSheet, View } from "react-native"
 
 export default function Login() {
-    const [email, setEmail] = useState("")
+    const [cpf, setCpf] = useState("")
     const [senha, setSenha] = useState("")
     
-    function realizarLogin() {
+    function handleLogin() {
         // Realiza o fetch com a API
     }
 
-    return
-    // Logo
-    // Input de Email
-    // Input de Senha
-    // "Ainda não possui cadastro?"
-    // Botão de login
-    // Redes sociais
+    return (
+        <View style={styles.container}>
+            <View style={styles.logo}>
+
+            </View>
+
+            <View style={styles.loginForm}>
+                
+            </View>
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
