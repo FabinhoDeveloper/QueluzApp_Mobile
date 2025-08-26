@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingHorizontal: 18,
         borderColor: "rgba(0,0,0,0.25)", // borda 30% opacidade
+        backgroundColor: '#FFFFFF'
     },
     searchIcon: {
         width: 24,
@@ -37,6 +38,7 @@ const styles = StyleSheet.create({
         paddingTop: 0, // Remove padding top padrão
         paddingBottom: 0, // Remove padding bottom padrão
         includeFontPadding: false, // Remove espaçamento extra da fonte (Android)
-        textAlign: 'left'
+        textAlign: 'left',
+        color: "rgba(0,0,0,0.25)"
     }
 })
