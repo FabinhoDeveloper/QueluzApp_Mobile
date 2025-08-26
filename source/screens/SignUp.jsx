@@ -94,7 +94,7 @@ export default function SingUp({ navigation }) {
 
                     <View style={styles.registerContainer}>
                         <Text style={styles.registerHelper}>Já possui uma conta?</Text>
-                        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+                        <TouchableOpacity onPress={() => navigation.goBack()}>
                             <Text style={styles.register}>Login</Text>
                         </TouchableOpacity>
                     </View>
