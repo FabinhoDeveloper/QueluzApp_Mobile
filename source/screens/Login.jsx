@@ -4,11 +4,26 @@ import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native"
 import FormInput from "../components/FormInput"
 import CustomButton from "../components/CustomButton"
 
+import applyCpfMask from "../utils/applyCpfMask"
+
 export default function Login() {
     const [cpf, setCpf] = useState("")
     const [password, setPassword] = useState("")
     
+    // Função para lidar com a mudança do CPF
+    const handleCpfChange = (text) => {
+        const maskedCpf = applyCpfMask(text)
+        setCpf(maskedCpf)
+    }
+
+    // Função para obter apenas os dígitos do CPF (para enviar para API)
+    const getCpfDigits = () => {
+        return cpf.replace(/\D/g, '')
+    }
+
     function handleLogin() {
+        console.log('CPF apenas números:', getCpfDigits())
+        console.log('CPF formatado:', cpf)
         // Realiza o fetch com a API
     }
 
@@ -20,16 +35,18 @@ export default function Login() {
                 </View>
                 <View style={styles.formContainer}>
                     <FormInput
-                    name="Seu CPF"
-                    keyboardType="numeric"
-                    placeholder="Digite seu CPF"
-                    onChangeText={(cpf) => setCpf(cpf)}
+                        name="Seu CPF"
+                        keyboardType="numeric"
+                        placeholder="Digite seu CPF"
+                        value={cpf}
+                        onChangeText={handleCpfChange} // Usar a função com máscara
                     />
                     <FormInput
-                    name="Senha"
-                    placeholder="Digite sua Senha"
-                    secureTextEntry={true}
-                    onChangeText={(password) => setPassword(password)}
+                        name="Senha"
+                        placeholder="Digite sua Senha"
+                        secureTextEntry={true}
+                        value={password}
+                        onChangeText={(password) => setPassword(password)}
                     />
                     <TouchableOpacity>
                         <Text style={styles.changePassword}>Esqueci minha senha</Text>    
@@ -37,7 +54,7 @@ export default function Login() {
                 </View>
             
                 <View style={styles.buttonContainer}>
-                    <CustomButton text='Entrar'/>
+                    <CustomButton text='Entrar' onPress={handleLogin}/>
                     <CustomButton text='Continuar sem Cadastro'/>
 
                     <View style={styles.registerContainer}>
