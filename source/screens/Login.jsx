@@ -7,7 +7,7 @@ import SearchBox from "../components/SearchBox"
 
 import applyCpfMask from "../utils/applyCpfMask"
 
-export default function Login() {
+export default function Login({ navigation }) {
     const [cpf, setCpf] = useState("")
     const [password, setPassword] = useState("")
     
@@ -25,6 +25,8 @@ export default function Login() {
     const handleLogin = () => {
         console.log('CPF apenas números:', getCpfDigits())
         console.log('CPF formatado:', cpf)
+
+        navigation.navigate("Home")
         // Realiza o fetch com a API
     }
 
@@ -61,7 +63,7 @@ export default function Login() {
 
                     <View style={styles.registerContainer}>
                         <Text style={styles.registerHelper}>Ainda não possui uma conta?</Text>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
                             <Text style={styles.register}>Registre-se</Text>
                         </TouchableOpacity>
                     </View>
