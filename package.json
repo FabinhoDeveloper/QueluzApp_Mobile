@@ -10,11 +10,14 @@
   },
   "dependencies": {
     "@expo-google-fonts/poppins": "^0.4.0",
+    "@expo-google-fonts/roboto-flex": "^0.4.0",
+    "axios": "^1.11.0",
     "expo": "~53.0.22",
     "expo-font": "~13.3.2",
     "expo-status-bar": "~2.2.3",
     "react": "19.0.0",
-    "react-native": "0.79.6"
+    "react-native": "0.79.6",
+    "react-native-keyboard-aware-scroll-view": "^0.9.5"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

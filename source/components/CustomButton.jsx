@@ -11,6 +11,8 @@ export default function CustomButton({ text, onPress }) {
 const styles = StyleSheet.create({
     button: {
         backgroundColor: '#0C447F',
+        elevation: 8, 
+        shadowColor: '#000', 
         width: 313.97,
         height: 41.31,
         justifyContent: 'center',

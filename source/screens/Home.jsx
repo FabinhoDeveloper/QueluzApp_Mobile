@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native"
 
 export default function Home() {
-    return    
+    return
 }
 
 const styles = StyleSheet.create({

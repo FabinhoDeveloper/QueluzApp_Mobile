@@ -1,8 +1,9 @@
 import { useState } from "react"
-import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native"
+import { Platform, StyleSheet, View, Text, Image, TouchableOpacity, KeyboardAvoidingView } from "react-native"
 
 import FormInput from "../components/FormInput"
 import CustomButton from "../components/CustomButton"
+import SearchBox from "../components/SearchBox"
 
 import applyCpfMask from "../utils/applyCpfMask"
 
@@ -21,7 +22,7 @@ export default function Login() {
         return cpf.replace(/\D/g, '')
     }
 
-    function handleLogin() {
+    const handleLogin = () => {
         console.log('CPF apenas números:', getCpfDigits())
         console.log('CPF formatado:', cpf)
         // Realiza o fetch com a API
@@ -48,6 +49,7 @@ export default function Login() {
                         value={password}
                         onChangeText={(password) => setPassword(password)}
                     />
+
                     <TouchableOpacity>
                         <Text style={styles.changePassword}>Esqueci minha senha</Text>    
                     </TouchableOpacity>
@@ -72,80 +74,78 @@ export default function Login() {
                     </View>
                     <Text style={styles.footerHallName}>Prefeitura Municipal de Queluz</Text>
                 </View>
-                </View>
-            </View>  
-      );
+            </View>
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F5F5F7',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  mainContent: {
-    flex: 1,
-    paddingTop: 165,
-    alignItems: 'center'
-  },
-  logoContainer: {
-    marginBottom: 42,
-    alignItems: 'center'
-  },
-  logo: {
-    width: 152,
-    height: 85
-  },    
-  formContainer: {
-    gap: 20.7,
-    marginBottom: 18
-  },
-  changePassword: {
-    fontSize: 12,
-    fontFamily: 'Poppins_500Medium',
-    textDecorationLine: 'underline'
-  },
-  buttonContainer: {
-    gap: 5.7
-  },
-  registerContainer: {
-    flexDirection: 'row',
-    gap: 5,
-    justifyContent: 'center',
-    marginTop: 18,
-    marginBottom: 70
-  },
-  registerHelper: {
-    fontSize: 10,
-    fontFamily: 'Poppins_500Medium'
-  },
-  register: {
-    fontSize: 10,
-    fontFamily: 'Poppins_500Medium',
-    color: '#0C447F',
-    textDecorationLine: 'underline'
-  },
-  footer: {
-    width: 254,
-    height: 59,
-    gap: 19,
-    alignItems: 'center',
-  },
-  footerMainTextContainer: {
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  footerMainTextAppName: {
-        fontSize: 7,
-        fontFamily: 'Poppins_300Light',
-  },
-  footerMainTextDescription: {
-        fontSize: 7,
-        fontFamily: 'Poppins_200ExtraLight'
-  },
-  footerHallName: {
-        fontSize: 7,
-        fontFamily: 'Poppins_200ExtraLight'
-  }
+    container: {
+        flex: 1,
+        backgroundColor: '#F5F5F7',
+    },
+    mainContent: {
+        flex: 1,
+        paddingTop: 165,
+        alignItems: 'center'
+    },
+    logoContainer: {
+        marginBottom: 42,
+        alignItems: 'center'
+    },
+    logo: {
+        width: 152,
+        height: 85
+    },    
+    formContainer: {
+        gap: 20.7,
+        marginBottom: 18
+    },
+    changePassword: {
+        fontSize: 12,
+        fontFamily: 'Poppins_500Medium',
+        textDecorationLine: 'underline'
+    },
+    buttonContainer: {
+        gap: 5.7
+    },
+    registerContainer: {
+        flexDirection: 'row',
+        gap: 5,
+        justifyContent: 'center',
+        marginTop: 18,
+        marginBottom: 70
+    },
+    registerHelper: {
+        fontSize: 10,
+        fontFamily: 'Poppins_500Medium'
+    },
+    register: {
+        fontSize: 10,
+        fontFamily: 'Poppins_500Medium',
+        color: '#0C447F',
+        textDecorationLine: 'underline'
+    },
+    footer: {
+        width: 254,
+        height: 59,
+        gap: 19,
+        alignItems: 'center',
+    },
+    footerMainTextContainer: {
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    footerMainTextAppName: {
+            fontSize: 7,
+            fontFamily: 'Poppins_300Light',
+    },
+    footerMainTextDescription: {
+            fontSize: 7,
+            fontFamily: 'Poppins_200ExtraLight'
+    },
+    footerHallName: {
+            fontSize: 7,
+            fontFamily: 'Poppins_200ExtraLight'
+    }
 });
