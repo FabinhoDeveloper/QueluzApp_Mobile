@@ -1,9 +1,9 @@
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
-export default function CustomButton({ titulo }) {
+export default function CustomButton({ text }) {
     return (
-        <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>{ titulo }</Text>
+        <TouchableOpacity activeOpacity={0.1} style={styles.button}>
+            <Text style={styles.buttonText}>{ text }</Text>
         </TouchableOpacity>
     )
 }
@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
         borderRadius: 12
     },
     buttonText: {
+        fontFamily: 'Poppins_500Medium',
         fontSize: 14,
         fontWeight: 500,
         color: '#F5F5F7',

@@ -1,9 +1,12 @@
 import { useState } from "react"
-import { StyleSheet, View } from "react-native"
+import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native"
+
+import FormInput from "../components/FormInput"
+import CustomButton from "../components/CustomButton"
 
 export default function Login() {
     const [cpf, setCpf] = useState("")
-    const [senha, setSenha] = useState("")
+    const [password, setPassword] = useState("")
     
     function handleLogin() {
         // Realiza o fetch com a API
@@ -11,17 +14,121 @@ export default function Login() {
 
     return (
         <View style={styles.container}>
-            <View style={styles.logo}>
+            <View style={styles.mainContent}>
+                <View style={styles.logoContainer}>
+                    <Image style={styles.logo} source={require("../../assets/images/logo_temporario.png")}/>
+                </View>
+                <View style={styles.formContainer}>
+                    <FormInput
+                    name="Seu CPF"
+                    keyboardType="numeric"
+                    placeholder="Digite seu CPF"
+                    onChangeText={(cpf) => setCpf(cpf)}
+                    />
+                    <FormInput
+                    name="Senha"
+                    placeholder="Digite sua Senha"
+                    secureTextEntry={true}
+                    onChangeText={(password) => setPassword(password)}
+                    />
+                    <TouchableOpacity>
+                        <Text style={styles.changePassword}>Esqueci minha senha</Text>    
+                    </TouchableOpacity>
+                </View>
+            
+                <View style={styles.buttonContainer}>
+                    <CustomButton text='Entrar'/>
+                    <CustomButton text='Continuar sem Cadastro'/>
 
-            </View>
+                    <View style={styles.registerContainer}>
+                        <Text style={styles.registerHelper}>Ainda não possui uma conta?</Text>
+                        <TouchableOpacity>
+                            <Text style={styles.register}>Registre-se</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
 
-            <View style={styles.loginForm}>
-                
-            </View>
-        </View>
-    )
+                <View style={styles.footer}>
+                    <View style={styles.footerMainTextContainer}>
+                        <Text style={styles.footerMainTextDescription}><Text style={styles.footerMainTextAppName}>Queluz + | </Text> Desenvolvido por Diretoria de Tecnologia da</Text>
+                        <Text style={styles.footerMainTextDescription}>Informação e Secretaria de Comunicação</Text>
+                    </View>
+                    <Text style={styles.footerHallName}>Prefeitura Municipal de Queluz</Text>
+                </View>
+                </View>
+            </View>  
+      );
 }
 
 const styles = StyleSheet.create({
-
-})
+  container: {
+    flex: 1,
+    backgroundColor: '#F5F5F7',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  mainContent: {
+    flex: 1,
+    paddingTop: 165,
+    alignItems: 'center'
+  },
+  logoContainer: {
+    marginBottom: 42,
+    alignItems: 'center'
+  },
+  logo: {
+    width: 152,
+    height: 85
+  },    
+  formContainer: {
+    gap: 20.7,
+    marginBottom: 18
+  },
+  changePassword: {
+    fontSize: 12,
+    fontFamily: 'Poppins_500Medium',
+    textDecorationLine: 'underline'
+  },
+  buttonContainer: {
+    gap: 5.7
+  },
+  registerContainer: {
+    flexDirection: 'row',
+    gap: 5,
+    justifyContent: 'center',
+    marginTop: 18,
+    marginBottom: 70
+  },
+  registerHelper: {
+    fontSize: 10,
+    fontFamily: 'Poppins_500Medium'
+  },
+  register: {
+    fontSize: 10,
+    fontFamily: 'Poppins_500Medium',
+    color: '#0C447F',
+    textDecorationLine: 'underline'
+  },
+  footer: {
+    width: 254,
+    height: 59,
+    gap: 19,
+    alignItems: 'center',
+  },
+  footerMainTextContainer: {
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  footerMainTextAppName: {
+        fontSize: 7,
+        fontFamily: 'Poppins_300Light',
+  },
+  footerMainTextDescription: {
+        fontSize: 7,
+        fontFamily: 'Poppins_200ExtraLight'
+  },
+  footerHallName: {
+        fontSize: 7,
+        fontFamily: 'Poppins_200ExtraLight'
+  }
+});
