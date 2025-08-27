@@ -4,6 +4,7 @@ import MainHeader from "../components/MainHeader"
 import NewsCarousel from "../components/NewsCarousel"
 import HomeSection from "../components/HomeSection"
 import DepartmentCard from "../components/DepartmentCard"
+import ServiceCard from "../components/ServiceCard"
 
 export default function Home() {
     return (
@@ -15,8 +16,12 @@ export default function Home() {
             <View style={styles.homeMainContent}>
                 <View>
                     <HomeSection title="Serviços em Destaque">
-                        
-                    </HomeSection>
+                        <View style={{gap: 8}}>
+                            <ServiceCard serviceName="Agendar viagem"/>
+                            <ServiceCard serviceName="Ouvidoria"/>
+                            <ServiceCard serviceName="Agendar consulta médica"/>
+                        </View>
+                    </HomeSection>  
                     <HomeSection title="Categorias de serviços" linkForMore={true}>
                         <View style={styles.serviceCardsRow}>
                             <DepartmentCard departmentName="Saúde" source={require("../../assets/images/icons/icon_saude.png")}/>
