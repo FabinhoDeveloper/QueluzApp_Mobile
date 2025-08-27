@@ -21,8 +21,7 @@ const styles = StyleSheet.create({
         width: 344,
         borderRadius: 13,
         overflow: 'hidden',
-        borderWidth: 1,
-        borderColor: 'rgba(0,0,0,0.3)'
+        
     },
     image: {
         width: '100%',
