@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { View, Image, StyleSheet, TextInput } from "react-native";
 
 export default function SearchBox() {
+    const [value, setValue] = useState("")
+
     return (
         <View style={styles.container}>
             <Image style={styles.searchIcon} source={require("../../assets/images/search.png")}/>
@@ -8,7 +11,8 @@ export default function SearchBox() {
                 style={styles.text}
                 placeholder="Buscar serviço..."
                 placeholderTextColor="rgba(0,0,0,0.3)"
-                maxLength={19}
+                value={value}
+                onChangeText={(text) => setValue(text)}
             />
         </View>
     )
@@ -16,7 +20,7 @@ export default function SearchBox() {
 
 const styles = StyleSheet.create({
     container: {
-        width: 323,
+        width: "100%",
         height: 50,
         borderRadius: 5,
         borderWidth: 1,

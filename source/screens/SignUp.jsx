@@ -8,9 +8,6 @@ import SearchBox from "../components/SearchBox"
 import applyCpfMask from "../utils/applyCpfMask"
 
 export default function SingUp({ navigation }) {
-    const [cpf, setCpf] = useState("")
-    const [password, setPassword] = useState("")
-    
     // Função para lidar com a mudança do CPF
     const handleCpfChange = (text) => {
         const maskedCpf = applyCpfMask(text)
@@ -22,12 +19,6 @@ export default function SingUp({ navigation }) {
         return cpf.replace(/\D/g, '')
     }
 
-    const handleLogin = () => {
-        console.log('CPF apenas números:', getCpfDigits())
-        console.log('CPF formatado:', cpf)
-        // Realiza o fetch com a API
-    }
-
     return (
         <ScrollView style={styles.container}>
             <View style={styles.mainContent}>
@@ -37,60 +28,43 @@ export default function SingUp({ navigation }) {
                 <View style={styles.formContainer}>
                     <FormInput
                         name="Primeiro Nome"
-                        placeholder="Digite seu primeiro nome"
-                        value={cpf}
-                        onChangeText={handleCpfChange} // Usar a função com máscara
+                        placeholder="Digite seu primeiro nome"  
                     />
                     <FormInput
                         name="Sobrenome"
                         placeholder="Digite seu sobrenome"
-                        value={cpf}
-                        onChangeText={handleCpfChange} // Usar a função com máscara
                     />
                     <FormInput
                         name="CPF"
                         keyboardType="numeric"
                         placeholder="Digite seu CPF"
-                        value={password}
-                        onChangeText={(password) => setPassword(password)}
                     />
                     <FormInput
                         name="Telefone"
                         placeholder="Digite seu telefone"
-                        value={password}
-                        onChangeText={(password) => setPassword(password)}
                     />
                     <FormInput
                         name="E-mail"
                         placeholder="Digite seu email"
-                        value={password}
-                        onChangeText={(password) => setPassword(password)}
                     />
                     <FormInput
                         name="Senha"
                         placeholder="Digite sua senha"
                         secureTextEntry={true}
-                        value={password}
-                        onChangeText={(password) => setPassword(password)}
                     />
                     <FormInput
                         name="Confirmação da Senha"
                         placeholder="Digite sua senha novamente"
                         secureTextEntry={true}
-                        value={password}
-                        onChangeText={(password) => setPassword(password)}
                     />
                     <FormInput
                         name="Endereço"
-                        placeholder="Digite seu endereço"
-                        secureTextEntry={true}
-                        value={password}
-                        onChangeText={(password) => setPassword(password)}
+                        placeholder="Digite seu endereço"                       
                     />
                 </View>
             
                 <View style={styles.buttonContainer}>
-                    <CustomButton text='Cadastrar-se' onPress={handleLogin}/>
+                    <CustomButton text='Cadastrar-se'/>
 
                     <View style={styles.registerContainer}>
                         <Text style={styles.registerHelper}>Já possui uma conta?</Text>
