@@ -2,6 +2,7 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Feather from '@expo/vector-icons/Feather';
 import SearchBox from "./SearchBox";
 import { useState } from "react";
+import NewsCarousel from "./NewsCarousel";
 
 export default function MainHeader() {
     const [name, setName] = useState("")
@@ -24,6 +25,7 @@ export default function MainHeader() {
                     <SearchBox/>
                 </View>
             </View>
+            
         </View>
     )
 }
@@ -79,5 +81,9 @@ const styles = StyleSheet.create({
         color: "#F5F5F7",
         lineHeight: 25,
         letterSpacing: -0.02
-    }
+    },
+    carouselWrapper: {
+        marginTop: -60, // faz o carrossel subir por cima do header
+        paddingLeft: 20, // só pra alinhar
+    },
 })
