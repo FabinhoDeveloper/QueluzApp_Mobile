@@ -1,11 +1,11 @@
-import { StyleSheet, View } from "react-native"
+import { StyleSheet, View, ScrollView } from "react-native"
 import MainHeader from "../components/MainHeader"
 
 export default function Home() {
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <MainHeader/>
-        </View>
+        </ScrollView>
     )
 }
 
