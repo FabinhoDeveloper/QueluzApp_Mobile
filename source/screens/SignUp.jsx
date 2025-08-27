@@ -38,6 +38,7 @@ export default function SingUp({ navigation }) {
                         name="CPF"
                         keyboardType="numeric"
                         placeholder="Digite seu CPF"
+                        onChangeText={handleCpfChange} // Usar a função com máscara
                     />
                     <FormInput
                         name="Telefone"
