@@ -1,10 +1,10 @@
-import { Image, StyleSheet, Text, View } from "react-native";
-
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import Feather from '@expo/vector-icons/Feather';
 import SearchBox from "./SearchBox";
 import { useState } from "react";
 
 export default function MainHeader() {
-    const [name, setName] = useState("Fábio")
+    const [name, setName] = useState("")
 
     return (
         <View style={styles.container}>
@@ -14,7 +14,9 @@ export default function MainHeader() {
                         <Text style={styles.headerHello}>Olá,</Text>
                         <Text style={styles.headerUserName}>{name ? name : "visitante"}!</Text>
                     </View>
-                    {/* <Image style={styles.burguerMenu} source={require("../../assets/images/burguer_menu.png")}/> */}
+                    <TouchableOpacity>
+                        <Feather name="menu" size={24} color="white" />
+                    </TouchableOpacity>                                                           
                 </View>
 
                 <View style={styles.headerSearch}>
@@ -32,7 +34,7 @@ const styles = StyleSheet.create({
         height: 434,
         borderBottomLeftRadius: 72,
         borderBottomRightRadius: 72,
-        paddingTop: 66,
+        paddingTop: 55,
         paddingHorizontal: 32,
         elevation: 8,
         shadowColor: "#000"
@@ -40,8 +42,7 @@ const styles = StyleSheet.create({
     headerMainContent: {
         flex: 1,
         width: '100%',
-        justifyContent: 'space-between',
-        paddingVertical: 20
+        justifyContent: 'space-between'
     },
     headerTop: {
         flexDirection: 'row',
@@ -70,7 +71,7 @@ const styles = StyleSheet.create({
     },
     headerSearch: {
         gap: 15,
-        marginBottom: 70,
+        marginBottom: 80,
     },
     questionText: {
         fontSize: 16,

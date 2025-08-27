@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { View, Image, StyleSheet, TextInput } from "react-native";
+import Feather from '@expo/vector-icons/Feather';
 
 export default function SearchBox() {
     const [value, setValue] = useState("")
 
     return (
         <View style={styles.container}>
-            <Image style={styles.searchIcon} source={require("../../assets/images/search.png")}/>
+            <Feather name="search" size={22} color="rgba(0,0,0,0.3)" />
             <TextInput
                 style={styles.text}
                 placeholder="Buscar serviço..."
