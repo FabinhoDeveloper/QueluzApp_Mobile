@@ -19,6 +19,6 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     carouselWrapper: {
-        marginTop: -60, // faz o carrossel subir por cima do header
+        marginTop: -80, // faz o carrossel subir por cima do header
   },
 })

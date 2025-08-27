@@ -18,13 +18,16 @@ export default function News({ title, source }) { // Posteriormente, a imagem se
 const styles = StyleSheet.create({ 
     container: {
         height: 202,
-        width: 353,
+        width: 344,
         borderRadius: 13,
-        overflow: 'hidden'
+        overflow: 'hidden',
+        borderWidth: 1,
+        borderColor: 'rgba(0,0,0,0.3)'
     },
     image: {
         width: '100%',
-        height: '100%'
+        height: '100%',
+        elevation: 7
     },
     title: {
         position: 'absolute',

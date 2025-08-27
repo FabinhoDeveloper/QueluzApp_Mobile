@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         paddingTop: 55,
         paddingHorizontal: 32,
         elevation: 8,
-        shadowColor: "#000"
+        shadowColor: "#000",
     },
     headerMainContent: {
         flex: 1,
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     },
     headerTextContainer: {
         flexDirection: 'column',
-        flex: 1
+        flex: 1,
     },
     headerHello: {
         fontSize: 28.81,
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     },
     headerSearch: {
         gap: 15,
-        marginBottom: 80,
+        marginBottom: 100,
     },
     questionText: {
         fontSize: 16,

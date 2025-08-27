@@ -32,13 +32,9 @@ const styles = StyleSheet.create({
         borderColor: "rgba(0,0,0,0.25)", // borda 30% opacidade
         backgroundColor: '#FFFFFF'
     },
-    searchIcon: {
-        width: 24,
-        height: 24
-    },
     text: {
         fontFamily: 'Poppins_500Medium',
-        fontSize: 19.87,
+        fontSize: 16,
         textAlignVertical: 'center', // Android
         paddingTop: 0, // Remove padding top padrão
         paddingBottom: 0, // Remove padding bottom padrão
