@@ -4,7 +4,7 @@ export default function CourseCard({ courseName, source }) {
     return (
         <View style={styles.container}>
             <TouchableOpacity style={styles.card}>                
-                <Image source={source}/>
+                <Image style={styles.courseImage} source={source}/>
             </TouchableOpacity>
             <Text style={styles.courseName}>{courseName}</Text>
         </View>
@@ -21,7 +21,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 11,
         width: 104,
-        height: 158
+        height: 158,
+        overflow: 'hidden'
+    },
+    courseImage: {
+        height: '100%',
+        width: '100%'
     },
     courseName: {
         fontSize: 11,
