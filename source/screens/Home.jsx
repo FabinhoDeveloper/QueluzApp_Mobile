@@ -23,7 +23,7 @@ export default function Home() {
                             <ServiceCard serviceName="Agendar consulta médica"/>
                         </View>
                     </HomeSection>  
-                    <HomeSection title="Categorias de serviços" linkForMore={true}>
+                    <HomeSection title="Categorias de Serviços" linkForMore={true}>
                         <View style={styles.serviceCardsRow}>
                             <DepartmentCard departmentName="Saúde" source={require("../../assets/images/icons/icon_saude.png")}/>
                             <DepartmentCard departmentName="Administração" source={require("../../assets/images/icons/icon_administracao.png")}/>
@@ -39,8 +39,8 @@ export default function Home() {
                     <HomeSection title="Cursos Disponíveis" linkForMore={true}>
                         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                             <CourseCard courseName="Salgadeiro" source={require("../../assets/images/curso_salgadeiro.png")}/>
-                            <CourseCard courseName="Salgadeiro" source={require("../../assets/images/curso_salgadeiro.png")}/>
-                            <CourseCard courseName="Salgadeiro" source={require("../../assets/images/curso_salgadeiro.png")}/>
+                            <CourseCard courseName="Assistente de RH" source={require("../../assets/images/curso_assistente_rh.png")}/>
+                            <CourseCard courseName="Informática" source={require("../../assets/images/curso_informatica.jpg")}/>
                         </View>
                     </HomeSection>
 

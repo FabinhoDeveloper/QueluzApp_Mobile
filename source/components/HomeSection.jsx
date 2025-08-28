@@ -11,7 +11,11 @@ export default function HomeSection({ title, linkForMore, linkText, children }) 
                     </TouchableOpacity>
                 )}
             </View>
-            { children }
+            { children ? children : 
+                <View style={{paddingTop: 50, paddingBottom: 50, alignItems: 'center'}}>
+                    <Text style={{ fontFamily: 'Poppins_500Medium', textDecorationStyle: 'double'}}>Nada a encontrar aqui ainda!</Text>
+                </View>
+            }
         </View>
     )
 }
