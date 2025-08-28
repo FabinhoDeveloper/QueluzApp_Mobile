@@ -16,7 +16,7 @@ export default function Home() {
             <View style={styles.homeMainContent}>
                 <View>
                     <HomeSection title="Serviços em Destaque">
-                        <View style={{gap: 8}}>
+                        <View style={styles.mainServicesRow}>
                             <ServiceCard serviceName="Agendar viagem"/>
                             <ServiceCard serviceName="Ouvidoria"/>
                             <ServiceCard serviceName="Agendar consulta médica"/>
@@ -58,6 +58,9 @@ const styles = StyleSheet.create({
     homeMainContent: {
         paddingHorizontal: 24
     },
+    mainServicesRow: {
+        gap: 8
+    },  
     serviceCardsRow: {
         flexDirection: 'row', 
         justifyContent: 'space-between', 

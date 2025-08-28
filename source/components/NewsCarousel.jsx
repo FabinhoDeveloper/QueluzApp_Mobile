@@ -43,10 +43,11 @@ export default function NewsCarousel() {
 
 const styles = StyleSheet.create({
     container: {
-        paddingLeft: 20,
-        paddingRight: 20
+        
     },
     content: {
-        gap: 5
+        gap: 5,
+        paddingLeft: 20,
+        paddingRight: 20
     }
 });

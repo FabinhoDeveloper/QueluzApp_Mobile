@@ -18,7 +18,7 @@ export default function HomeSection({ title, linkForMore, linkText, children }) 
 
 const styles = StyleSheet.create({
     container: {
-        paddingVertical: 20
+        marginVertical: 14
     },
     titleArea: {
         flexDirection: 'row',
