@@ -1,11 +1,12 @@
 import { useState } from "react"
-import { Platform, StyleSheet, View, Text, Image, TouchableOpacity, KeyboardAvoidingView } from "react-native"
+import { Platform, TouchableWithoutFeedback, StyleSheet, View, Text, Image, TouchableOpacity, KeyboardAvoidingView, Keyboard, ScrollView } from "react-native"
 
 import FormInput from "../components/FormInput"
 import CustomButton from "../components/CustomButton"
 import SearchBox from "../components/SearchBox"
 
 import applyCpfMask from "../utils/applyCpfMask"
+import { useHeaderHeight } from "@react-navigation/elements"
 
 export default function Login({ navigation }) {
     const [cpf, setCpf] = useState("")
@@ -30,54 +31,62 @@ export default function Login({ navigation }) {
         // Realiza o fetch com a API
     }
 
+    const height = useHeaderHeight()
+
     return (
-        <View style={styles.container}>
-            <View style={styles.mainContent}>
-                <View style={styles.logoContainer}>
-                    <Image style={styles.logo} source={require("../../assets/images/logo_temporario.png")}/>
-                </View>
-                <View style={styles.formContainer}>
-                    <FormInput
-                        name="Seu CPF"
-                        keyboardType="numeric"
-                        placeholder="Digite seu CPF"
-                        value={cpf}
-                        onChangeText={handleCpfChange} // Usar a função com máscara
-                    />
-                    <FormInput
-                        name="Senha"
-                        placeholder="Digite sua Senha"
-                        secureTextEntry={true}
-                        value={password}
-                        onChangeText={(password) => setPassword(password)}
-                    />
+        <KeyboardAvoidingView       
+            style={styles.container} 
+            behavior= {(Platform.OS === 'ios')? "padding" : "height"}
+            keyboardVerticalOffset={height + 47}
+        >
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View style={styles.mainContent}>
+                    <View style={styles.logoContainer}>
+                        <Image style={styles.logo} source={require("../../assets/images/logo_temporario.png")}/>
+                    </View>
+                    <View style={styles.formContainer}>
+                        <FormInput
+                            name="Seu CPF"
+                            keyboardType="numeric"
+                            placeholder="Digite seu CPF"
+                            value={cpf}
+                            onChangeText={handleCpfChange} // Usar a função com máscara
+                        />
+                        <FormInput
+                            name="Senha"
+                            placeholder="Digite sua Senha"
+                            secureTextEntry={true}
+                            value={password}
+                            onChangeText={(password) => setPassword(password)}
+                        />
 
-                    <TouchableOpacity>
-                        <Text style={styles.changePassword}>Esqueci minha senha</Text>    
-                    </TouchableOpacity>
-                </View>
-            
-                <View style={styles.buttonContainer}>
-                    <CustomButton text='Entrar' onPress={handleLogin}/>
-                    <CustomButton text='Continuar sem Cadastro'/>
-
-                    <View style={styles.registerContainer}>
-                        <Text style={styles.registerHelper}>Ainda não possui uma conta?</Text>
-                        <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
-                            <Text style={styles.register}>Registre-se</Text>
+                        <TouchableOpacity>
+                            <Text style={styles.changePassword}>Esqueci minha senha</Text>    
                         </TouchableOpacity>
                     </View>
-                </View>
+                
+                    <View style={styles.buttonContainer}>
+                        <CustomButton text='Entrar' onPress={handleLogin}/>
+                        <CustomButton text='Continuar sem Cadastro'/>
 
-                <View style={styles.footer}>
-                    <View style={styles.footerMainTextContainer}>
-                        <Text style={styles.footerMainTextDescription}><Text style={styles.footerMainTextAppName}>Queluz + | </Text> Desenvolvido por Diretoria de Tecnologia da</Text>
-                        <Text style={styles.footerMainTextDescription}>Informação e Secretaria de Comunicação</Text>
+                        <View style={styles.registerContainer}>
+                            <Text style={styles.registerHelper}>Ainda não possui uma conta?</Text>
+                            <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
+                                <Text style={styles.register}>Registre-se</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                    <Text style={styles.footerHallName}>Prefeitura Municipal de Queluz</Text>
+
+                    <View style={styles.footer}>
+                        <View style={styles.footerMainTextContainer}>
+                            <Text style={styles.footerMainTextDescription}><Text style={styles.footerMainTextAppName}>Queluz + | </Text> Desenvolvido por Diretoria de Tecnologia da</Text>
+                            <Text style={styles.footerMainTextDescription}>Informação e Secretaria de Comunicação</Text>
+                        </View>
+                        <Text style={styles.footerHallName}>Prefeitura Municipal de Queluz</Text>
+                    </View>
                 </View>
-            </View>
-        </View>
+            </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
     )
 }
 
@@ -89,7 +98,7 @@ const styles = StyleSheet.create({
     mainContent: {
         flex: 1,
         paddingTop: 165,
-        alignItems: 'center'
+        alignItems: 'center',
     },
     logoContainer: {
         marginBottom: 42,
