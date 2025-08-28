@@ -18,13 +18,13 @@ export default function HomeSection({ title, linkForMore, linkText, children }) 
 
 const styles = StyleSheet.create({
     container: {
-        marginVertical: 14
+        marginVertical: 15,
     },
     titleArea: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: 10
+        marginBottom: 15
     },
     mainTitle: {
         fontFamily: 'Poppins_500Medium',

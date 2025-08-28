@@ -5,6 +5,7 @@ import NewsCarousel from "../components/NewsCarousel"
 import HomeSection from "../components/HomeSection"
 import DepartmentCard from "../components/DepartmentCard"
 import ServiceCard from "../components/ServiceCard"
+import CourseCard from "../components/CourseCard"
 
 export default function Home() {
     return (
@@ -36,7 +37,11 @@ export default function Home() {
                     </HomeSection>
 
                     <HomeSection title="Cursos Disponíveis" linkForMore={true}>
-                        
+                        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                            <CourseCard courseName="Salgadeiro" source={require("../../assets/images/curso_salgadeiro.png")}/>
+                            <CourseCard courseName="Salgadeiro" source={require("../../assets/images/curso_salgadeiro.png")}/>
+                            <CourseCard courseName="Salgadeiro" source={require("../../assets/images/curso_salgadeiro.png")}/>
+                        </View>
                     </HomeSection>
 
                     <HomeSection title="Eventos" linkForMore={true} linkText="Acessar Calendário">
@@ -64,7 +69,5 @@ const styles = StyleSheet.create({
     serviceCardsRow: {
         flexDirection: 'row', 
         justifyContent: 'space-between', 
-        marginTop: 11, 
-        marginBottom: 3
     }
 })
