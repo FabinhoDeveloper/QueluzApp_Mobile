@@ -1,17 +1,17 @@
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import SecondaryStackHeader from "../components/SecondaryStackHeader";
 import HomeSection from "../components/HomeSection";
 import ServiceCard from "../components/ServiceCard";
 
-export default function EducationServices() {
+export default function AdministrationServices() {
     return (
         <ScrollView>
-            <SecondaryStackHeader title={"Educação"} color={"#FFC916"}/>
+            <SecondaryStackHeader title={"Administração"}/>
             <View style={styles.mainContent}>
                 <HomeSection title={"Selecione o serviço desejado:"}>
                     <View style={styles.servicesList}>       
-                        <ServiceCard serviceName={"Teste 1"} departmentName={"Secretaria de Educação"} color={"#a07b00ff"}/>
-                        <ServiceCard serviceName={"Teste 2"} departmentName={"Secretaria de Educação"} color={"#a07b00ff"}/>
+                        <ServiceCard serviceName={"Teste 1"} departmentName={"Secretaria de Administração"}/>
+                        <ServiceCard serviceName={"Teste 2"} departmentName={"Secretaria de Administração"}/>
                     </View>
                 </HomeSection>
             </View>

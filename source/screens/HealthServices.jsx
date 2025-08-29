@@ -1,11 +1,11 @@
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import SecondaryStackHeader from "../components/SecondaryStackHeader";
 import HomeSection from "../components/HomeSection";
 import ServiceCard from "../components/ServiceCard";
 
 export default function HealthServices() {
     return (
-        <View>
+        <ScrollView>
             <SecondaryStackHeader title={"Saúde"} color={"#228D9C"}/>
             <View style={styles.mainContent}>
                 <HomeSection title={"Selecione o serviço desejado:"}>
@@ -15,7 +15,7 @@ export default function HealthServices() {
                     </View>
                 </HomeSection>
             </View>
-        </View>
+        </ScrollView>
     )
 }
 
