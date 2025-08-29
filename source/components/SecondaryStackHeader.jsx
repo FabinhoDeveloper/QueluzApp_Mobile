@@ -7,7 +7,7 @@ export default function SecondaryStackHeader({ title, color }) {
     const navigation = useNavigation()
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: color || '#0C447F' }]}>
             <View style={styles.headerMainContent}>
                 <View style={styles.headerTop}>
                     <TouchableOpacity onPress={() => navigation.goBack()}>

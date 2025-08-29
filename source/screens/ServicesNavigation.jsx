@@ -12,7 +12,7 @@ export default function ServicesNavigation() {
             <View style={styles.mainContent}>
                 <HomeSection title={"Navegue pelos serviços"}>
                         <View style={styles.serviceCardsRow}>
-                            <DepartmentCard departmentName={"Saúde"} source={require("../../assets/images/icons/icon_saude.png")}/>
+                            <DepartmentCard departmentName={"Saúde"} source={require("../../assets/images/icons/icon_saude.png")} linkTarget={"HealthServices"}/>
                             <DepartmentCard departmentName={"Administração"} source={require("../../assets/images/icons/icon_administracao.png")}/>
                             <DepartmentCard departmentName={"Comunicação"} source={require("../../assets/images/icons/icon_comunicacao.png")}/>
                         </View>

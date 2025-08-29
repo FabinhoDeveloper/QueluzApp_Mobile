@@ -1,9 +1,12 @@
+import { useNavigation } from "@react-navigation/native";
 import { Image, StyleSheet, View, Text, TouchableOpacity } from "react-native";
 
-export default function DepartmentCard({ departmentName, source }) {
+export default function DepartmentCard({ departmentName, source, linkTarget }) {
+    const navigation = useNavigation()
+    
     return (
         <View style={styles.container}>
-            <TouchableOpacity style={styles.card}>                
+            <TouchableOpacity style={styles.card} onPress={linkTarget ? () => navigation.navigate(linkTarget) : undefined}>                
                 <Image source={source}/>
             </TouchableOpacity>
             <Text style={styles.departmentName}>{departmentName}</Text>
