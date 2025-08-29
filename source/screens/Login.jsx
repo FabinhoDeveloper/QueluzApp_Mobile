@@ -3,6 +3,8 @@ import { Platform, TouchableWithoutFeedback, StyleSheet, View, Text, Image, Touc
 
 import FormInput from "../components/FormInput"
 import CustomButton from "../components/CustomButton"
+import KeyboardAvoidingContainer from "../components/KeyboardAvoidingContainer"
+
 
 import applyCpfMask from "../utils/applyCpfMask"
 import { useHeaderHeight } from "@react-navigation/elements"
@@ -33,11 +35,7 @@ export default function Login({ navigation }) {
     const height = useHeaderHeight()
 
     return (
-        <KeyboardAvoidingView       
-            style={styles.container} 
-            behavior= {(Platform.OS === 'ios')? "padding" : "height"}
-            keyboardVerticalOffset={height + 47}
-        >
+        <View style={styles.container}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.mainContent}>
                     <View style={styles.logoContainer}>
@@ -58,6 +56,7 @@ export default function Login({ navigation }) {
                             value={password}
                             onChangeText={(password) => setPassword(password)}
                         />
+
 
                         <TouchableOpacity>
                             <Text style={styles.changePassword}>Esqueci minha senha</Text>    
@@ -85,7 +84,7 @@ export default function Login({ navigation }) {
                     </View>
                 </View>
             </TouchableWithoutFeedback>
-        </KeyboardAvoidingView>
+        </View>
     )
 }
 
