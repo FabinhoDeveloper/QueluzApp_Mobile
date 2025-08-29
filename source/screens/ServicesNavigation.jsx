@@ -1,6 +1,6 @@
 import { StyleSheet, View } from "react-native";
 
-import SecondaryHeader from "../components/SecondaryHeader";
+import SecondaryHeader from "../components/SecondaryStackHeader";
 
 export default function ServicesNavigation() {
     return (

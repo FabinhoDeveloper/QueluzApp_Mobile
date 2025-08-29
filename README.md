@@ -19,8 +19,13 @@ Neste repositório você encontrará:
 #### Sobre o desenvolvimento
 
 ##### Plataforma e Tecnologias
+<<<<<<< HEAD
     React Native + Expo [Guia do React Native](https://reactnative.dev/docs/getting-started) / [Guia do Expo](https://docs.expo.dev/get-started/introduction/)
     PostgreSQL [Guia do PostgreSQL](https://www.postgresql.org/docs/)
+=======
+  React Native + Expo [Guia do React Native](https://reactnative.dev/docs/getting-started) / [Guia do Expo](https://docs.expo.dev/get-started/introduction/)
+  PostgreSQL [Guia do PostgreSQL](https://www.postgresql.org/docs/)
+>>>>>>> f0ce47852c8dc5b054ef35e48117a6b27b2c4735
 
 ##### Cadeia de pastas
 
@@ -40,7 +45,11 @@ Neste repositório você encontrará:
 
 
 ### Documentos
+<<<<<<< HEAD
 * Configuração de ambiente
+=======
+*  [Configuração de ambiente](https://github.com/FabinhoDeveloper/QueluzApp_Mobile/blob/master/docs/envconfig.md)
+>>>>>>> f0ce47852c8dc5b054ef35e48117a6b27b2c4735
 * Dependências
 * Decisões técnicas
 * API
