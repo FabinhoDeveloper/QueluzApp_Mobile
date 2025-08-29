@@ -17,7 +17,7 @@ export default function ServicesNavigation() {
                             <DepartmentCard departmentName={"Educação"} source={require("../../assets/images/icons/icon_educacao.png")} linkTarget={"EducationServices"}/>
                         </View>
                         <View style={styles.serviceCardsRow}>
-                            <DepartmentCard departmentName={"Obras e\nServiços"} source={require("../../assets/images/icons/icon_obras.png")}/>
+                            <DepartmentCard departmentName={"Obras e\nServiços"} source={require("../../assets/images/icons/icon_obras.png")} linkTarget={"WorksServices"}/>
                             <DepartmentCard departmentName={"Desenvolvimento\nEconômico"} source={require("../../assets/images/icons/icon_desenvolvimento_economico.png")}/>
                             <DepartmentCard departmentName={"Meio Ambiente\ne Agronegócio"} source={require("../../assets/images/icons/icon_meio_ambiente.png")}/>
                         </View>

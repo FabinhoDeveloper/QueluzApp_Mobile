@@ -7,6 +7,7 @@ import ServicesNavigation from '../screens/ServicesNavigation';
 import HealthServices from '../screens/HealthServices';
 import EducationServices from '../screens/EducationServices';
 import AdministrationServices from '../screens/AdministrationServices';
+import WorksServices from '../screens/WorksServices';
 
 const Stack = createStackNavigator();
 
@@ -20,6 +21,7 @@ export default function StackNavigator() {
         <Stack.Screen name="HealthServices" component={HealthServices}/>
         <Stack.Screen name="EducationServices" component={EducationServices}/>
         <Stack.Screen name="AdministrationServices" component={AdministrationServices}/>
+        <Stack.Screen name="WorksServices" component={WorksServices}/>
     </Stack.Navigator>
   );
 }
