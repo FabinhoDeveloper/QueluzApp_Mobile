@@ -9,6 +9,10 @@ import EducationServices from '../screens/EducationServices';
 import AdministrationServices from '../screens/AdministrationServices';
 import WorksServices from '../screens/WorksServices';
 import EnvironmentServices from '../screens/EnvironmentServices';
+import EconomicDevelopmentServices from '../screens/EconomicDevelopmentServices';
+import ComunicationServices from '../screens/ComunicationServices';
+import SocialAssistanceServices from '../screens/SocialAssistanceServices';
+import CultureServices from '../screens/CultureServices';
 
 const Stack = createStackNavigator();
 
@@ -24,6 +28,10 @@ export default function StackNavigator() {
         <Stack.Screen name="AdministrationServices" component={AdministrationServices}/>
         <Stack.Screen name="WorksServices" component={WorksServices}/>
         <Stack.Screen name="EnvironmentServices" component={EnvironmentServices}/>
+        <Stack.Screen name="EconomicDevelopmentServices" component={EconomicDevelopmentServices}/>                
+        <Stack.Screen name="ComunicationServices" component={ComunicationServices}/>
+        <Stack.Screen name="CultureServices" component={CultureServices}/>
+        <Stack.Screen name="SocialAssistanceServices" component={SocialAssistanceServices}/>
     </Stack.Navigator>
   );
 }

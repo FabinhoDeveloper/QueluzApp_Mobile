@@ -31,7 +31,7 @@ export default function Home() {
                         </View>
                         <View style={styles.serviceCardsRow}>
                             <DepartmentCard departmentName={"Obras e\nServiços"} source={require("../../assets/images/icons/icon_obras.png")} linkTarget={"WorksServices"}/>
-                            <DepartmentCard departmentName={"Desenvolvimento\nEconômico"} source={require("../../assets/images/icons/icon_desenvolvimento_economico.png")}/>
+                            <DepartmentCard departmentName={"Desenvolvimento\nEconômico"} source={require("../../assets/images/icons/icon_desenvolvimento_economico.png")} linkTarget={"EconomicDevelopmentServices"}/>
                             <DepartmentCard departmentName={"Meio Ambiente\ne Agronegócio"} source={require("../../assets/images/icons/icon_meio_ambiente.png")} linkTarget={"EnvironmentServices"}/>
                         </View>
                     </HomeSection>

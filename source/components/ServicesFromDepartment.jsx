@@ -9,7 +9,11 @@ export default function ServicesFromDepartment({ children, departmentName, heade
             <View style={styles.mainContent}>
                 <HomeSection title={"Selecione o serviço desejado:"}>
                     <View style={styles.servicesList}>
-                        { children }
+                        { children ? children :
+                            <View style={{paddingTop: 50, paddingBottom: 50, alignItems: 'center'}}>
+                                <Text style={{ fontFamily: 'Poppins_500Medium', textDecorationStyle: 'double'}}>Nada a encontrar aqui ainda! Atualizações em breve...</Text>
+                            </View>
+                        }
                     </View>
                 </HomeSection>
             </View>

@@ -18,13 +18,13 @@ export default function ServicesNavigation() {
                         </View>
                         <View style={styles.serviceCardsRow}>
                             <DepartmentCard departmentName={"Obras e\nServiços"} source={require("../../assets/images/icons/icon_obras.png")} linkTarget={"WorksServices"}/>
-                            <DepartmentCard departmentName={"Desenvolvimento\nEconômico"} source={require("../../assets/images/icons/icon_desenvolvimento_economico.png")}/>
-                            <DepartmentCard departmentName={"Meio Ambiente\ne Agronegócio"} source={require("../../assets/images/icons/icon_meio_ambiente.png")}/>
+                            <DepartmentCard departmentName={"Desenvolvimento\nEconômico"} source={require("../../assets/images/icons/icon_desenvolvimento_economico.png")} linkTarget={"EconomicDevelopmentServices"}/>
+                            <DepartmentCard departmentName={"Meio Ambiente\ne Agronegócio"} source={require("../../assets/images/icons/icon_meio_ambiente.png")} linkTarget={"EnvironmentServices"}/>
                         </View>
                         <View style={styles.serviceCardsRow}>
-                            <DepartmentCard departmentName={"Comunicação"} source={require("../../assets/images/icons/icon_comunicacao.png")}/>
-                            <DepartmentCard departmentName={"Assistência\nSocial"} source={require("../../assets/images/icons/icon_assistencia_social.png")}/>
-                            <DepartmentCard departmentName={"Cultura e\nTurismo"} source={require("../../assets/images/icons/icon_cultura_e_turismo.png")}/>
+                            <DepartmentCard departmentName={"Comunicação"} source={require("../../assets/images/icons/icon_comunicacao.png")} linkTarget={"ComunicationServices"}/>
+                            <DepartmentCard departmentName={"Assistência\nSocial"} source={require("../../assets/images/icons/icon_assistencia_social.png")} linkTarget={"SocialAssistanceServices"}/>
+                            <DepartmentCard departmentName={"Cultura e\nTurismo"} source={require("../../assets/images/icons/icon_cultura_e_turismo.png")} linkTarget={"CultureServices"}/>
                         </View>
                 </HomeSection>
             </View>

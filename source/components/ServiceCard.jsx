@@ -41,9 +41,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 14,
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 4,
-        
-
+        gap: 4,        
     },
     departmentName: {
         fontSize: 11,
