@@ -2,8 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useFonts, Poppins_300Light, Poppins_400Regular, Poppins_500Medium, Poppins_200ExtraLight, Poppins_700Bold } from '@expo-google-fonts/poppins';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { NavigationContainer } from '@react-navigation/native';
-import StackNavigator from './source/navigation/StackNavigator';
+import Router from './source/navigation/index.routes';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -19,8 +18,6 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-        <StackNavigator/>
-    </NavigationContainer>
+    <Router/>
   );
 }

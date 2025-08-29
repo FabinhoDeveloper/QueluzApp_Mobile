@@ -5,7 +5,6 @@ import FormInput from "../components/FormInput"
 import CustomButton from "../components/CustomButton"
 import KeyboardAvoidingContainer from "../components/KeyboardAvoidingContainer"
 
-
 import applyCpfMask from "../utils/applyCpfMask"
 import { useHeaderHeight } from "@react-navigation/elements"
 
@@ -28,7 +27,7 @@ export default function Login({ navigation }) {
         console.log('CPF apenas números:', getCpfDigits())
         console.log('CPF formatado:', cpf)
 
-        navigation.navigate("Home")
+        navigation.navigate("MainStackNavigator")
         // Realiza o fetch com a API
     }
 

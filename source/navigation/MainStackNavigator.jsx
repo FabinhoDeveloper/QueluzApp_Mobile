@@ -16,12 +16,12 @@ import CultureServices from '../screens/CultureServices';
 
 const Stack = createStackNavigator();
 
-export default function StackNavigator() {
+export default function MainStackNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Login" component={Login} />
+        {/* <Stack.Screen name="Login" component={Login} /> */}
         <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="SignUp" component={SignUp} />
+        {/* <Stack.Screen name="SignUp" component={SignUp} /> */}
         <Stack.Screen name="ServicesNavigation" component={ServicesNavigation} />
         <Stack.Screen name="HealthServices" component={HealthServices}/>
         <Stack.Screen name="EducationServices" component={EducationServices}/>
