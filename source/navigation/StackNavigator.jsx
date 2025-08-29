@@ -6,6 +6,7 @@ import SignUp from '../screens/SignUp';
 import ServicesNavigation from '../screens/ServicesNavigation';
 import HealthServices from '../screens/HealthServices';
 import EducationServices from '../screens/EducationServices';
+import AdministrationServices from '../screens/AdministrationServices';
 
 const Stack = createStackNavigator();
 
@@ -18,6 +19,7 @@ export default function StackNavigator() {
         <Stack.Screen name="ServicesNavigation" component={ServicesNavigation} />
         <Stack.Screen name="HealthServices" component={HealthServices}/>
         <Stack.Screen name="EducationServices" component={EducationServices}/>
+        <Stack.Screen name="AdministrationServices" component={AdministrationServices}/>
     </Stack.Navigator>
   );
 }

@@ -12,17 +12,17 @@ export default function ServicesNavigation() {
             <View style={styles.mainContent}>
                 <HomeSection title={"Navegue pelos serviços"}>
                         <View style={styles.serviceCardsRow}>
-                            <DepartmentCard departmentName={"Saúde"} source={require("../../assets/images/icons/icon_saude.png")} />
-                            <DepartmentCard departmentName={"Administração"} source={require("../../assets/images/icons/icon_administracao.png")}/>
-                            <DepartmentCard departmentName={"Comunicação"} source={require("../../assets/images/icons/icon_comunicacao.png")}/>
+                            <DepartmentCard departmentName={"Saúde"} source={require("../../assets/images/icons/icon_saude.png")} linkTarget={"HealthServices"}/>
+                            <DepartmentCard departmentName={"Administração"} source={require("../../assets/images/icons/icon_administracao.png")} linkTarget={"AdministrationServices"}/>
+                            <DepartmentCard departmentName={"Educação"} source={require("../../assets/images/icons/icon_educacao.png")} linkTarget={"EducationServices"}/>
                         </View>
                         <View style={styles.serviceCardsRow}>
                             <DepartmentCard departmentName={"Obras e\nServiços"} source={require("../../assets/images/icons/icon_obras.png")}/>
-                            <DepartmentCard departmentName={"Educação"} source={require("../../assets/images/icons/icon_educacao.png")}/>
+                            <DepartmentCard departmentName={"Desenvolvimento\nEconômico"} source={require("../../assets/images/icons/icon_desenvolvimento_economico.png")}/>
                             <DepartmentCard departmentName={"Meio Ambiente\ne Agronegócio"} source={require("../../assets/images/icons/icon_meio_ambiente.png")}/>
                         </View>
                         <View style={styles.serviceCardsRow}>
-                            <DepartmentCard departmentName={"Desenvolvimento\nEconômico"} source={require("../../assets/images/icons/icon_desenvolvimento_economico.png")}/>
+                            <DepartmentCard departmentName={"Comunicação"} source={require("../../assets/images/icons/icon_comunicacao.png")}/>
                             <DepartmentCard departmentName={"Assistência\nSocial"} source={require("../../assets/images/icons/icon_assistencia_social.png")}/>
                             <DepartmentCard departmentName={"Cultura e\nTurismo"} source={require("../../assets/images/icons/icon_cultura_e_turismo.png")}/>
                         </View>

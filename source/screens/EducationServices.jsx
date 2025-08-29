@@ -1,30 +1,11 @@
-import { StyleSheet, Text, View, ScrollView } from "react-native";
-import SecondaryStackHeader from "../components/SecondaryStackHeader";
-import HomeSection from "../components/HomeSection";
 import ServiceCard from "../components/ServiceCard";
+import ServicesFromDepartment from "../components/ServicesFromDepartment";
 
 export default function EducationServices() {
     return (
-        <ScrollView>
-            <SecondaryStackHeader title={"Educação"} color={"#FFC916"}/>
-            <View style={styles.mainContent}>
-                <HomeSection title={"Selecione o serviço desejado:"}>
-                    <View style={styles.servicesList}>       
-                        <ServiceCard serviceName={"Teste 1"} departmentName={"Secretaria de Educação"} color={"#a07b00ff"}/>
-                        <ServiceCard serviceName={"Teste 2"} departmentName={"Secretaria de Educação"} color={"#a07b00ff"}/>
-                    </View>
-                </HomeSection>
-            </View>
-        </ScrollView>
+        <ServicesFromDepartment departmentName={"Educação"} headerColor={"#FFC916"}>
+            <ServiceCard serviceName={"Agendar viagem"} departmentName={"Secretaria de Educação"} color={"#b48a02ff"}/>
+            <ServiceCard serviceName={"Marcar consulta médica"} departmentName={"Secretaria de Educação"} color={"#b48a02ff"}/>
+        </ServicesFromDepartment>
     )
 }
-
-const styles = StyleSheet.create({
-    mainContent: {
-        marginTop: 20,
-        paddingHorizontal: 20
-    },
-    servicesList: {
-        gap: 8
-    }
-})

@@ -6,7 +6,7 @@ export default function ServiceCard({ serviceName, departmentName, departmentIco
             <View style={styles.nameArea}>
                 <Text style={styles.serviceName}>{serviceName}</Text>
             </View>
-            <View style={[styles.departmentNameArea, {backgroundColor: color}]}>
+            <View style={[styles.departmentNameArea, color ? {backgroundColor: color} : {backgroundColor: "#0C447F"}]}>
                 <Image style={styles.departmentIcon} source={departmentIcon ? departmentIcon : require("../../assets/images/mini_icons/miniIcon_saude_branco.png")}/>
                 <Text style={styles.departmentName}>{departmentName ? departmentName : "Secretaria de Saúde"}</Text>
             </View>
