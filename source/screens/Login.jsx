@@ -3,7 +3,6 @@ import { Platform, TouchableWithoutFeedback, StyleSheet, View, Text, Image, Touc
 
 import FormInput from "../components/FormInput"
 import CustomButton from "../components/CustomButton"
-import SearchBox from "../components/SearchBox"
 
 import applyCpfMask from "../utils/applyCpfMask"
 import { useHeaderHeight } from "@react-navigation/elements"
@@ -67,7 +66,7 @@ export default function Login({ navigation }) {
                 
                     <View style={styles.buttonContainer}>
                         <CustomButton text='Entrar' onPress={handleLogin}/>
-                        <CustomButton text='Continuar sem Cadastro'/>
+                        <CustomButton text='Continuar sem Cadastro' onPress={handleLogin}/>
 
                         <View style={styles.registerContainer}>
                             <Text style={styles.registerHelper}>Ainda não possui uma conta?</Text>

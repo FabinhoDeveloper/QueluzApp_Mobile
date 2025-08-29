@@ -1,11 +1,12 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
-import SecondaryHeader from "../components/SecondaryStackHeader";
+import SecondaryTabHeader from "../components/SecondaryTabHeader";
+import SecondaryStackHeader from "../components/SecondaryStackHeader";
 
 export default function ServicesNavigation() {
     return (
         <View styles={styles.container}>
-            <SecondaryHeader/>
+            <SecondaryStackHeader title={"Administração"}/>
         </View>
     )
 }

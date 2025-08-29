@@ -30,7 +30,11 @@ const styles = StyleSheet.create({
     serviceName: {
         fontSize: 14,
         fontFamily: 'Poppins_400Regular',
-        color: '#0C447F'
+        color: '#0C447F',
+        textAlignVertical: 'center', // Android
+        paddingTop: 0, // Remove padding top padrão
+        paddingBottom: 0, // Remove padding bottom padrão
+        includeFontPadding: false, // Remove espaçamento extra da fonte (Android)
     },
     departmentNameArea: {
         height: '25%',

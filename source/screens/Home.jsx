@@ -23,7 +23,7 @@ export default function Home() {
                             <ServiceCard serviceName="Agendar consulta médica"/>
                         </View>
                     </HomeSection>  
-                    <HomeSection title="Categorias de Serviços" linkForMore={true}>
+                    <HomeSection title="Categorias de Serviços" linkForMore={true} linkTarget={"ServicesNavigation"}>
                         <View style={styles.serviceCardsRow}>
                             <DepartmentCard departmentName="Saúde" source={require("../../assets/images/icons/icon_saude.png")}/>
                             <DepartmentCard departmentName="Administração" source={require("../../assets/images/icons/icon_administracao.png")}/>

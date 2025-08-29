@@ -1,12 +1,15 @@
+import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-export default function HomeSection({ title, linkForMore, linkText, children }) {
+export default function HomeSection({ title, linkForMore, linkText, linkTarget, children }) {
+    const navigation = useNavigation()
+    
     return (
         <View style={styles.container}>
             <View style={styles.titleArea}>
                 <Text style={styles.mainTitle}>{ title }</Text>
                 {linkForMore && (
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate(linkTarget)}>
                         <Text style={styles.titleLink}>{linkText ? linkText : "Ver mais"}</Text>
                     </TouchableOpacity>
                 )}
