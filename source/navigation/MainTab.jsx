@@ -24,8 +24,6 @@ export default function MainTab() {
             iconName = focused ? "home" : "home-outline";
           } else if (route.name === "Notícias") {
             iconName = focused ? "newspaper" : "newspaper-outline";
-          } else if (route.name === "Solicitações") {
-            iconName = focused ? "folder" : "folder-outline";
           } else if (route.name === "Perfil") {
             iconName = focused ? "person": "person-outline";
           }
@@ -41,7 +39,6 @@ export default function MainTab() {
     >
       <Tab.Screen name="Início" component={MainStackNavigator} iconName={"home"}/>
       <Tab.Screen name="Notícias" component={TestTab} />
-      <Tab.Screen name="Solicitações" component={TestTab} />
       <Tab.Screen name="Perfil" component={TestTab} />
     </Tab.Navigator>
   );
