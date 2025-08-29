@@ -1,14 +1,14 @@
 import { StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
 
-export default function ServiceCard({ serviceName }) {
+export default function ServiceCard({ serviceName, departmentName, departmentIcon, color }) {
     return (
         <TouchableOpacity style={styles.container}>
             <View style={styles.nameArea}>
                 <Text style={styles.serviceName}>{serviceName}</Text>
             </View>
-            <View style={styles.departmentNameArea}>
-                <Image style={styles.departmentIcon} source={require("../../assets/images/mini_icons/miniIcon_saude_branco.png")}/>
-                <Text style={styles.departmentName}>Secretaria de Saúde</Text>
+            <View style={[styles.departmentNameArea, {backgroundColor: color}]}>
+                <Image style={styles.departmentIcon} source={departmentIcon ? departmentIcon : require("../../assets/images/mini_icons/miniIcon_saude_branco.png")}/>
+                <Text style={styles.departmentName}>{departmentName ? departmentName : "Secretaria de Saúde"}</Text>
             </View>
         </TouchableOpacity>
     )
@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
     },
     departmentNameArea: {
         height: '25%',
-        backgroundColor: '#228D9C',
         paddingHorizontal: 14,
         flexDirection: 'row',
         alignItems: 'center',
