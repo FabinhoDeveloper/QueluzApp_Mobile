@@ -1,6 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
 export default function SecondaryStackHeader({ title, color }) {
@@ -32,13 +31,11 @@ const styles = StyleSheet.create({
         shadowColor: "#000",
     },
     headerMainContent: {
-        // backgroundColor: 'red',
         flex: 1,
         width: '100%',
         justifyContent: 'center'
     },
     headerTop: {
-        // backgroundColor: 'gray',
         flexDirection: 'row',
         gap: 19,
         alignItems: 'center',
