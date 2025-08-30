@@ -1,17 +1,16 @@
 import { useState } from "react"
-import { Platform, TouchableWithoutFeedback, StyleSheet, View, Text, Image, TouchableOpacity, KeyboardAvoidingView, Keyboard, ScrollView } from "react-native"
+import { TouchableWithoutFeedback, StyleSheet, View, Text, Image, TouchableOpacity, Keyboard, ActivityIndicator, Alert } from "react-native"
 
 import FormInput from "../components/FormInput"
 import CustomButton from "../components/CustomButton"
-import KeyboardAvoidingContainer from "../components/KeyboardAvoidingContainer"
 
 import applyCpfMask from "../utils/applyCpfMask"
-import { useHeaderHeight } from "@react-navigation/elements"
 
 export default function Login({ navigation }) {
     const [cpf, setCpf] = useState("")
     const [password, setPassword] = useState("")
-    
+    const [isLoading, setIsLoading] = useState(false)
+
     // Função para lidar com a mudança do CPF
     const handleCpfChange = (text) => {
         const maskedCpf = applyCpfMask(text)
@@ -24,14 +23,13 @@ export default function Login({ navigation }) {
     }
 
     const handleLogin = () => {
-        console.log('CPF apenas números:', getCpfDigits())
-        console.log('CPF formatado:', cpf)
-
-        navigation.navigate("MainStackNavigator")
+        setIsLoading(true)
+        setTimeout(() => {
+            navigation.navigate("MainStackNavigator")
+            setIsLoading(false)
+        }, 1000)        
         // Realiza o fetch com a API
     }
-
-    const height = useHeaderHeight()
 
     return (
         <View style={styles.container}>
@@ -63,7 +61,11 @@ export default function Login({ navigation }) {
                     </View>
                 
                     <View style={styles.buttonContainer}>
-                        <CustomButton text='Entrar' onPress={handleLogin}/>
+                        <CustomButton text={
+                            !isLoading ?
+                            'Entrar' :
+                            <ActivityIndicator size={24} color={"#F5F5F7"}/>    
+                        } onPress={handleLogin}/>
                         <CustomButton text='Continuar sem Cadastro' onPress={handleLogin}/>
 
                         <View style={styles.registerContainer}>
