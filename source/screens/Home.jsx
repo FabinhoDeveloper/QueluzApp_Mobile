@@ -18,7 +18,7 @@ export default function Home() {
                 <View>
                     <HomeSection title="Serviços em Destaque">
                         <View style={styles.mainServicesRow}>
-                            <ServiceCard serviceName="Agendar viagem" departmentName={"Secretaria de Saúde"} color={"#228D9C"}/>
+                            <ServiceCard serviceName="Agendar viagem" departmentName={"Secretaria de Saúde"} color={"#228D9C"} linkTarget={"TripMainPage"}/>
                             <ServiceCard serviceName="Agendar consulta médica" departmentName={"Secretaria de Saúde"} color={"#228D9C"}/>
                             <ServiceCard serviceName="Ouvidoria" departmentName={"Secretaria de Administração"}/>
                         </View>

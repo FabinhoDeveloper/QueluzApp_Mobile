@@ -1,8 +1,11 @@
+import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
 
-export default function ServiceCard({ serviceName, departmentName, departmentIcon, color }) {
+export default function ServiceCard({ serviceName, departmentName, departmentIcon, color, linkTarget }) {
+    const navigation = useNavigation()
+    
     return (
-        <TouchableOpacity style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={linkTarget ? () => navigation.navigate(linkTarget) : undefined}>
             <View style={styles.nameArea}>
                 <Text style={styles.serviceName}>{serviceName}</Text>
             </View>

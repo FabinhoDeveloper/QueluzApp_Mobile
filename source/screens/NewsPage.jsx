@@ -3,7 +3,6 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import SecondaryTabHeader from "../components/SecondaryTabHeader";
 import HomeSection from "../components/HomeSection";
 import News from "../components/News";
-import { FlatList } from "react-native-gesture-handler";
 
 const news = [
   {
@@ -26,6 +25,7 @@ const news = [
     title: "População de Queluz terá acesso mais rápido e seguro a remédios com novo sistema",
     source: require("../../assets/images/imagem_noticia.png"),
   },
+  
 ];
 
 
@@ -34,7 +34,7 @@ export default function NewsPage() {
         <ScrollView>
             <SecondaryTabHeader/>
             <View style={styles.mainContent}>
-                <HomeSection title={"Principais notícias"}>
+                <HomeSection title={"Notícias do Município"}>
                     <View style={styles.newsContainer}>
                         {news.map((news) => {
                             return (
@@ -55,6 +55,6 @@ const styles = StyleSheet.create({
     },
     newsContainer: {
         gap: 14,
-        marginBottom: 100
+        marginBottom: 80
     }
 })

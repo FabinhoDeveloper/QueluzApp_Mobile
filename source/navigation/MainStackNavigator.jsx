@@ -1,8 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 
 import Home from '../screens/Home';
-import Login from '../screens/Login';
-import SignUp from '../screens/SignUp';
 import ServicesNavigation from '../screens/ServicesNavigation';
 import HealthServices from '../screens/HealthServices';
 import EducationServices from '../screens/EducationServices';
@@ -13,6 +11,7 @@ import EconomicDevelopmentServices from '../screens/EconomicDevelopmentServices'
 import ComunicationServices from '../screens/ComunicationServices';
 import SocialAssistanceServices from '../screens/SocialAssistanceServices';
 import CultureServices from '../screens/CultureServices';
+import TripMainPage from '../screens/TripMainPage';
 
 const Stack = createStackNavigator();
 
@@ -32,6 +31,7 @@ export default function MainStackNavigator() {
         <Stack.Screen name="ComunicationServices" component={ComunicationServices}/>
         <Stack.Screen name="CultureServices" component={CultureServices}/>
         <Stack.Screen name="SocialAssistanceServices" component={SocialAssistanceServices}/>
+        <Stack.Screen name="TripMainPage" component={TripMainPage}/>
     </Stack.Navigator>
   );
 }
