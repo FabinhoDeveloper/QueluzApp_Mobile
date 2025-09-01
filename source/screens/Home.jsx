@@ -6,10 +6,11 @@ import HomeSection from "../components/HomeSection"
 import DepartmentCard from "../components/DepartmentCard"
 import ServiceCard from "../components/ServiceCard"
 import CourseCard from "../components/CourseCard"
+import ScrollViewWithMarginBottom from "../components/ScrollViewWithMarginBottom"
 
 export default function Home() {
     return (
-        <ScrollView style={styles.container}>
+        <ScrollViewWithMarginBottom size={80}>
             <MainHeader/>
             <View style={styles.carouselWrapper}>
                 <NewsCarousel/>
@@ -49,14 +50,11 @@ export default function Home() {
                     </HomeSection>
                 </View>
             </View>
-        </ScrollView>
+        </ScrollViewWithMarginBottom>
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    },
     carouselWrapper: {
         marginTop: -80, // faz o carrossel subir por cima do header
     },

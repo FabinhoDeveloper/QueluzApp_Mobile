@@ -3,12 +3,13 @@ import { ScrollView, StyleSheet, TouchableOpacity, View, Text } from "react-nati
 import SecondaryStackHeader from "../components/SecondaryStackHeader";
 import TripCard from "../components/TripCard";
 import FormSection from "../components/FormSection";
+import ScrollViewWithMarginBottom from "../components/ScrollViewWithMarginBottom";
 
 import Feather from '@expo/vector-icons/Feather';
 
 export default function TripMainPage() {
     return (
-        <ScrollView style={styles.container}>
+        <ScrollViewWithMarginBottom>
             <SecondaryStackHeader title={"Solicitação\nde Viagem"} color={"#228D9C"}/>
             <View style={styles.mainContent}>
                 <FormSection marginBottom={true}>
@@ -29,7 +30,7 @@ export default function TripMainPage() {
                     </View>
                 </FormSection>
             </View>
-        </ScrollView>
+        </ScrollViewWithMarginBottom>
     )
 }
 
@@ -64,7 +65,6 @@ const styles = StyleSheet.create({
         includeFontPadding: false, // Remove espaçamento extra da fonte (Android)
     },
     tripRecords: {
-        gap: 8,
-        marginBottom: 100
+        gap: 8    
     }
 })

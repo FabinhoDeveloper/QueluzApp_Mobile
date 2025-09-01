@@ -3,6 +3,7 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import SecondaryTabHeader from "../components/SecondaryTabHeader";
 import HomeSection from "../components/HomeSection";
 import News from "../components/News";
+import ScrollViewWithMarginBottom from "../components/ScrollViewWithMarginBottom";
 
 const news = [
   {
@@ -31,7 +32,7 @@ const news = [
 
 export default function NewsPage() {
     return (
-        <ScrollView>
+        <ScrollViewWithMarginBottom size={80}>
             <SecondaryTabHeader/>
             <View style={styles.mainContent}>
                 <HomeSection title={"Notícias do Município"}>
@@ -44,7 +45,7 @@ export default function NewsPage() {
                     </View>
                 </HomeSection>
             </View>
-        </ScrollView>
+        </ScrollViewWithMarginBottom>
     )
 }
 
@@ -55,6 +56,5 @@ const styles = StyleSheet.create({
     },
     newsContainer: {
         gap: 14,
-        marginBottom: 80
     }
 })
