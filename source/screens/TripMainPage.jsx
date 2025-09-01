@@ -9,7 +9,7 @@ import Feather from '@expo/vector-icons/Feather';
 
 export default function TripMainPage() {
     return (
-        <ScrollViewWithMarginBottom>
+        <ScrollViewWithMarginBottom size={100}>
             <SecondaryStackHeader title={"Solicitação\nde Viagem"} color={"#228D9C"}/>
             <View style={styles.mainContent}>
                 <FormSection marginBottom={true}>

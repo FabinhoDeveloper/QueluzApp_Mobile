@@ -2,7 +2,7 @@ import { useState } from "react"
 import { TouchableWithoutFeedback, StyleSheet, View, Text, Image, TouchableOpacity, Keyboard, ActivityIndicator, Alert } from "react-native"
 
 import FormInput from "../components/FormInput"
-import CustomButton from "../components/CustomButton"
+import PrimaryButton from "../components/PrimaryButton"
 
 import applyCpfMask from "../utils/applyCpfMask"
 
@@ -61,12 +61,12 @@ export default function Login({ navigation }) {
                     </View>
                 
                     <View style={styles.buttonContainer}>
-                        <CustomButton text={
+                        <PrimaryButton text={
                             !isLoading ?
                             'Entrar' :
                             <ActivityIndicator size={24} color={"#F5F5F7"}/>    
                         } onPress={handleLogin}/>
-                        <CustomButton text='Continuar sem Cadastro' onPress={handleLogin}/>
+                        <PrimaryButton text='Continuar sem Cadastro' onPress={handleLogin}/>
 
                         <View style={styles.registerContainer}>
                             <Text style={styles.registerHelper}>Ainda não possui uma conta?</Text>

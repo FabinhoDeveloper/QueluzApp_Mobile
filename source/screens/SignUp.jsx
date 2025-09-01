@@ -2,8 +2,7 @@ import { useState } from "react"
 import { Platform, StyleSheet, View, Text, Image, TouchableOpacity, Keyboard,KeyboardAvoidingView, TouchableWithoutFeedback, ScrollView } from "react-native"
 
 import FormInput from "../components/FormInput"
-import CustomButton from "../components/CustomButton"
-import SearchBox from "../components/SearchBox"
+import PrimaryButton from "../components/PrimaryButton"
 import KeyboardAvoidingContainer from "../components/KeyboardAvoidingContainer"
 
 import applyCpfMask from "../utils/applyCpfMask"
@@ -67,7 +66,7 @@ export default function SingUp({ navigation }) {
                     </View>
                 
                     <View style={styles.buttonContainer}>
-                        <CustomButton text='Cadastrar-se'/>
+                        <PrimaryButton text='Cadastrar-se'/>
 
                         <View style={styles.registerContainer}>
                             <Text style={styles.registerHelper}>Já possui uma conta?</Text>
