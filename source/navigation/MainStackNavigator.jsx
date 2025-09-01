@@ -12,6 +12,7 @@ import ComunicationServices from '../screens/ComunicationServices';
 import SocialAssistanceServices from '../screens/SocialAssistanceServices';
 import CultureServices from '../screens/CultureServices';
 import TripMainPage from '../screens/TripMainPage';
+import TripForm from '../screens/TripForm';
 
 const Stack = createStackNavigator();
 
@@ -32,6 +33,7 @@ export default function MainStackNavigator() {
         <Stack.Screen name="CultureServices" component={CultureServices}/>
         <Stack.Screen name="SocialAssistanceServices" component={SocialAssistanceServices}/>
         <Stack.Screen name="TripMainPage" component={TripMainPage}/>
+        <Stack.Screen name="TripForm" component={TripForm}/>
     </Stack.Navigator>
   );
 }
