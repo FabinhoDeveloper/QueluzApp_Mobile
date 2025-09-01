@@ -4,7 +4,7 @@ import { StyleSheet, View } from "react-native";
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 import MainStackNavigator from "./MainStackNavigator";
-import TestTab from "../screens/TestTab";
+import NewsPage from "../screens/NewsPage";
 
 const Tab = createBottomTabNavigator();
 
@@ -38,8 +38,8 @@ export default function MainTab() {
       })}
     >
       <Tab.Screen name="Início" component={MainStackNavigator} iconName={"home"}/>
-      <Tab.Screen name="Notícias" component={TestTab} />
-      <Tab.Screen name="Perfil" component={TestTab} />
+      <Tab.Screen name="Notícias" component={NewsPage} />
+      <Tab.Screen name="Perfil" component={NewsPage} />
     </Tab.Navigator>
   );
 }
