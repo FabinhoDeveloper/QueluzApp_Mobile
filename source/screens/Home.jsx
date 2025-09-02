@@ -27,13 +27,13 @@ export default function Home() {
                     <HomeSection title="Categorias de Serviços" linkForMore={true} linkTarget={{stack: "ServicesStack", screen: "ServicesNavigation"}}>
                         <View style={styles.serviceCardsRow}>
                             <DepartmentCard departmentName="Saúde" source={require("../../assets/images/icons/icon_saude.png")} linkTarget={{stack: "ServicesStack", screen: "HealthServices"}}/>
-                            <DepartmentCard departmentName="Administração" source={require("../../assets/images/icons/icon_administracao.png")} linkTarget={"AdministrationServices"}/>
-                            <DepartmentCard departmentName="Educação" source={require("../../assets/images/icons/icon_educacao.png")} linkTarget={"EducationServices"}/>
+                            <DepartmentCard departmentName="Administração" source={require("../../assets/images/icons/icon_administracao.png")} linkTarget={{stack: "ServicesStack", screen: "AdministrationServices"}}/>
+                            <DepartmentCard departmentName="Educação" source={require("../../assets/images/icons/icon_educacao.png")} linkTarget={{stack: "ServicesStack", screen: "EducationServices"}}/>
                         </View>
                         <View style={styles.serviceCardsRow}>
-                            <DepartmentCard departmentName={"Obras e\nServiços"} source={require("../../assets/images/icons/icon_obras.png")} linkTarget={"WorksServices"}/>
-                            <DepartmentCard departmentName={"Desenvolvimento\nEconômico"} source={require("../../assets/images/icons/icon_desenvolvimento_economico.png")} linkTarget={"EconomicDevelopmentServices"}/>
-                            <DepartmentCard departmentName={"Meio Ambiente\ne Agronegócio"} source={require("../../assets/images/icons/icon_meio_ambiente.png")} linkTarget={"EnvironmentServices"}/>
+                            <DepartmentCard departmentName={"Obras e\nServiços"} source={require("../../assets/images/icons/icon_obras.png")} linkTarget={{stack: "ServicesStack", screen: "WorksServices"}}/>
+                            <DepartmentCard departmentName={"Desenvolvimento\nEconômico"} source={require("../../assets/images/icons/icon_desenvolvimento_economico.png")} linkTarget={{stack: "ServicesStack", screen: "EconomicDevelopmentServices"}}/>
+                            <DepartmentCard departmentName={"Meio Ambiente\ne Agronegócio"} source={require("../../assets/images/icons/icon_meio_ambiente.png")} linkTarget={{stack: "ServicesStack", screen: "EnvironmentServices"}}/>
                         </View>
                     </HomeSection>
 

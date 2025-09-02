@@ -17,7 +17,7 @@ const Stack = createStackNavigator();
 
 export default function ServicesStack() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="ServicesNavigation">
         <Stack.Screen name="ServicesNavigation" component={ServicesNavigation} />
         <Stack.Screen name="HealthServices" component={HealthServices}/>
         <Stack.Screen name="EducationServices" component={EducationServices}/>

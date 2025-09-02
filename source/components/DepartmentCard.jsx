@@ -6,7 +6,16 @@ export default function DepartmentCard({ departmentName, source, linkTarget }) {
     
     return (
         <View style={styles.container}>
-            <TouchableOpacity style={styles.card} onPress={linkTarget ? () => navigation.navigate(linkTarget) : undefined}>                
+            <TouchableOpacity style={styles.card} onPress={
+                linkTarget ? () => {
+                    if (typeof linkTarget === "string") {
+                        navigation.navigate(linkTarget);
+                    } else if (typeof linkTarget === "object" && linkTarget.stack) {
+                        navigation.navigate(linkTarget.stack, {
+                        screen: linkTarget.screen,
+                    });
+                }
+            } : undefined }>                
                 <Image source={source}/>
             </TouchableOpacity>
             <Text style={styles.departmentName}>{departmentName}</Text>
