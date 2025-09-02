@@ -16,7 +16,7 @@ import TripForm from '../screens/TripForm';
 
 const Stack = createStackNavigator();
 
-export default function MainStackNavigator() {
+export default function HomeStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
         {/* <Stack.Screen name="Login" component={Login} /> */}
