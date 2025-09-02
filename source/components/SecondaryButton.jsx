@@ -9,14 +9,14 @@ export default function SecondaryButton({ title, linkTarget, onPress }) {
     return (
         <TouchableOpacity style={styles.tripFormButton} onPress={linkTarget ? () => navigation.navigate(linkTarget) : onPress }>
             <Feather name="plus" size={25} color="black" />
-            <Text style={styles.tripFormButtonText}>{title}</Text>
+            <Text style={[styles.tripFormButtonText, title.length > 20 ? {fontSize: 14} : {fontSize: 18}]}>{title}</Text>
         </TouchableOpacity>
     )
 }
 
 const styles = StyleSheet.create({
     tripFormButton: {
-        width: 352,
+        width: "100%",
         height: 53,
         borderWidth: 1,
         borderColor: "rgba(0,0,0,0.5)",
@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
         gap: 12
     },
     tripFormButtonText: {
-        fontSize: 20,
         fontFamily: 'Poppins_500Medium',
         textAlignVertical: 'center', // Android
         paddingTop: 0, // Remove padding top padrão

@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Poppins_500Medium',
     },  
     textInput: {
-        width: 313.97,
+        width: '100%',
         height: 41.31,
         borderWidth: 1,
         fontFamily: 'Poppins_300Light',
