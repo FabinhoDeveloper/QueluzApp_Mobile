@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#F5F5F7',
+        marginHorizontal: 20
     },
     mainContent: {
         flex: 1,
@@ -109,7 +110,8 @@ const styles = StyleSheet.create({
     },    
     formContainer: {
         gap: 20.7,
-        marginBottom: 18
+        marginBottom: 18,
+        width: 313,
     },
     changePassword: {
         fontSize: 12,

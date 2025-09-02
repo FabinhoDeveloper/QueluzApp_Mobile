@@ -109,7 +109,8 @@ const styles = StyleSheet.create({
     },    
     formContainer: {
         gap: 20.7,
-        marginBottom: 18
+        marginBottom: 18,
+        width: 313,
     },
     changePassword: {
         fontSize: 12,

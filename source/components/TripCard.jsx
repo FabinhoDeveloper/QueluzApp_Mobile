@@ -65,7 +65,7 @@ export default function TripCard({ status, local, data }) {
 
 const styles = StyleSheet.create({
     container: {
-        width: 351,
+        width: '100%',
         height: 89,
         borderRadius: 8,
         backgroundColor: '#D9D9D9',
