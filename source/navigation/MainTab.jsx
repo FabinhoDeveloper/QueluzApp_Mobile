@@ -5,6 +5,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 import MainStackNavigator from "./MainStackNavigator";
 import NewsPage from "../screens/NewsPage";
+import ServicesNavigation from "../screens/ServicesNavigation";
 
 const Tab = createBottomTabNavigator();
 
@@ -24,8 +25,10 @@ export default function MainTab() {
             iconName = focused ? "home" : "home-outline";
           } else if (route.name === "Notícias") {
             iconName = focused ? "newspaper" : "newspaper-outline";
-          } else if (route.name === "Perfil") {
-            iconName = focused ? "person": "person-outline";
+          } else if (route.name === "Solicitacoes") {
+            iconName = focused ? "folder": "folder-outline";
+          } else if (route.name === "Servicos") {
+            iconName = focused ? "menu": "menu-outline";
           }
 
           // custom extra: bolinha de fundo quando ativo
@@ -38,8 +41,9 @@ export default function MainTab() {
       })}
     >
       <Tab.Screen name="Início" component={MainStackNavigator} iconName={"home"}/>
+      <Tab.Screen name="Servicos" component={ServicesNavigation} />
+      <Tab.Screen name="Solicitacoes" component={NewsPage} />
       <Tab.Screen name="Notícias" component={NewsPage} />
-      <Tab.Screen name="Perfil" component={NewsPage} />
     </Tab.Navigator>
   );
 }
