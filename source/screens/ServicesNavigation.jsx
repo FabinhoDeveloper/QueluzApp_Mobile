@@ -8,7 +8,7 @@ import HomeSection from "../components/HomeSection";
 export default function ServicesNavigation() {
     return (
         <View styles={styles.container}>
-            <SecondaryStackHeader title={"Serviços"}/>
+            <SecondaryTabHeader/>
             <View style={styles.mainContent}>
                 <HomeSection title={"Navegue pelos serviços"}>
                         <View style={styles.serviceCardsRow}>

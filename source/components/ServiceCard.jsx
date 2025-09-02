@@ -5,7 +5,16 @@ export default function ServiceCard({ serviceName, departmentName, departmentIco
     const navigation = useNavigation()
     
     return (
-        <TouchableOpacity style={styles.container} onPress={linkTarget ? () => navigation.navigate(linkTarget) : undefined}>
+        <TouchableOpacity style={styles.container} onPress={
+            linkTarget ? () => {
+                if (typeof linkTarget === "string") {
+                    navigation.navigate(linkTarget);
+                } else if (typeof linkTarget === "object" && linkTarget.stack) {
+                    navigation.navigate(linkTarget.stack, {
+                    screen: linkTarget.screen,
+                });
+            }
+        } : undefined }>
             <View style={styles.nameArea}>
                 <Text style={styles.serviceName}>{serviceName}</Text>
             </View>

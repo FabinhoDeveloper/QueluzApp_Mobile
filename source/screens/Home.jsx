@@ -19,14 +19,14 @@ export default function Home() {
                 <View>
                     <HomeSection title="Serviços em Destaque">
                         <View style={styles.mainServicesRow}>
-                            <ServiceCard serviceName="Agendar viagem" departmentName={"Secretaria de Saúde"} color={"#228D9C"} linkTarget={"TripMainPage"}/>
+                            <ServiceCard serviceName="Agendar viagem" departmentName={"Secretaria de Saúde"} color={"#228D9C"} linkTarget={{stack: "ServicesStack", screen: "TripMainPage"}}/>
                             <ServiceCard serviceName="Agendar consulta médica" departmentName={"Secretaria de Saúde"} color={"#228D9C"}/>
                             <ServiceCard serviceName="Ouvidoria" departmentName={"Secretaria de Administração"}/>
                         </View>
                     </HomeSection>  
-                    <HomeSection title="Categorias de Serviços" linkForMore={true} linkTarget={"ServicesNavigation"}>
+                    <HomeSection title="Categorias de Serviços" linkForMore={true} linkTarget={{stack: "ServicesStack", screen: "ServicesNavigation"}}>
                         <View style={styles.serviceCardsRow}>
-                            <DepartmentCard departmentName="Saúde" source={require("../../assets/images/icons/icon_saude.png")} linkTarget={"HealthServices"}/>
+                            <DepartmentCard departmentName="Saúde" source={require("../../assets/images/icons/icon_saude.png")} linkTarget={{stack: "ServicesStack", screen: "HealthServices"}}/>
                             <DepartmentCard departmentName="Administração" source={require("../../assets/images/icons/icon_administracao.png")} linkTarget={"AdministrationServices"}/>
                             <DepartmentCard departmentName="Educação" source={require("../../assets/images/icons/icon_educacao.png")} linkTarget={"EducationServices"}/>
                         </View>

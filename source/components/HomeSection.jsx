@@ -9,7 +9,16 @@ export default function HomeSection({ title, linkForMore, linkText, linkTarget, 
             <View style={styles.titleArea}>
                 <Text style={styles.mainTitle}>{ title }</Text>
                 {linkForMore && (
-                    <TouchableOpacity onPress={() => navigation.navigate(linkTarget)}>
+                    <TouchableOpacity onPress={
+                        linkTarget ? () => {
+                            if (typeof linkTarget === "string") {
+                                navigation.navigate(linkTarget);
+                            } else if (typeof linkTarget === "object" && linkTarget.stack) {
+                                navigation.navigate(linkTarget.stack, {
+                                screen: linkTarget.screen,
+                            });
+                        }
+                    } : undefined }>
                         <Text style={styles.titleLink}>{linkText ? linkText : "Ver mais"}</Text>
                     </TouchableOpacity>
                 )}

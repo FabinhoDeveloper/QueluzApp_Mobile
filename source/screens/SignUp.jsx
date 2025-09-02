@@ -7,7 +7,7 @@ import KeyboardAvoidingContainer from "../components/KeyboardAvoidingContainer"
 
 import applyCpfMask from "../utils/applyCpfMask"
 
-export default function SingUp({ navigation }) {
+export default function SignUp({ navigation }) {
     // Função para lidar com a mudança do CPF
     const handleCpfChange = (text) => {
         const maskedCpf = applyCpfMask(text)

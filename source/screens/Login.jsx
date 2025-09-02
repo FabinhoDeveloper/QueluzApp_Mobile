@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useAuth } from "../contexts/AuthContext"
 import { TouchableWithoutFeedback, StyleSheet, View, Text, Image, TouchableOpacity, Keyboard, ActivityIndicator, Alert } from "react-native"
 
 import FormInput from "../components/FormInput"
@@ -10,6 +11,7 @@ export default function Login({ navigation }) {
     const [cpf, setCpf] = useState("")
     const [password, setPassword] = useState("")
     const [isLoading, setIsLoading] = useState(false)
+    const { login } = useAuth()
 
     // Função para lidar com a mudança do CPF
     const handleCpfChange = (text) => {
@@ -25,8 +27,7 @@ export default function Login({ navigation }) {
     const handleLogin = () => {
         setIsLoading(true)
         setTimeout(() => {
-            navigation.navigate("MainStackNavigator")
-            setIsLoading(false)
+            login(cpf, password)
         }, 1000)        
         // Realiza o fetch com a API
     }

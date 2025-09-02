@@ -1,6 +1,5 @@
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Home from '../screens/Home';
 import ServicesNavigation from '../screens/ServicesNavigation';
 import HealthServices from '../screens/HealthServices';
 import EducationServices from '../screens/EducationServices';
@@ -16,12 +15,9 @@ import TripForm from '../screens/TripForm';
 
 const Stack = createStackNavigator();
 
-export default function MainStackNavigator() {
+export default function ServicesStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {/* <Stack.Screen name="Login" component={Login} /> */}
-        <Stack.Screen name="Home" component={Home} />
-        {/* <Stack.Screen name="SignUp" component={SignUp} /> */}
         <Stack.Screen name="ServicesNavigation" component={ServicesNavigation} />
         <Stack.Screen name="HealthServices" component={HealthServices}/>
         <Stack.Screen name="EducationServices" component={EducationServices}/>

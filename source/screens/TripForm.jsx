@@ -12,7 +12,7 @@ import NeutralButton from "../components/NeutralButton";
 import ConfirmationButton from "../components/ConfirmationButton";
 
 export default function TripForm() {
-    const [selectedOption, setSelectedOption] = useState("")
+    const [selectedOption, setSelectedOption] = useState("Para mim")
     const [addCompanion, setAddCompanion] = useState(false)
     const [name, setName] = useState("")
     const [surname, setSurname] = useState("")
@@ -39,9 +39,9 @@ export default function TripForm() {
 
                 <FormSection marginBottom={true}>
                     <View style={styles.formSection}>
-                        <FormInput name={"Nome"} value={name}/>
-                        <FormInput name={"Sobrenome"} value={surname}/>
-                        <FormInput name={"E-mail"} value={email}/>
+                        <FormInput name={"Nome"}/>
+                        <FormInput name={"Sobrenome"}/>
+                        <FormInput name={"E-mail"}/>
                         <FormInput name={"Telefone"}/>
                         <FormInput name={"Endereço"}/>
                     </View>
