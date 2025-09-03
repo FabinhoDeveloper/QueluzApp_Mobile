@@ -10,6 +10,7 @@ import FormInput from "../components/FormInput";
 import KeyboardAvoidingContainer from "../components/KeyboardAvoidingContainer";
 import NeutralButton from "../components/NeutralButton";
 import ConfirmationButton from "../components/ConfirmationButton";
+import { useNavigation } from "@react-navigation/native";
 
 export default function TripForm() {
     const [selectedOption, setSelectedOption] = useState("Para mim")
@@ -18,6 +19,7 @@ export default function TripForm() {
     const [surname, setSurname] = useState("")
     const [email, setEmail] = useState("")
     const [isAbleToPress, setIsAbleToPress] = useState(true) // Posteriormente, será trocado para false, sendo  possivel apenas confirmar a solicitacao preechendo todos os dados
+    const navigation = useNavigation()
 
     const options = [
         { label: "Para mim", value: "Para mim" },
@@ -86,7 +88,7 @@ export default function TripForm() {
                             <NeutralButton text={"Cancelar"}/>
                         </View>
                         <View style={{ width: '60%'}}>
-                            <ConfirmationButton text={"Solicitar viagem"} isActive={isAbleToPress}/>    
+                            <ConfirmationButton text={"Solicitar viagem"} isActive={isAbleToPress} onPress={() => navigation.navigate("TripReview")}/>    
                         </View>
                     </View>
                 </FormSection>

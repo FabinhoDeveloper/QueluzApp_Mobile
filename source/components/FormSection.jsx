@@ -4,8 +4,8 @@ export default function FormSection({ marginBottom, children, title }) {
     return (
         <View style={[
             styles.container, 
-            marginBottom ? { borderBottomWidth: 1, paddingBottom: 30 } : undefined, 
-            !title ? { paddingTop: 25 } : undefined
+            marginBottom ? { borderBottomWidth: 1, paddingBottom: 20 } : undefined, 
+            !title ? { paddingTop: 20 } : undefined
         ]}>
             {title && <Text style={styles.title}>{title}</Text>}
             {children}
@@ -20,6 +20,6 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 20,
         fontFamily: 'Poppins_400Regular',
-        marginVertical: 20
+        marginTop: 20
     }
 })

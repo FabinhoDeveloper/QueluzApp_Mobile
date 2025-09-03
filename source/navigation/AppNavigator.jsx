@@ -9,7 +9,11 @@ export default function AppNavigator() {
 
     return (
         <NavigationContainer>
-            { isSigned ? <MainNavigator/> : <AuthNavigator/> }
+            { isSigned ? 
+                <MainNavigator/>
+                 : 
+                <AuthNavigator/>     
+            }
         </NavigationContainer>
     )
 }

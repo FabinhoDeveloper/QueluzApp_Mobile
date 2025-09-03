@@ -12,6 +12,7 @@ import SocialAssistanceServices from '../screens/SocialAssistanceServices';
 import CultureServices from '../screens/CultureServices';
 import TripMainPage from '../screens/TripMainPage';
 import TripForm from '../screens/TripForm';
+import TripReview from '../screens/TripReview';
 
 const Stack = createStackNavigator();
 
@@ -30,6 +31,7 @@ export default function ServicesStack() {
         <Stack.Screen name="SocialAssistanceServices" component={SocialAssistanceServices}/>
         <Stack.Screen name="TripMainPage" component={TripMainPage}/>
         <Stack.Screen name="TripForm" component={TripForm}/>
+        <Stack.Screen name="TripReview" component={TripReview}/>
     </Stack.Navigator>
   );
 }
