@@ -1,9 +1,9 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Feather from '@expo/vector-icons/Feather';
-import { useState } from "react";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function SecondaryTabHeader() {
-    const [name, setName] = useState("")
+    const {user} = useAuth()
 
     return (
         <View style={styles.container}>
@@ -11,7 +11,7 @@ export default function SecondaryTabHeader() {
                 <View style={styles.headerTop}>
                     <View style={styles.headerTextContainer}>
                         <Text style={styles.headerHello}>Olá,</Text>
-                        <Text style={styles.headerUserName}>{name ? name : "visitante"}!</Text>
+                        <Text style={styles.headerUserName}>{user ? user.first_name : "visitante"}!</Text>
                     </View>
                     <TouchableOpacity>
                         <Feather name="menu" size={24} color="white" />

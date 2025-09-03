@@ -3,9 +3,10 @@ import Feather from '@expo/vector-icons/Feather';
 import SearchBox from "./SearchBox";
 import { useState } from "react";
 import NewsCarousel from "./NewsCarousel";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function MainHeader() {
-    const [name, setName] = useState("")
+    const {user} = useAuth()
 
     return (
         <View style={styles.container}>
@@ -13,7 +14,7 @@ export default function MainHeader() {
                 <View style={styles.headerTop}>
                     <View style={styles.headerTextContainer}>
                         <Text style={styles.headerHello}>Olá,</Text>
-                        <Text style={styles.headerUserName}>{name ? name : "visitante"}!</Text>
+                        <Text style={styles.headerUserName}>{user ? user.first_name : "visitante"}!</Text>
                     </View>
                     <TouchableOpacity>
                         <Feather name="menu" size={24} color="white" />
