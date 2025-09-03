@@ -8,7 +8,12 @@ const Tab = createBottomTabNavigator()
 
 export default function MainNavigator() {
     return (
-        <Tab.Navigator screenOptions={{ headerShown: false }}>
+        <Tab.Navigator 
+            screenOptions={{ 
+                headerShown: false,
+                unmountOnBlur: true,
+            }}
+            >
             <Tab.Screen name="HomeStack" component={HomeStack}/>
             <Tab.Screen name="ServicesStack" component={ServicesStack}/>
             <Tab.Screen name="NewsStack" component={NewsStack}/>
