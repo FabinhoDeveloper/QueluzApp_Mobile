@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Image, StyleSheet, TextInput } from "react-native";
+import { View, StyleSheet, TextInput } from "react-native";
 import Feather from '@expo/vector-icons/Feather';
 
 export default function SearchBox() {
@@ -7,14 +7,20 @@ export default function SearchBox() {
 
     return (
         <View style={styles.container}>
-            <Feather name="search" size={22} color="rgba(0,0,0,0.3)" />
-            <TextInput
-                style={styles.text}
-                placeholder="Buscar serviço..."
-                placeholderTextColor="rgba(0,0,0,0.3)"
-                value={value}
-                onChangeText={(text) => setValue(text)}
-            />
+            <View style={styles.iconArea}>
+                <Feather name="search" size={22} color="rgba(0,0,0,0.25)"/>
+            </View>
+            
+            <View style={styles.textArea}>
+                <TextInput
+                    style={styles.text}
+                    placeholder="Buscar serviço..."
+                    placeholderTextColor="rgba(0,0,0,0.25)"
+                    value={value}
+                    onChangeText={(text) => setValue(text)}
+                    maxLength={35}
+                />
+            </View>
         </View>
     )
 }
@@ -25,12 +31,16 @@ const styles = StyleSheet.create({
         height: 50,
         borderRadius: 5,
         borderWidth: 1,
-        gap: 15.5,
+        gap: 6,
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: 18,
-        borderColor: "rgba(0,0,0,0.25)", // borda 30% opacidade
+        borderColor: "rgba(0,0,0,0.3)", // borda 30% opacidade
         backgroundColor: '#FFFFFF'
+    },
+
+    textArea: {
+        width: '90%'
     },
     text: {
         fontFamily: 'Poppins_500Medium',
@@ -39,7 +49,6 @@ const styles = StyleSheet.create({
         paddingTop: 0, // Remove padding top padrão
         paddingBottom: 0, // Remove padding bottom padrão
         includeFontPadding: false, // Remove espaçamento extra da fonte (Android)
-        textAlign: 'left',
         color: "rgba(0,0,0,0.25)"
     }
 })
