@@ -11,15 +11,14 @@ import KeyboardAvoidingContainer from "../components/KeyboardAvoidingContainer";
 import NeutralButton from "../components/NeutralButton";
 import ConfirmationButton from "../components/ConfirmationButton";
 import { useNavigation } from "@react-navigation/native";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function TripForm() {
     const [selectedOption, setSelectedOption] = useState("Para mim")
     const [addCompanion, setAddCompanion] = useState(false)
-    const [name, setName] = useState("")
-    const [surname, setSurname] = useState("")
-    const [email, setEmail] = useState("")
     const [isAbleToPress, setIsAbleToPress] = useState(true) // Posteriormente, será trocado para false, sendo  possivel apenas confirmar a solicitacao preechendo todos os dados
     const navigation = useNavigation()
+    const { user } = useAuth()
 
     const options = [
         { label: "Para mim", value: "Para mim" },
@@ -41,11 +40,11 @@ export default function TripForm() {
 
                 <FormSection marginBottom={true}>
                     <View style={styles.formSection}>
-                        <FormInput name={"Nome"}/>
-                        <FormInput name={"Sobrenome"}/>
-                        <FormInput name={"E-mail"}/>
-                        <FormInput name={"Telefone"}/>
-                        <FormInput name={"Endereço"}/>
+                        <FormInput name={"Primeiro nome"} value={selectedOption === "Para mim" ? user.first_name : ""}/>
+                        <FormInput name={"Sobrenome"} value={selectedOption === "Para mim" ? user.surname : ""}/>
+                        <FormInput name={"E-mail"} value={selectedOption === "Para mim" ? user.email : ""}/>
+                        <FormInput name={"Telefone"} value={selectedOption === "Para mim" ? user.cellphone : ""}/>
+                        <FormInput name={"Endereço"} value={selectedOption === "Para mim" ? user.address : ""}/>
                     </View>
                 </FormSection>
 

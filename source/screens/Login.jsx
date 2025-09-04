@@ -42,7 +42,7 @@ export default function Login({ navigation }) {
                         <Controller
                             control={control}
                             name="cpf"
-                            rules={{ required: 'Preencha seu CPF *' }}
+                            rules={[]}
                             render={({ field: { value, onChange, onBlur } }) => (
                                 <FormInput
                                     name="CPF"
@@ -61,7 +61,7 @@ export default function Login({ navigation }) {
                         <Controller
                             control={control}
                             name="password"
-                            rules={{ required: 'Preencha sua senha *' }}
+                            rules={[]}
                             render={({ field: { value, onChange, onBlur } }) => (
                                 <FormInput
                                     name="Senha"
