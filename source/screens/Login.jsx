@@ -1,35 +1,33 @@
 import { useState } from "react"
-import { useAuth } from "../contexts/AuthContext"
-import { TouchableWithoutFeedback, StyleSheet, View, Text, Image, TouchableOpacity, Keyboard, ActivityIndicator, Alert } from "react-native"
+import { TouchableWithoutFeedback, StyleSheet, View, Text, Image, TouchableOpacity, Keyboard, ActivityIndicator } from "react-native"
+import { useForm, Controller } from 'react-hook-form'
 
 import FormInput from "../components/FormInput"
 import PrimaryButton from "../components/PrimaryButton"
+import { useAuth } from "../contexts/AuthContext"
 
 import applyCpfMask from "../utils/applyCpfMask"
 
 export default function Login({ navigation }) {
-    const [cpf, setCpf] = useState("")
-    const [password, setPassword] = useState("")
     const [isLoading, setIsLoading] = useState(false)
     const { login } = useAuth()
 
-    // Função para lidar com a mudança do CPF
-    const handleCpfChange = (text) => {
-        const maskedCpf = applyCpfMask(text)
-        setCpf(maskedCpf)
-    }
+    const { control, handleSubmit, formState: { errors } } = useForm({
+        defaultValues: {
+            cpf: "",
+            password: ""
+        },
+        mode: "onSubmit"
+    })
 
-    // Função para obter apenas os dígitos do CPF (para enviar para API)
-    const getCpfDigits = () => {
-        return cpf.replace(/\D/g, '')
-    }
-
-    const handleLogin = () => {
+    const onSubmit = (data) => {
+        console.log(data) // aqui você vê o CPF e senha enviados pelo form
         setIsLoading(true)
+        const cpfDigits = data.cpf.replace(/\D/g, '') // remove máscara
         setTimeout(() => {
-            login(cpf, password)
-        }, 1000)        
-        // Realiza o fetch com a API
+            login(cpfDigits, data.password)
+            setIsLoading(false)
+        }, 1000)
     }
 
     return (
@@ -40,21 +38,43 @@ export default function Login({ navigation }) {
                         <Image style={styles.logo} source={require("../../assets/images/logo_temporario.png")}/>
                     </View>
                     <View style={styles.formContainer}>
-                        <FormInput
-                            name="Seu CPF"
-                            keyboardType="numeric"
-                            placeholder="Digite seu CPF"
-                            value={cpf}
-                            onChangeText={handleCpfChange} // Usar a função com máscara
+                        {/* CPF */}
+                        <Controller
+                            control={control}
+                            name="cpf"
+                            rules={{ required: 'Preencha seu CPF *' }}
+                            render={({ field: { value, onChange, onBlur } }) => (
+                                <FormInput
+                                    name="CPF"
+                                    placeholder="Digite seu CPF"
+                                    keyboardType="numeric"
+                                    value={value}
+                                    onBlur={onBlur}
+                                    onChangeText={text => onChange(applyCpfMask(text))}
+                                    error={errors.cpf?.message}
+                                />
+                            )}
                         />
-                        <FormInput
-                            name="Senha"
-                            placeholder="Digite sua Senha"
-                            secureTextEntry={true}
-                            value={password}
-                            onChangeText={(password) => setPassword(password)}
-                        />
+                        {errors.cpf && <Text style={styles.errorMessage}>{errors.cpf.message}</Text>}
 
+                        {/* Senha */}
+                        <Controller
+                            control={control}
+                            name="password"
+                            rules={{ required: 'Preencha sua senha *' }}
+                            render={({ field: { value, onChange, onBlur } }) => (
+                                <FormInput
+                                    name="Senha"
+                                    placeholder="Digite sua Senha"
+                                    secureTextEntry
+                                    value={value}
+                                    onBlur={onBlur}
+                                    onChangeText={onChange}
+                                    error={errors.password?.message}
+                                />
+                            )}
+                        />
+                        {errors.password && <Text style={styles.errorMessage}>{errors.password.message}</Text>}
 
                         <TouchableOpacity>
                             <Text style={styles.changePassword}>Esqueci minha senha</Text>    
@@ -62,12 +82,11 @@ export default function Login({ navigation }) {
                     </View>
                 
                     <View style={styles.buttonContainer}>
-                        <PrimaryButton text={
-                            !isLoading ?
-                            'Entrar' :
-                            <ActivityIndicator size={24} color={"#F5F5F7"}/>    
-                        } onPress={handleLogin}/>
-                        <PrimaryButton text='Continuar sem Cadastro' onPress={handleLogin}/>
+                        <PrimaryButton 
+                            text={!isLoading ? 'Entrar' : <ActivityIndicator size={24} color={"#F5F5F7"}/>}
+                            onPress={handleSubmit(onSubmit)}
+                        />
+                        <PrimaryButton text='Continuar sem Cadastro' onPress={handleSubmit(onSubmit)}/>
 
                         <View style={styles.registerContainer}>
                             <Text style={styles.registerHelper}>Ainda não possui uma conta?</Text>
@@ -79,7 +98,9 @@ export default function Login({ navigation }) {
 
                     <View style={styles.footer}>
                         <View style={styles.footerMainTextContainer}>
-                            <Text style={styles.footerMainTextDescription}><Text style={styles.footerMainTextAppName}>Queluz + | </Text> Desenvolvido por Diretoria de Tecnologia da</Text>
+                            <Text style={styles.footerMainTextDescription}>
+                                <Text style={styles.footerMainTextAppName}>Queluz + | </Text> Desenvolvido por Diretoria de Tecnologia da
+                            </Text>
                             <Text style={styles.footerMainTextDescription}>Informação e Secretaria de Comunicação</Text>
                         </View>
                         <Text style={styles.footerHallName}>Prefeitura Municipal de Queluz</Text>
@@ -91,73 +112,20 @@ export default function Login({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#F5F5F7',
-    },
-    mainContent: {
-        flex: 1,
-        paddingTop: 165,
-        alignItems: 'center',
-    },
-    logoContainer: {
-        marginBottom: 42,
-        alignItems: 'center'
-    },
-    logo: {
-        width: 152,
-        height: 85
-    },    
-    formContainer: {
-        gap: 20.7,
-        marginBottom: 18,
-        width: 313,
-    },
-    changePassword: {
-        fontSize: 12,
-        fontFamily: 'Poppins_500Medium',
-        textDecorationLine: 'underline'
-    },
-    buttonContainer: {
-        gap: 5.7
-    },
-    registerContainer: {
-        flexDirection: 'row',
-        gap: 5,
-        justifyContent: 'center',
-        marginTop: 18,
-        marginBottom: 70
-    },
-    registerHelper: {
-        fontSize: 10,
-        fontFamily: 'Poppins_500Medium'
-    },
-    register: {
-        fontSize: 10,
-        fontFamily: 'Poppins_500Medium',
-        color: '#0C447F',
-        textDecorationLine: 'underline'
-    },
-    footer: {
-        width: 254,
-        height: 59,
-        gap: 19,
-        alignItems: 'center',
-    },
-    footerMainTextContainer: {
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    footerMainTextAppName: {
-            fontSize: 7,
-            fontFamily: 'Poppins_300Light',
-    },
-    footerMainTextDescription: {
-            fontSize: 7,
-            fontFamily: 'Poppins_200ExtraLight'
-    },
-    footerHallName: {
-            fontSize: 7,
-            fontFamily: 'Poppins_200ExtraLight'
-    }
-});
+    container: { flex: 1, backgroundColor: '#F5F5F7' },
+    mainContent: { flex: 1, paddingTop: 165, alignItems: 'center' },
+    logoContainer: { marginBottom: 42, alignItems: 'center' },
+    logo: { width: 152, height: 85 },
+    formContainer: { gap: 20.7, marginBottom: 18, width: 313 },
+    errorMessage: { color: 'red', marginTop: -10 },
+    changePassword: { fontSize: 12, fontFamily: 'Poppins_500Medium', textDecorationLine: 'underline' },
+    buttonContainer: { gap: 5.7 },
+    registerContainer: { flexDirection: 'row', gap: 5, justifyContent: 'center', marginTop: 18, marginBottom: 70 },
+    registerHelper: { fontSize: 10, fontFamily: 'Poppins_500Medium' },
+    register: { fontSize: 10, fontFamily: 'Poppins_500Medium', color: '#0C447F', textDecorationLine: 'underline' },
+    footer: { width: 254, height: 59, gap: 19, alignItems: 'center' },
+    footerMainTextContainer: { flexDirection: 'column', alignItems: 'center' },
+    footerMainTextAppName: { fontSize: 7, fontFamily: 'Poppins_300Light' },
+    footerMainTextDescription: { fontSize: 7, fontFamily: 'Poppins_200ExtraLight' },
+    footerHallName: { fontSize: 7, fontFamily: 'Poppins_200ExtraLight' }
+})
