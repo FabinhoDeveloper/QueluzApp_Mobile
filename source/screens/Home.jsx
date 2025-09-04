@@ -21,7 +21,7 @@ export default function Home() {
                         <View style={styles.mainServicesRow}>
                             <ServiceCard serviceName="Agendar viagem" departmentName={"Secretaria de Saúde"} color={"#228D9C"} linkTarget={{stack: "ServicesStack", screen: "TripMainPage"}}/>
                             <ServiceCard serviceName="Agendar consulta médica" departmentName={"Secretaria de Saúde"} color={"#228D9C"}/>
-                            <ServiceCard serviceName="Ouvidoria" departmentName={"Secretaria de Administração"}/>
+                            <ServiceCard serviceName="Ouvidoria" departmentName={"Secretaria de Administração"} linkTarget={{stack: "ServicesStack", screen: "OmbudsmanForm"}}/>
                         </View>
                     </HomeSection>  
                     <HomeSection title="Categorias de Serviços" linkForMore={true} linkTarget={{stack: "ServicesStack", screen: "ServicesNavigation"}}>
