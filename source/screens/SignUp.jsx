@@ -1,22 +1,37 @@
-import { useState } from "react"
-import { Platform, StyleSheet, View, Text, Image, TouchableOpacity, Keyboard,KeyboardAvoidingView, TouchableWithoutFeedback, ScrollView } from "react-native"
+import { StyleSheet, View, Text, Image, TouchableOpacity, Keyboard, TouchableWithoutFeedback } from "react-native"
+import { useForm, Controller } from "react-hook-form"
+import { useNavigation } from "@react-navigation/native"
+import { useAuth } from "../contexts/AuthContext"
 
 import FormInput from "../components/FormInput"
 import PrimaryButton from "../components/PrimaryButton"
 import KeyboardAvoidingContainer from "../components/KeyboardAvoidingContainer"
 
 import applyCpfMask from "../utils/applyCpfMask"
+import applyPhoneMask from "../utils/applyPhoneMask"
+import isCpfValid from "../utils/isCpfValid"
+import getCpfDigits from "../utils/getCpfDigits"
 
-export default function SignUp({ navigation }) {
-    // Função para lidar com a mudança do CPF
-    const handleCpfChange = (text) => {
-        const maskedCpf = applyCpfMask(text)
-        setCpf(maskedCpf)
-    }
+export default function SignUp() {
+    const navigation = useNavigation()
+    const {} = useAuth()
+    const { control, handleSubmit, formState: { errors }} = useForm({
+        defaultValues: { 
+            first_name: "", 
+            surname: "", 
+            cpf: "", 
+            cellphone: "", 
+            email: "", 
+            password: "", 
+            password_confirmation: "", 
+            address: "" 
+        },
+        mode: "onSubmit"
+    })
 
-    // Função para obter apenas os dígitos do CPF (para enviar para API)
-    const getCpfDigits = () => {
-        return cpf.replace(/\D/g, '')
+    const handleSignUp = (data) => {
+        console.log(data)
+        navigation.navigate()
     }
 
     return (
@@ -27,46 +42,152 @@ export default function SignUp({ navigation }) {
                         <Image style={styles.logo} source={require("../../assets/images/logo_temporario.png")}/>
                     </View>
                     <View style={styles.formContainer}>
-                        <FormInput
-                            name="Primeiro Nome"
-                            placeholder="Digite seu primeiro nome"  
+                        <Controller
+                            control={control}
+                            name="first_name"
+                            rules={{ required: "Campo obrigatório" }}
+                            render={({field: {value, onChange, onBlur}}) => (
+                                <FormInput
+                                    name="Primeiro nome"
+                                    placeholder="Digite seu primeiro nome"
+                                    value={value}
+                                    onChangeText={text => onChange(text)}
+                                    onBlur={onBlur}
+                                />
+                            )}
                         />
-                        <FormInput
-                            name="Sobrenome"
-                            placeholder="Digite seu sobrenome"
+                        {errors.first_name && <Text style={styles.errorMessage}>{errors.first_name.message}</Text>}
+
+                        <Controller
+                            control={control}
+                            name="surname"
+                            rules={{ required: "Campo obrigatório" }}
+                            render={({field: {value, onChange, onBlur}}) => (
+                                <FormInput
+                                    name="Sobrenome"
+                                    placeholder="Digite seu sobrenome"
+                                    value={value}
+                                    onChangeText={text => onChange(text)}
+                                    onBlur={onBlur}
+                                />
+                            )}
                         />
-                        <FormInput
-                            name="CPF"
-                            keyboardType="numeric"
-                            placeholder="Digite seu CPF"
-                            onChangeText={handleCpfChange} // Usar a função com máscara
+                        {errors.surname && <Text style={styles.errorMessage}>{errors.surname.message}</Text>}
+
+                        <Controller
+                            control={control}
+                            name="cpf"
+                            rules={{ 
+                                required: "Campo obrigatório", 
+                                validate: (v) => isCpfValid(v.replace(/\D/g, "")) || "CPF inválido" 
+                            }}
+                            render={({field: {value, onChange, onBlur}}) => (
+                                <FormInput
+                                    name="CPF"
+                                    placeholder="Digite seu CPF"
+                                    keyboardType="numeric"
+                                    value={value}
+                                    onChangeText={text => onChange(applyCpfMask(text))}
+                                    onBlur={onBlur}
+                                />
+                            )}
                         />
-                        <FormInput
-                            name="Telefone"
-                            placeholder="Digite seu telefone"
+                        {errors.cpf && <Text style={styles.errorMessage}>{errors.cpf.message}</Text>}
+
+                        <Controller
+                            control={control}
+                            name="cellphone"
+                            rules={{
+                                required: "Campo obrigatório",
+                                validate: (v) => (v.replace(/\D/g, "").length === 11 || "Telefone inválido")
+                            }}
+                            render={({field: {value, onChange, onBlur}}) => (
+                                <FormInput
+                                    name="Telefone celular"
+                                    placeholder="Digite seu telefone"
+                                    keyboardType="numeric"
+                                    value={value}
+                                    onChangeText={text => onChange(applyPhoneMask(text))}
+                                    onBlur={onBlur}
+                                />
+                            )}
                         />
-                        <FormInput
-                            name="E-mail"
-                            placeholder="Digite seu email"
+                        {errors.cellphone && <Text style={styles.errorMessage}>{errors.cellphone.message}</Text>}
+
+                        <Controller
+                            control={control}
+                            name="email"
+                            rules={{ 
+                                required: "Campo obrigatório",
+                                validate: (v) => v.includes("@") || "E-mail inválido"
+                            }}
+                            render={({field: {value, onChange, onBlur}}) => (
+                                <FormInput
+                                    name="E-mail"
+                                    placeholder="Digite seu email"
+                                    value={value}
+                                    onChangeText={text => onChange(text)}
+                                    onBlur={onBlur}
+                                    keyboardType="email-address"
+                                    autoCapitalize="none"
+                                />
+                            )}
                         />
-                        <FormInput
-                            name="Senha"
-                            placeholder="Digite sua senha"
-                            secureTextEntry={true}
+                        {errors.email && <Text style={styles.errorMessage}>{errors.email.message}</Text>}
+
+                        <Controller
+                            control={control}
+                            name="password"
+                            rules={{ required: "Campo obrigatório" }}
+                            render={({field: {value, onChange, onBlur}}) => (
+                                <FormInput
+                                    name="Senha"
+                                    placeholder="Digite sua senha"
+                                    secureTextEntry={true}
+                                    value={value}
+                                    onChangeText={text => onChange(text)}
+                                    onBlur={onBlur}
+                                />
+                            )}
                         />
-                        <FormInput
-                            name="Confirmação da Senha"
-                            placeholder="Digite sua senha novamente"
-                            secureTextEntry={true}
+                        {errors.password && <Text style={styles.errorMessage}>{errors.password.message}</Text>}
+
+                        <Controller
+                            control={control}
+                            name="password_confirmation"
+                            rules={{ required: "Campo obrigatório" }}
+                            render={({field: {value, onChange, onBlur}}) => (
+                                <FormInput
+                                    name="Confirmação da Senha"
+                                    placeholder="Digite sua senha novamente"
+                                    secureTextEntry={true}
+                                    value={value}
+                                    onChangeText={text => onChange(text)}
+                                    onBlur={onBlur}
+                                />
+                            )}
                         />
-                        <FormInput
-                            name="Endereço"
-                            placeholder="Digite seu endereço"                       
+                        {errors.password_confirmation && <Text style={styles.errorMessage}>{errors.password_confirmation.message}</Text>}
+
+                        <Controller
+                            control={control}
+                            name="address"
+                            rules={{ required: "Campo obrigatório" }}
+                            render={({field: {value, onChange, onBlur}}) => (
+                                <FormInput
+                                    name="Endereço"
+                                    placeholder="Digite seu endereço"
+                                    value={value}
+                                    onChangeText={text => onChange(text)}
+                                    onBlur={onBlur}
+                                />
+                            )}
                         />
+                        {errors.address && <Text style={styles.errorMessage}>{errors.address.message}</Text>}
                     </View>
                 
                     <View style={styles.buttonContainer}>
-                        <PrimaryButton text='Cadastrar-se'/>
+                        <PrimaryButton text='Cadastrar-se' onPress={handleSubmit(handleSignUp)}/>
 
                         <View style={styles.registerContainer}>
                             <Text style={styles.registerHelper}>Já possui uma conta?</Text>
@@ -161,5 +282,9 @@ const styles = StyleSheet.create({
     footerHallName: {
             fontSize: 7,
             fontFamily: 'Poppins_200ExtraLight'
+    },
+    errorMessage: {
+        color: "red",
+        marginTop: -15
     }
 });
