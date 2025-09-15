@@ -4,9 +4,9 @@ export default function ConfirmationButton(props) {
     return (
         <TouchableOpacity 
             onPress={props.onPress}
-            style={[styles.container, props.isActive ? { backgroundColor: '#3E7F0C' } : { backgroundColor: '#ADADAD' }]}
+            style={[styles.container, props.isUnactive ?  { backgroundColor: '#ADADAD' } : { backgroundColor: '#3E7F0C' }]}
         >
-            <Text style={[styles.text, props.isActive ? { color: '#FFF' } : { color: '#000' }]}>{props.text}</Text>
+            <Text style={[styles.text, props.isUnactive ? { color: '#000' } : { color: '#FFF' }]}>{props.text}</Text>
         </TouchableOpacity>
     )
 }
