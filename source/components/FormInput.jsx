@@ -5,8 +5,20 @@ export default function FormInput(props) {
         <View style={styles.container}>
             <Text style={styles.name}>{props.name}</Text>
             <TextInput
-            style={styles.textInput}
-            {...props}
+                style={[
+                    styles.textInput, 
+                    props.size ? {
+                        height: props.size, 
+                        textAlignVertical: 'top',
+                        paddingTop: 12 // adiciona espaço no topo quando input é maior
+                    } : {
+                        height: 41.31,
+                        textAlignVertical: 'center'
+                    }
+                ]}           
+                multiline={props.size ? true : false} // habilita múltiplas linhas quando tem size
+                textBreakStrategy="simple"     
+                {...props}
         />
         </View>
     )
@@ -22,7 +34,6 @@ const styles = StyleSheet.create({
     },  
     textInput: {
         width: '100%',
-        height: 41.31,
         borderWidth: 1,
         fontFamily: 'Poppins_300Light',
         borderColor: '#C4C4C4',

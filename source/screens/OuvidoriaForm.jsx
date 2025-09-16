@@ -11,10 +11,12 @@ import ConfirmationButton from "../components/ConfirmationButton";
 import NeutralButton from "../components/NeutralButton";
 import FormPicker from "../components/FormPicker";
 import { Picker } from "@react-native-picker/picker";
+import { useNavigation } from "@react-navigation/native";
 
 export default function OuvidoriaForm() {
     const [showCategories, setShowCategories] = useState(false)
     const [categoria, setCategoria] = useState("")
+    const navigation = useNavigation()
     const {user} = useAuth()
 
     return (
@@ -31,6 +33,7 @@ export default function OuvidoriaForm() {
 
                     <FormInput
                         name="Mensagem"
+                        size={150}
                     />
 
                     <FormInput
@@ -43,7 +46,7 @@ export default function OuvidoriaForm() {
                     />
 
                     <ConfirmationButton text="Enviar mensagem"/>
-                    <NeutralButton text={"Cancelar"}/>
+                    <NeutralButton text={"Cancelar"} onPress={() => navigation.goBack()}/>
                 </View>
             </KeyboardAvoidingContainer>
         </ScrollViewWithMarginBottom>
