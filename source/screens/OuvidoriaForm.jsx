@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
+import { Controller, useForm } from "react-hook-form";
 
 import { useAuth } from "../contexts/AuthContext";
 import KeyboardAvoidingContainer from "../components/KeyboardAvoidingContainer";
@@ -13,10 +14,17 @@ import FormPicker from "../components/FormPicker";
 import { useNavigation } from "@react-navigation/native";
 
 export default function OuvidoriaForm() {
-    const [showCategories, setShowCategories] = useState(false)
-    const [categoria, setCategoria] = useState("")
     const navigation = useNavigation()
-    const {user} = useAuth()
+    const { user } = useAuth()
+    const { control, handleSubmit, formState: errors } = useForm({
+        defaultValues: {
+            assunto: "",
+            categoria: "",
+            mensagem: "",
+            nome_solicitante: "",
+            email_solicitante: ""
+        }
+    })
 
     return (
         <ScrollViewWithMarginBottom size={100}>
@@ -27,7 +35,7 @@ export default function OuvidoriaForm() {
                     <FormInput
                         name="Assunto"
                     />
-
+                    
                     <FormPicker name="Categoria" list={["Elogio", "Reclamação", "Sugestão", "Informação"]}/>
 
                     <FormInput

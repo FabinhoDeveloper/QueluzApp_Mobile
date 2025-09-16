@@ -24,7 +24,7 @@ export default function Home() {
                             <ServiceCard serviceName="Ouvidoria" departmentName={"Secretaria de Administração"} linkTarget={{stack: "Serviços", screen: "OuvidoriaForm"}}/>
                         </View>
                     </HomeSection>  
-                    <HomeSection title="Categorias de Serviços" linkForMore={true} linkTarget={{stack: "ServicesStack", screen: "ServicesNavigation"}}>
+                    <HomeSection title="Categorias de Serviços" linkForMore={true} linkTarget={{stack: "Serviços", screen: "ServicesNavigation"}}>
                         <View style={styles.serviceCardsRow}>
                             <DepartmentCard departmentName="Saúde" source={require("../../assets/images/icons/icon_saude.png")} linkTarget={{stack: "Serviços", screen: "HealthServices"}}/>
                             <DepartmentCard departmentName="Administração" source={require("../../assets/images/icons/icon_administracao.png")} linkTarget={{stack: "Serviços", screen: "AdministrationServices"}}/>
