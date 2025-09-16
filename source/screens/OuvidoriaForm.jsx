@@ -10,7 +10,6 @@ import FormSection from "../components/FormSection";
 import ConfirmationButton from "../components/ConfirmationButton";
 import NeutralButton from "../components/NeutralButton";
 import FormPicker from "../components/FormPicker";
-import { Picker } from "@react-native-picker/picker";
 import { useNavigation } from "@react-navigation/native";
 
 export default function OuvidoriaForm() {
@@ -29,7 +28,7 @@ export default function OuvidoriaForm() {
                         name="Assunto"
                     />
 
-                    <FormPicker name="Categoria"/>
+                    <FormPicker name="Categoria" list={["Elogio", "Reclamação", "Sugestão", "Informação"]}/>
 
                     <FormInput
                         name="Mensagem"

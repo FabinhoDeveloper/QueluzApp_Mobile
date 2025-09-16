@@ -8,14 +8,13 @@ export default function FormPicker(props) {
                 <View style={styles.pickerContainer}>
                     <Picker 
                         {...props}
-                    >
+                    >   
                         <Picker.Item label="Selecione uma categoria" value="" enabled={false}/>
-                        <Picker.Item label="Elogio" value="elogio" />
-                        <Picker.Item label="Sugestão" value="sugestao" />
-                        <Picker.Item label="Reclamação" value="reclamacao" />
+                        {props.list.map((item) => (
+                            <Picker.Item label={item} value={item} />
+                        ))}
                     </Picker>
                 </View>
-                
         </View>
     )
 }
