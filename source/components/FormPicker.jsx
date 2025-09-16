@@ -9,7 +9,7 @@ export default function FormPicker(props) {
                     <Picker 
                         {...props}
                     >
-                        <Picker.Item label="Selecione uma categoria" value="" />
+                        <Picker.Item label="Selecione uma categoria" value="" enabled={false}/>
                         <Picker.Item label="Elogio" value="elogio" />
                         <Picker.Item label="Sugestão" value="sugestao" />
                         <Picker.Item label="Reclamação" value="reclamacao" />
