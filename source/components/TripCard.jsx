@@ -23,7 +23,7 @@ export default function TripCard({ status, local, data }) {
         switch(status) {
             case "Cancelada":
                 return ( <Feather name="x" size={32} color="white" /> )
-            case "Realizada":0
+            case "Realizada":
                 return ( <Feather name="check" size={32} color="white" />)
             case "Confirmada":
                 return ( <MaterialIcons name="directions-car" size={32} color="white" />)
