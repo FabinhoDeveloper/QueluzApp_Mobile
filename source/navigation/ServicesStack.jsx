@@ -16,7 +16,7 @@ import TripReview from '../screens/TripReview';
 import OuvidoriaForm from '../screens/OuvidoriaForm';
 import ConsultationMainPage from '../screens/ConsultationMainPage';
 import ConsultationForm from '../screens/ConsultationForm';
-import ConsultationConfirmation from '../screens/ConsultationConfirmation';
+import ConsultationReview from '../screens/ConsultationReview';
 
 const Stack = createStackNavigator();
 
@@ -39,7 +39,7 @@ export default function ServicesStack() {
         <Stack.Screen name='OuvidoriaForm' component={OuvidoriaForm}/>
         <Stack.Screen name="ConsultationMainPage" component={ConsultationMainPage} />
         <Stack.Screen name="ConsultationForm" component={ConsultationForm} />
-        <Stack.Screen name="ConsultationConfirmation" component={ConsultationConfirmation} />
+        <Stack.Screen name="ConsultationReview" component={ConsultationReview} />
     </Stack.Navigator>
   );
 }
