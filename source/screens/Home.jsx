@@ -20,7 +20,7 @@ export default function Home() {
                     <HomeSection title="Serviços em Destaque">
                         <View style={styles.mainServicesRow}>
                             <ServiceCard serviceName="Agendar viagem" departmentName={"Secretaria de Saúde"} color={"#228D9C"} linkTarget={{stack: "Serviços", screen: "TripMainPage"}}/>
-                            <ServiceCard serviceName="Agendar consulta médica" departmentName={"Secretaria de Saúde"} color={"#228D9C"}/>
+                            <ServiceCard serviceName="Agendar consulta médica" departmentName={"Secretaria de Saúde"} color={"#228D9C"} linkTarget={{stack: "Serviços", screen: "ConsultationMainPage"}}/>
                             <ServiceCard serviceName="Ouvidoria" departmentName={"Secretaria de Administração"} linkTarget={{stack: "Serviços", screen: "OuvidoriaForm"}}/>
                         </View>
                     </HomeSection>  
