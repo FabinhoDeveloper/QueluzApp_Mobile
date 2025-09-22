@@ -10,6 +10,7 @@ export function AuthProvider({children}) {
         id: 1,
         first_name: "Fábio", 
         surname: "Santos", 
+        cpf: "17741576755",
         email: "fabio.ti@queluz.sp.gov.br", 
         address: "Rua das Flores, 123, Queluz", 
         cellphone: "(24) 99275-3941"
@@ -20,13 +21,20 @@ export function AuthProvider({children}) {
         setUser(userSigned)
     }
 
+    function signIn( first_name, surname, cpf, cellphone, email, password, password_confirmation, address ) {
+        setIsSigned(true)
+
+        const user = { first_name, surname, cpf, cellphone, email, address }
+        setUser(user)
+    }
+    
     function logout() {
         setIsSigned(false)
         setUser(null)
     }
 
     return (
-        <AuthContext.Provider value={{ isSigned, login, logout, user }}>
+        <AuthContext.Provider value={{ isSigned, login, logout, signIn, user }}>
             { children }
         </AuthContext.Provider>
     )

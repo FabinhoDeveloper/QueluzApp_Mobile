@@ -1,7 +1,8 @@
-import { StyleSheet, View, Text, Image, TouchableOpacity, Keyboard, TouchableWithoutFeedback } from "react-native"
+import { StyleSheet, View, Text, Image, TouchableOpacity, Keyboard, TouchableWithoutFeedback, Alert } from "react-native"
 import { useForm, Controller } from "react-hook-form"
 import { useNavigation } from "@react-navigation/native"
 import { useAuth } from "../contexts/AuthContext"
+import { useState } from "react"
 
 import FormInput from "../components/FormInput"
 import PrimaryButton from "../components/PrimaryButton"
@@ -13,9 +14,10 @@ import isCpfValid from "../utils/isCpfValid"
 import getCpfDigits from "../utils/getCpfDigits"
 
 export default function SignUp() {
+    const [isLoading, setIsLoading] = useState(false)
     const navigation = useNavigation()
-    const {} = useAuth()
-    const { control, handleSubmit, formState: { errors }} = useForm({
+    const { signIn } = useAuth()
+    const { control, handleSubmit, formState: { errors }, getValues } = useForm({
         defaultValues: { 
             first_name: "", 
             surname: "", 
@@ -28,11 +30,19 @@ export default function SignUp() {
         },
         mode: "onSubmit"
     })
+    console.log("ERROS", errors)
 
-    const handleSignUp = (data) => {
-        console.log(data)
-        navigation.navigate()
+    const onSubmit = (data) => {
+        console.log(data) // aqui você vê o CPF e senha enviados pelo form
+        setIsLoading(true)
+        const cpfDigits = data.cpf.replace(/\D/g, '') // remove máscara
+        setTimeout(() => {
+            signIn(data.first_name, data.surname, data.cpf, data.cellphone, data.email, data.password, data.password_confirmation, data.password, data.address)
+            setIsLoading(false)
+        }, 1000)
     }
+
+    const verifyPasswordConfirmation = (pswd1, pswd2) => pswd1 == pswd2
 
     return (
         <KeyboardAvoidingContainer>
@@ -77,21 +87,21 @@ export default function SignUp() {
                         <Controller
                             control={control}
                             name="cpf"
-                            rules={{ 
-                                required: "Campo obrigatório", 
-                                validate: (v) => isCpfValid(v.replace(/\D/g, "")) || "CPF inválido" 
+                            rules={{
+                                required: "Campo obrigatório",
                             }}
-                            render={({field: {value, onChange, onBlur}}) => (
+                            render={({ field: { value, onChange, onBlur } }) => (
                                 <FormInput
-                                    name="CPF"
-                                    placeholder="Digite seu CPF"
-                                    keyboardType="numeric"
-                                    value={value}
-                                    onChangeText={text => onChange(applyCpfMask(text))}
-                                    onBlur={onBlur}
+                                name="CPF"
+                                placeholder="Digite seu CPF"
+                                keyboardType="numeric"
+                                value={value}
+                                onChangeText={text => /*onChange(applyCpfMask(text))*/ onChange(applyCpfMask(text))}
+                                onBlur={onBlur}
                                 />
                             )}
                         />
+
                         {errors.cpf && <Text style={styles.errorMessage}>{errors.cpf.message}</Text>}
 
                         <Controller
@@ -155,7 +165,11 @@ export default function SignUp() {
                         <Controller
                             control={control}
                             name="password_confirmation"
-                            rules={{ required: "Campo obrigatório" }}
+                            rules={{ 
+                                required: "Campo obrigatório", 
+                                validate: (v) => verifyPasswordConfirmation(v, getValues("password")) || "A senhas não coincidem" 
+
+                            }}
                             render={({field: {value, onChange, onBlur}}) => (
                                 <FormInput
                                     name="Confirmação da Senha"
@@ -187,7 +201,7 @@ export default function SignUp() {
                     </View>
                 
                     <View style={styles.buttonContainer}>
-                        <PrimaryButton text='Cadastrar-se' onPress={handleSubmit(handleSignUp)}/>
+                        <PrimaryButton text='Cadastrar-se' onPress={handleSubmit(onSubmit)}/>
 
                         <View style={styles.registerContainer}>
                             <Text style={styles.registerHelper}>Já possui uma conta?</Text>
