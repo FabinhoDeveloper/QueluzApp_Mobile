@@ -7,9 +7,11 @@ import InfoCard from "../components/InfoCard";
 import NeutralButton from "../components/NeutralButton";
 import ConfirmationButton from "../components/ConfirmationButton";
 
-import { TextInput } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
 
 export default function TripReview() {
+    const navigation = useNavigation()
+
     return (
         <ScrollViewWithMarginBottom size={100}>
             <SecondaryStackHeader title={"Solicitação\nde Viagem"} color={"#228D9C"}/>
@@ -48,7 +50,7 @@ export default function TripReview() {
             
             <View style={{gap: 10}}>
                 <NeutralButton text={"Não está certo"}/>
-                <ConfirmationButton text={"Confirmar solicitação"} isActive={true}/>
+                <ConfirmationButton text={"Confirmar solicitação"} isActive={true} onPress={() => navigation.navigate("TripSuccess")}/>
             </View>
             
             </View>
