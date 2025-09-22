@@ -51,15 +51,7 @@ export default function TripForm() {
                         
                         {isUBSSelected && <FormPicker name="Especialidade" list={["Elogio", "Reclamação", "Sugestão", "Informação"]}/>} 
 
-                        <View style={styles.formFooter}>
-                            <View style={styles.formFooterRow}>
-                                <FormInput name={"Data"}/>
-                            </View>
-                            
-                            <View style={styles.formFooterRow}>
-                                <FormInput name={"Hora"}/>
-                            </View>
-                        </View>
+                        
                     </View>
                 </FormSection>
 

@@ -6,8 +6,11 @@ import ScrollViewWithMarginBottom from "../components/ScrollViewWithMarginBottom
 import InfoCard from "../components/InfoCard";
 import NeutralButton from "../components/NeutralButton";
 import ConfirmationButton from "../components/ConfirmationButton";
+import { useNavigation } from "@react-navigation/native";
 
 export default function ConsultationReview() {
+    const navigation = useNavigation()
+
     return (
         <ScrollViewWithMarginBottom size={100}>
             <SecondaryStackHeader title={"Agendamento\nde Consulta"} color={"#228D9C"}/>
@@ -45,8 +48,8 @@ export default function ConsultationReview() {
             </View>
             
             <View style={{gap: 10}}>
-                <NeutralButton text={"Não está certo"}/>
-                <ConfirmationButton text={"Confirmar agendamento"} isActive={true}/>
+                <NeutralButton text={"Não está certo"} onPress={() => navigation.goBack()}/>
+                <ConfirmationButton text={"Confirmar agendamento"} isActive={true} onPress={() => navigation.navigate("ConsultationSuccess")}/>
             </View>
             
             </View>
