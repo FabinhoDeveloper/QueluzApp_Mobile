@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../contexts/AuthContext";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 import SecondaryButton from "../components/SecondaryButton";
 import ScrollViewWithMarginBottom from "../components/ScrollViewWithMarginBottom";
@@ -20,6 +21,12 @@ export default function TripForm() {
     const [selectedOption, setSelectedOption] = useState("Para mim");
     const [addCompanion, setAddCompanion] = useState(false);
     const [isAbleToPress, setIsAbleToPress] = useState(true);
+    const [date, setDate] = useState(new Date());
+    const [time, setTime] = useState(new Date());
+
+    const [showDatePicker, setShowDatePicker] = useState(false);
+    const [showTimePicker, setShowTimePicker] = useState(false);
+
     const navigation = useNavigation();
     const { user } = useAuth();
 
@@ -66,7 +73,19 @@ export default function TripForm() {
 
     const onSubmit = (data) => {
         console.log("Form Data:", data);
-        navigation.navigate("TripReview");
+        navigation.navigate("TripReview", { formData: data });
+    };
+
+    const onDateChange = (event, selectedDate) => {
+        const currentDate = selectedDate || date;
+        setShowDatePicker(false);
+        setDate(currentDate);
+    };
+    
+    const onTimeChange = (event, selectedTime) => {
+        const currentTime = selectedTime || time;
+        setShowTimePicker(false);
+        setTime(currentTime);
     };
 
     return (
@@ -193,6 +212,7 @@ export default function TripForm() {
                                 )}
                             />
                             {errors.local && <Text style={styles.errorMessage}>{errors.local.message}</Text>}
+                        
 
                             <Controller
                                 control={control}
@@ -302,7 +322,7 @@ export default function TripForm() {
                                             name="Telefone"
                                             value={value}
                                             onBlur={onBlur}
-                                            onChangeText={onChange}
+                                            onChangeText={text => onChange(applyPhoneMask(text))}
                                             error={errors.companion_phone?.message}
                                         />
                                     )}
