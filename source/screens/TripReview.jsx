@@ -1,4 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
+import { useRoute } from "@react-navigation/native";
 
 import SecondaryStackHeader from "../components/SecondaryStackHeader";
 import FormSection from "../components/FormSection";
@@ -11,6 +12,15 @@ import { useNavigation } from "@react-navigation/native";
 
 export default function TripReview() {
     const navigation = useNavigation()
+    const route = useRoute();
+    const { formData } = route.params;
+    console.log(formData);
+
+    const handleConfirm = () => {
+        console.log("Confirmando solicitação");
+        console.log(formData);
+        navigation.navigate("TripSuccess");
+    }
 
     return (
         <ScrollViewWithMarginBottom size={100}>
@@ -21,36 +31,40 @@ export default function TripReview() {
                     <InfoCard
                         title={"PACIENTE"}
                         items={[
-                            { value: "Fábio Ezequiel Teixeira dos Santos", bold: true },
-                            { label: "E-mail", value: "fabioezequiel555@gmail.com" },
-                            { label: "Telefone", value: "(24) 99275-3941" },
-                            { label: "Endereço", value: "Rua Corifeu de Azevedo Marques, 435, São Miguel" },
-                        ]}
-                    />
-                    
-                    <InfoCard
-                        title={"CONSULTA"}
-                        items={[
-                            { value: "Santa Casa de Aparecida", bold: true },
-                            { label: "Endereço", value: "Rua Manoel de Santos Marques, 234, Centro, Aparecida/SP" },
-                            { label: "Data", value: "29/10/2025" },
-                            { label: "Horário", value: "15h30" },
+                            { value: `${formData.first_name} ${formData.surname}`, bold: true },
+                            { label: "E-mail", value: formData.email },
+                            { label: "Telefone", value: formData.cellphone },
+                            { label: "Endereço", value: formData.address },
                         ]}
                     />
 
                     <InfoCard
-                        title={"ACOMPANHANTE"}
+                        title={"CONSULTA"}
                         items={[
-                            { value: "Érika Aparecida Teixeira Francisco dos Santos", bold: true },
-                            { label: "Endereço", value: "Rua Manoel de Santos Marques, 234, Centro, Aparecida/SP" },
-                            { label: "Telefone", value: "(12) 99707-9759" },
+                            { value: formData.local, bold: true },
+                            { label: "Endereço", value: formData.local_address },
+                            { label: "Data", value: formData.data },
+                            { label: "Horário", value: formData.hora },
                         ]}
                     />
+
+                    {formData.companion_name ? (
+                        <InfoCard
+                            title={"ACOMPANHANTE"}
+                            items={[
+                            { value: formData.companion_name, bold: true },
+                            { label: "Telefone", value: formData.companion_phone },
+                            { label: "E-mail", value: formData.companion_email },
+                            { label: "Endereço", value: formData.companion_address },
+                            ]}
+                        />
+                    ) : null}
+
             </View>
             
             <View style={{gap: 10}}>
                 <NeutralButton text={"Não está certo"}/>
-                <ConfirmationButton text={"Confirmar solicitação"} isActive={true} onPress={() => navigation.navigate("TripSuccess")}/>
+                <ConfirmationButton text={"Confirmar solicitação"} isActive={true} onPress={handleConfirm}/>
             </View>
             
             </View>
