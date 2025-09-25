@@ -8,7 +8,7 @@ import ServicesStack from "./ServicesStack";
 
 const Tab = createBottomTabNavigator()
 
-export default function MainNavigator() {
+export default function MainTab() {
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({

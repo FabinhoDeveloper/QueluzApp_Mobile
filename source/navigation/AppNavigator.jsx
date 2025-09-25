@@ -2,7 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { useAuth } from "../contexts/AuthContext";
 
 import AuthNavigator from "./AuthNavigator";
-import MainNavigator from "./MainNavigator";
+import MainTab from "./MainNavigator";
 
 export default function AppNavigator() {
     const { isSigned } = useAuth()
@@ -10,7 +10,7 @@ export default function AppNavigator() {
     return (
         <NavigationContainer>
             { isSigned ? 
-                <MainNavigator/>
+                <MainTab/>
                  : 
                 <AuthNavigator/>     
             }
