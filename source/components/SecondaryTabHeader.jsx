@@ -1,9 +1,12 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Feather from '@expo/vector-icons/Feather';
+
 import { useAuth } from "../contexts/AuthContext";
+import { useNavigation } from "@react-navigation/native";
 
 export default function SecondaryTabHeader() {
     const {user} = useAuth()
+    const navigation = useNavigation()
 
     return (
         <View style={styles.container}>
@@ -13,7 +16,7 @@ export default function SecondaryTabHeader() {
                         <Text style={styles.headerHello}>Olá,</Text>
                         <Text style={styles.headerUserName}>{user ? user.first_name : "visitante"}!</Text>
                     </View>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.openDrawer()}>
                         <Feather name="menu" size={24} color="white" />
                     </TouchableOpacity>                                                           
                 </View>               

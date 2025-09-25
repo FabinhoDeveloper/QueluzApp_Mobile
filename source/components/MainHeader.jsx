@@ -1,12 +1,13 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Feather from '@expo/vector-icons/Feather';
 import SearchBox from "./SearchBox";
-import { useState } from "react";
-import NewsCarousel from "./NewsCarousel";
+
 import { useAuth } from "../contexts/AuthContext";
+import { useNavigation } from "@react-navigation/native";
 
 export default function MainHeader() {
     const {user} = useAuth()
+    const navigation = useNavigation()
 
     return (
         <View style={styles.container}>
@@ -16,7 +17,7 @@ export default function MainHeader() {
                         <Text style={styles.headerHello}>Olá,</Text>
                         <Text style={styles.headerUserName}>{user ? user.first_name : "visitante"}!</Text>
                     </View>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.openDrawer()}>
                         <Feather name="menu" size={24} color="white" />
                     </TouchableOpacity>                                                           
                 </View>
