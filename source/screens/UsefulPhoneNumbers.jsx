@@ -1,8 +1,11 @@
 import { Text, View } from "react-native";
 
+import SecondaryTabHeader from "../components/SecondaryTabHeader";
+
 export default function UsefulPhoneNumbers() {
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        <View style={{ flex: 1 }}>
+            <SecondaryTabHeader/>
             <Text>UsefulPhoneNumbers Screen</Text>
         </View>
     )
