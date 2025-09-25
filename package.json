@@ -12,6 +12,7 @@
     "@expo-google-fonts/poppins": "^0.4.0",
     "@expo-google-fonts/roboto-flex": "^0.4.0",
     "@expo/metro-runtime": "~6.1.2",
+    "@react-native-community/datetimepicker": "^8.4.5",
     "@react-native-picker/picker": "2.11.1",
     "@react-navigation/bottom-tabs": "^7.4.6",
     "@react-navigation/drawer": "^7.5.8",

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Platform } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../contexts/AuthContext";
@@ -21,8 +21,8 @@ export default function TripForm() {
     const [selectedOption, setSelectedOption] = useState("Para mim");
     const [addCompanion, setAddCompanion] = useState(false);
     const [isAbleToPress, setIsAbleToPress] = useState(true);
-    const [date, setDate] = useState(new Date());
-    const [time, setTime] = useState(new Date());
+    const [dateObj, setDateObj] = useState(null);
+    const [timeObj, setTimeObj] = useState(null);
 
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [showTimePicker, setShowTimePicker] = useState(false);
@@ -76,16 +76,23 @@ export default function TripForm() {
         navigation.navigate("TripReview", { formData: data });
     };
 
-    const onDateChange = (event, selectedDate) => {
-        const currentDate = selectedDate || date;
-        setShowDatePicker(false);
-        setDate(currentDate);
+    const formatDate = (d) => {
+        const day = d ? String(d.getDate()).padStart(2, '0') : "";
+        const month = d ? String(d.getMonth() + 1).padStart(2, '0') : "";
+        const year = d ? d.getFullYear() : "";
+        return `${day}/${month}/${year}`;
     };
-    
-    const onTimeChange = (event, selectedTime) => {
-        const currentTime = selectedTime || time;
-        setShowTimePicker(false);
-        setTime(currentTime);
+
+    const formatTime = (t) => {
+        const hours = t ? String(t.getHours()).padStart(2, '0') : "";
+        const minutes = t ? String(t.getMinutes()).padStart(2, '0') : "";
+        return `${hours}:${minutes}`;
+    };
+
+    const getTodayStart = () => {
+        const d = new Date();
+        d.setHours(0, 0, 0, 0);
+        return d;
     };
 
     return (
@@ -253,17 +260,38 @@ export default function TripForm() {
                                     control={control}
                                     name="data"
                                     rules={{ required: "Data é obrigatória" }}
-                                    render={({ field: { value, onChange, onBlur } }) => (
-                                        <FormInput
-                                            name="Data"
-                                            value={value}
-                                            onBlur={onBlur}
-                                            onChangeText={onChange}
-                                            error={errors.data?.message}
-                                        />
+                                    render={({ field: { value, onChange } }) => (
+                                        <View>
+                                            <Text style={styles.inputLabel}>Data</Text>
+                                            <TouchableOpacity
+                                                onPress={() => setShowDatePicker(true)}
+                                                style={styles.pickerInput}
+                                            >
+                                                <Text style={styles.pickerValue}>
+                                                    {value ? value : ""}
+                                                </Text>
+                                            </TouchableOpacity>
+                                            {showDatePicker && (
+                                                <DateTimePicker
+                                                    value={dateObj || new Date()}
+                                                    mode="date"
+                                                    display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+                                                    minimumDate={getTodayStart()}
+                                                    onChange={(event, selectedDate) => {
+                                                        if (Platform.OS !== 'ios') {
+                                                            setShowDatePicker(false);
+                                                            if (event?.type !== 'set') return; // dismissed
+                                                        }
+                                                        const currentDate = selectedDate || dateObj || new Date();
+                                                        setDateObj(currentDate);
+                                                        onChange(formatDate(currentDate));
+                                                    }}
+                                                />
+                                            )}
+                                            {errors.data && <Text style={styles.errorMessage}>{errors.data.message}</Text>}
+                                        </View>
                                     )}
                                 />
-                                {errors.data && <Text style={styles.errorMessage}>{errors.data.message}</Text>}
                             </View>
                             
                             <View style={styles.formFooterRow}>
@@ -271,17 +299,37 @@ export default function TripForm() {
                                     control={control}
                                     name="hora"
                                     rules={{ required: "Hora é obrigatória" }}
-                                    render={({ field: { value, onChange, onBlur } }) => (
-                                        <FormInput
-                                            name="Hora"
-                                            value={value}
-                                            onBlur={onBlur}
-                                            onChangeText={onChange}
-                                            error={errors.hora?.message}
-                                        />
+                                    render={({ field: { value, onChange } }) => (
+                                        <View>
+                                            <Text style={styles.inputLabel}>Hora</Text>
+                                            <TouchableOpacity
+                                                onPress={() => setShowTimePicker(true)}
+                                                style={styles.pickerInput}
+                                            >
+                                                <Text style={styles.pickerValue}>
+                                                    {value ? value : ""}
+                                                </Text>
+                                            </TouchableOpacity>
+                                            {showTimePicker && (
+                                                <DateTimePicker
+                                                    value={timeObj || new Date()}
+                                                    mode="time"
+                                                    display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+                                                    onChange={(event, selectedTime) => {
+                                                        if (Platform.OS !== 'ios') {
+                                                            setShowTimePicker(false);
+                                                            if (event?.type !== 'set') return; // dismissed
+                                                        }
+                                                        const currentTime = selectedTime || timeObj || new Date();
+                                                        setTimeObj(currentTime);
+                                                        onChange(formatTime(currentTime));
+                                                    }}
+                                                />
+                                            )}
+                                            {errors.hora && <Text style={styles.errorMessage}>{errors.hora.message}</Text>}
+                                        </View>
                                     )}
                                 />
-                                {errors.hora && <Text style={styles.errorMessage}>{errors.hora.message}</Text>}
                             </View>
                         </View>
                     </FormSection>
@@ -321,6 +369,7 @@ export default function TripForm() {
                                         <FormInput
                                             name="Telefone"
                                             value={value}
+                                            keyboardType="numeric"
                                             onBlur={onBlur}
                                             onChangeText={text => onChange(applyPhoneMask(text))}
                                             error={errors.companion_phone?.message}
@@ -402,5 +451,24 @@ const styles = StyleSheet.create({
     errorMessage: {
         color: "red",
         marginTop: -10
+    },
+    inputLabel: {
+        fontSize: 14,
+        fontFamily: 'Poppins_500Medium',
+        marginBottom: 13
+    },
+    pickerInput: {
+        width: '100%',
+        borderWidth: 1,
+        borderColor: '#C4C4C4',
+        borderRadius: 12,
+        paddingHorizontal: 18,
+        height: 41.31,
+        justifyContent: 'center'
+    },
+    pickerValue: {
+        color: "#636364",
+        fontSize: 14,
+        fontFamily: 'Poppins_300Light'
     }
 });
