@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Platform } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Platform, Button } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../contexts/AuthContext";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import * as ImagePicker from 'expo-image-picker'
 
 import SecondaryButton from "../components/SecondaryButton";
 import ScrollViewWithMarginBottom from "../components/ScrollViewWithMarginBottom";
@@ -11,6 +12,7 @@ import SecondaryStackHeader from "../components/SecondaryStackHeader";
 import CustomCheckBox from "../components/CustomCheckBox";
 import FormSection from "../components/FormSection";
 import FormInput from "../components/FormInput";
+import FormInputButton from "../components/FormInputButton";
 import KeyboardAvoidingContainer from "../components/KeyboardAvoidingContainer";
 import NeutralButton from "../components/NeutralButton";
 import ConfirmationButton from "../components/ConfirmationButton";
@@ -23,9 +25,9 @@ export default function TripForm() {
     const [isAbleToPress, setIsAbleToPress] = useState(true);
     const [dateObj, setDateObj] = useState(null);
     const [timeObj, setTimeObj] = useState(null);
-
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [showTimePicker, setShowTimePicker] = useState(false);
+    const [image, setImage] = useState(null)
 
     const navigation = useNavigation();
     const { user } = useAuth();
@@ -39,7 +41,7 @@ export default function TripForm() {
             address: user?.address || "",
             local: "",
             local_address: "",
-            comprovante: "",
+            comprovante: null,
             data: "",
             hora: "",
             companion_name: "",
@@ -93,6 +95,42 @@ export default function TripForm() {
         const d = new Date();
         d.setHours(0, 0, 0, 0);
         return d;
+    };
+
+    const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+        let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ['images', 'videos'],
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+        });
+
+        console.log(result);
+
+        if (!result.canceled) {
+        setImage(result.assets[0].uri);
+        }
+    };
+
+    const takePhoto = async () => {
+        const permission = await ImagePicker.requestCameraPermissionsAsync();
+        if (permission.status !== "granted") {
+            alert("Permissão para acessar a câmera é necessária!");
+            return;
+        }
+
+        let result = await ImagePicker.launchCameraAsync({
+            allowsEditing: false,
+            aspect: [4, 3],
+            quality: 0.8,
+        });
+
+        console.log(result);
+
+        if (!result.canceled) {
+            setImage(result.assets[0].uri);
+        }
     };
 
     return (
@@ -241,14 +279,26 @@ export default function TripForm() {
                                 control={control}
                                 name="comprovante"
                                 rules={{ required: "Comprovante é obrigatório" }}
-                                render={({ field: { value, onChange, onBlur } }) => (
-                                    <FormInput
-                                        name="Comprovante de solicitação"
+                                render={({ field: { value, onChange } }) => (
+                                    <>
+                                    <FormInputButton
+                                        name="Comprovante de agendamento"
+                                        placeholder="Selecionar da galeria"
+                                        onPress={async () => {
+                                        await pickImage();
+                                        onChange(image); // salva no form
+                                        }}
                                         value={value}
-                                        onBlur={onBlur}
-                                        onChangeText={onChange}
-                                        error={errors.comprovante?.message}
                                     />
+                                    <NeutralButton
+                                        text="Tirar Foto"
+                                        onPress={async () => {
+                                        await takePhoto();
+                                        onChange(image); // salva no form
+                                        }}
+                                    />
+                                    {value && <Text>Imagem selecionada ✔️</Text>}
+                                    </>
                                 )}
                             />
                             {errors.comprovante && <Text style={styles.errorMessage}>{errors.comprovante.message}</Text>}
