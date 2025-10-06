@@ -109,7 +109,7 @@ export default function TripForm() {
         console.log(result);
 
         if (!result.canceled) {
-        setImage(result.assets[0].uri);
+            setImage(result.assets[0].uri);
         }
     };
 
@@ -297,7 +297,7 @@ export default function TripForm() {
                                         onChange(image); // salva no form
                                         }}
                                     />
-                                    {value && <Text>Imagem selecionada ✔️</Text>}
+                                    {image && <Text>Imagem selecionada ✔️</Text>}
                                     </>
                                 )}
                             />

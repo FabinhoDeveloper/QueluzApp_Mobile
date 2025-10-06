@@ -1,7 +1,7 @@
 import { StyleSheet, View, ScrollView, Text } from "react-native"
+import { useState } from "react"
 
 import MainHeader from "../components/MainHeader"
-import NewsCarousel from "../components/NewsCarousel"
 import HomeSection from "../components/HomeSection"
 import DepartmentCard from "../components/DepartmentCard"
 import ServiceCard from "../components/ServiceCard"
@@ -9,12 +9,15 @@ import CourseCard from "../components/CourseCard"
 import ScrollViewWithMarginBottom from "../components/ScrollViewWithMarginBottom"
 
 export default function Home() {
+    const [isSearchFocused, setIsSearchFocused] = useState(false)
+
     return (
         <ScrollViewWithMarginBottom size={80}>
-            <MainHeader/>
-            <View style={styles.carouselWrapper}>
-                <NewsCarousel/>
-            </View>
+            <MainHeader
+                onSearchFocused={() => setIsSearchFocused(true)}
+                onSearchBlur={() => setIsSearchFocused(false)}
+            />
+            {!isSearchFocused && (
             <View style={styles.homeMainContent}>
                 <View>
                     <HomeSection title="Serviços em Destaque">
@@ -47,17 +50,20 @@ export default function Home() {
 
                     <HomeSection title="Eventos" linkForMore={true} linkText="Acessar Calendário">
                         
-                    </HomeSection>
+                        </HomeSection>
+                    </View>
                 </View>
-            </View>
+            )}
+            {isSearchFocused && (
+                <View style={styles.searchResults}>
+                    <Text>Resultados da busca</Text>
+                </View>
+            )}
         </ScrollViewWithMarginBottom>
     )
 }
 
 const styles = StyleSheet.create({
-    carouselWrapper: {
-        marginTop: -80, // faz o carrossel subir por cima do header
-    },
     homeMainContent: {
         paddingHorizontal: 24
     },

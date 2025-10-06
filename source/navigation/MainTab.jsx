@@ -41,22 +41,31 @@ export default function MainTab() {
             <Tab.Screen 
                 name="Início" 
                 component={HomeStack}
+                options={{ unmountOnBlur: true }}
             />
 
             <Tab.Screen 
                 name="Serviços" 
                 component={ServicesStack}
-                
+                options={{ unmountOnBlur: true }}
+                listeners={({ navigation, route }) => ({
+                    tabPress: (e) => {
+                        // Always ensure the Serviços stack goes back to its initial route
+                        navigation.navigate('Serviços', { screen: 'ServicesNavigation' });
+                    },
+                })}
             />
 
             <Tab.Screen 
                 name="Solicitações" 
                 component={NewsStack}
+                options={{ unmountOnBlur: true }}
             />
             
             <Tab.Screen 
                 name="Notícias" 
                 component={NewsStack}
+                options={{ unmountOnBlur: true }}
             />
         </Tab.Navigator>
     )
