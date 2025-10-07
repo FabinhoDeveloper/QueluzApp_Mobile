@@ -5,6 +5,7 @@ import { StyleSheet, View } from "react-native";
 import HomeStack from "./HomeStack";
 import NewsStack from "./NewsStack";
 import ServicesStack from "./ServicesStack";
+import Requests from "../screens/Requests";
 
 const Tab = createBottomTabNavigator()
 
@@ -58,7 +59,7 @@ export default function MainTab() {
 
             <Tab.Screen 
                 name="Solicitações" 
-                component={NewsStack}
+                component={Requests}
                 options={{ unmountOnBlur: true }}
             />
             

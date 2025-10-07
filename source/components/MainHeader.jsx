@@ -19,7 +19,7 @@ export default function MainHeader({ onSearchFocused, onSearchBlur }) {
 
     return (
         <>
-        <View style={[styles.container, { height: searchFocused ? 333 : 434 }]}>
+        <View style={[styles.container, { height: searchFocused ? 250 : 434 }]}>
             <View style={styles.headerMainContent}>
                 <View style={styles.headerTop}>
                     <View style={styles.headerTextContainer}>
@@ -32,8 +32,10 @@ export default function MainHeader({ onSearchFocused, onSearchBlur }) {
                 </View>
 
                 <View style={[styles.headerSearch, { marginBottom: searchFocused ? 40 : 100 }]}>
-                    <Text style={styles.questionText}>O que a Prefeitura de Queluz{'\n'}pode fazer por você hoje?</Text>
-                     <SearchBox
+                    {!searchFocused && (
+                        <Text style={styles.questionText}>O que a Prefeitura de Queluz{'\n'}pode fazer por você hoje?</Text>
+                    )}
+                    <SearchBox
                         onFocus={() => {
                             setSearchFocused(true)
                             if (onSearchFocused) onSearchFocused()

@@ -1,4 +1,4 @@
-import { StyleSheet, View, ScrollView, Text } from "react-native"
+import { StyleSheet, View, ScrollView, FlatList } from "react-native"
 import { useState } from "react"
 
 import MainHeader from "../components/MainHeader"
@@ -7,6 +7,13 @@ import DepartmentCard from "../components/DepartmentCard"
 import ServiceCard from "../components/ServiceCard"
 import CourseCard from "../components/CourseCard"
 import ScrollViewWithMarginBottom from "../components/ScrollViewWithMarginBottom"
+import ServicesFromDepartment from "../components/ServicesFromDepartment"
+
+const servicesList = [
+    { serviceName: "Agendar viagem", departmentName: "Secretaria de Saúde", color: "#228D9C", linkTarget: { stack: "Serviços", screen: "TripMainPage" } },
+    { serviceName: "Agendar consulta médica", departmentName: "Secretaria de Saúde", color: "#228D9C", linkTarget: { stack: "Serviços", screen: "ConsultationMainPage" } },
+    { serviceName: "Ouvidoria", departmentName: "Secretaria de Administração", linkTarget: { stack: "Serviços", screen: "OuvidoriaForm" } },
+]
 
 export default function Home() {
     const [isSearchFocused, setIsSearchFocused] = useState(false)
@@ -17,8 +24,9 @@ export default function Home() {
                 onSearchFocused={() => setIsSearchFocused(true)}
                 onSearchBlur={() => setIsSearchFocused(false)}
             />
-            {!isSearchFocused && (
             <View style={styles.homeMainContent}>
+
+            {!isSearchFocused && (
                 <View>
                     <HomeSection title="Serviços em Destaque">
                         <View style={styles.mainServicesRow}>
@@ -50,15 +58,22 @@ export default function Home() {
 
                     <HomeSection title="Eventos" linkForMore={true} linkText="Acessar Calendário">
                         
-                        </HomeSection>
-                    </View>
+                    </HomeSection>
                 </View>
-            )}
-            {isSearchFocused && (
-                <View style={styles.searchResults}>
-                    <Text>Resultados da busca</Text>
-                </View>
-            )}
+                )}
+                {isSearchFocused && (
+                    <HomeSection title={"Serviços"}>
+                        <View style={styles.mainServicesRow}>
+                            {servicesList.map((item) => (
+                                <ServiceCard key={item.serviceName} serviceName={item.serviceName} departmentName={item.departmentName} color={item.color} linkTarget={item.linkTarget}/>
+                            ))}
+                        </View>
+                    </HomeSection>
+                )}
+                
+                
+            </View>
+
         </ScrollViewWithMarginBottom>
     )
 }
