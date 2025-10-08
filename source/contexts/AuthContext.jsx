@@ -1,35 +1,24 @@
 import { createContext, useContext, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const AuthContext = createContext()
 
 export function AuthProvider({children}) {
     const [user, setUser] = useState(null)
-    const [isSigned, setIsSigned] = useState(false)
+    const isSigned = !!user
 
-    const userSigned = { 
-        id: 1,
-        first_name: "Fábio", 
-        surname: "Santos", 
-        cpf: "17741576755",
-        email: "fabio.ti@queluz.sp.gov.br", 
-        address: "Rua das Flores, 123, Queluz", 
-        cellphone: "(24) 99275-3941"
-    }
-
-    function login( cpf, password ) {
-        setIsSigned(true)
-        setUser(userSigned)
+    async function login(usuario) {
+        setUser(usuario)
+        await AsyncStorage.setItem('@user', JSON.stringify(usuario))
     }
 
     function signIn( first_name, surname, cpf, cellphone, email, password, password_confirmation, address ) {
-        setIsSigned(true)
-
         const user = { first_name, surname, cpf, cellphone, email, address }
         setUser(user)
     }
     
-    function logout() {
-        setIsSigned(false)
+    async function logout() {
+        await AsyncStorage.removeItem("@user")
         setUser(null)
     }
 

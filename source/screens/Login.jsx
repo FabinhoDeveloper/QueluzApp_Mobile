@@ -7,6 +7,8 @@ import PrimaryButton from "../components/PrimaryButton"
 import { useAuth } from "../contexts/AuthContext"
 
 import applyCpfMask from "../utils/applyCpfMask"
+import getCpfDigits from "../utils/getCpfDigits"
+import api from "../services/api"
 
 export default function Login({ navigation }) {
     const [isLoading, setIsLoading] = useState(false)
@@ -20,14 +22,31 @@ export default function Login({ navigation }) {
         mode: "onSubmit"
     })
 
-    const onSubmit = (data) => {
-        console.log(data) // aqui você vê o CPF e senha enviados pelo form
+    const onSubmit = async (data) => {
         setIsLoading(true)
-        const cpfDigits = data.cpf.replace(/\D/g, '') // remove máscara
-        setTimeout(() => {
-            login(cpfDigits, data.password)
+        console.log(data)
+
+        try {
+            const response = await api.post("/auth/login", {
+                cpf: getCpfDigits(data.cpf),
+                senha: data.password
+            })
+
+            console.log(response.data)
+
+            const { usuario, token } = response.data
+
+            if (usuario) {
+                login(usuario)
+            } else {
+                alert("Usuário ou senha incorretos!")
+            }
+        } catch (error) {
+            console.error("Erro ao fazer login: ", error)
+            alert("Erro ao fazer login!")
+        } finally {
             setIsLoading(false)
-        }, 1000)
+        }
     }
 
     return (
