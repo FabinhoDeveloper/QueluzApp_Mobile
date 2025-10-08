@@ -13,6 +13,8 @@ import applyPhoneMask from "../utils/applyPhoneMask"
 import isCpfValid from "../utils/isCpfValid"
 import getCpfDigits from "../utils/getCpfDigits"
 
+import api from "../services/api"
+
 export default function SignUp() {
     const [isLoading, setIsLoading] = useState(false)
     const navigation = useNavigation()
@@ -30,16 +32,35 @@ export default function SignUp() {
         },
         mode: "onSubmit"
     })
-    console.log("ERROS", errors)
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         console.log(data) // aqui você vê o CPF e senha enviados pelo form
         setIsLoading(true)
-        const cpfDigits = data.cpf.replace(/\D/g, '') // remove máscara
-        setTimeout(() => {
-            signIn(data.first_name, data.surname, data.cpf, data.cellphone, data.email, data.password, data.password_confirmation, data.password, data.address)
+        
+        try {
+            const response = await api.post("/user/create", { 
+                primeiro_nome: data.first_name, 
+                sobrenome: data.surname, 
+                cpf: data.cpf, 
+                telefone: data.cellphone, 
+                email: data.email, 
+                senha: data.password, 
+                endereco: data.address 
+            })
+
+            const { usuario, mensagem } = response.data
+
+            if (usuario) {
+                signIn(usuario)
+            } else {
+                alert("Não foi possível realizar o cadastro!")
+            } 
+        } catch (error) {
+            console.error("Erro ao fazer login: ", error)
+            alert("Erro ao cadastrar-se!")
+        } finally {
             setIsLoading(false)
-        }, 1000)
+        }            
     }
 
     const verifyPasswordConfirmation = (pswd1, pswd2) => pswd1 == pswd2
