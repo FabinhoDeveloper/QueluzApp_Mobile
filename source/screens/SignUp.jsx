@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Image, TouchableOpacity, Keyboard, TouchableWithoutFeedback, Alert } from "react-native"
+import { StyleSheet, View, Text, Image, TouchableOpacity, Keyboard, TouchableWithoutFeedback, ActivityIndicator, Alert } from "react-native"
 import { useForm, Controller } from "react-hook-form"
 import { useNavigation } from "@react-navigation/native"
 import { useAuth } from "../contexts/AuthContext"
@@ -12,6 +12,7 @@ import applyCpfMask from "../utils/applyCpfMask"
 import applyPhoneMask from "../utils/applyPhoneMask"
 import isCpfValid from "../utils/isCpfValid"
 import getCpfDigits from "../utils/getCpfDigits"
+import getPhoneDigits from "../utils/getPhoneDigits"
 
 import api from "../services/api"
 
@@ -33,34 +34,41 @@ export default function SignUp() {
         mode: "onSubmit"
     })
 
-    const onSubmit = async (data) => {
-        console.log(data) // aqui você vê o CPF e senha enviados pelo form
+    const onSubmitTest = async (data) => {
         setIsLoading(true)
         
         try {
             const response = await api.post("/user/create", { 
                 primeiro_nome: data.first_name, 
                 sobrenome: data.surname, 
-                cpf: data.cpf, 
-                telefone: data.cellphone, 
+                cpf: getCpfDigits(data.cpf), 
+                telefone: getPhoneDigits(data.cellphone), 
                 email: data.email, 
                 senha: data.password, 
                 endereco: data.address 
             })
-
-            const { usuario, mensagem } = response.data
-
-            if (usuario) {
-                signIn(usuario)
-            } else {
-                alert("Não foi possível realizar o cadastro!")
-            } 
+    
+            const { usuario } = response.data
+            signIn(usuario)
         } catch (error) {
-            console.error("Erro ao fazer login: ", error)
-            alert("Erro ao cadastrar-se!")
+            if (error.response) {
+                const { status, data } = error.response;
+
+                if (status === 409) {
+                    Alert.alert("Erro", data.message || "Usuário já cadastrado com este CPF ou e-mail.");
+                } else if (status === 400) {
+                    Alert.alert("Erro", data.message || "Dados inválidos.");
+                } else {
+                    console.error("Erro inesperado:", error);
+                    Alert.alert("Erro", data.message || "Erro ao fazer login.");
+                }
+            } else {
+                console.error("Erro de rede:", error);
+                Alert.alert("Erro de conexão", "Não foi possível conectar ao servidor.");
+            }
         } finally {
             setIsLoading(false)
-        }            
+        }                      
     }
 
     const verifyPasswordConfirmation = (pswd1, pswd2) => pswd1 == pswd2
@@ -130,7 +138,7 @@ export default function SignUp() {
                             name="cellphone"
                             rules={{
                                 required: "Campo obrigatório",
-                                validate: (v) => (v.replace(/\D/g, "").length === 11 || "Telefone inválido")
+                                // validate: (v) => (v.replace(/\D/g, "").length === 11 || "Telefone inválido")
                             }}
                             render={({field: {value, onChange, onBlur}}) => (
                                 <FormInput
@@ -222,8 +230,21 @@ export default function SignUp() {
                     </View>
                 
                     <View style={styles.buttonContainer}>
-                        <PrimaryButton text='Cadastrar-se' onPress={handleSubmit(onSubmit)}/>
-
+                        <PrimaryButton 
+                            text={!isLoading ? 'Cadastrar-se' : <ActivityIndicator size={24} color={"#F5F5F7"}/>}
+                            onPress={() => {
+                                
+                                handleSubmit(
+                                    (data) => {
+                                        onSubmitTest(data);
+                                    },
+                                    (errors) => {
+                                        Alert.alert("Validação falhou!")
+                                        console.log("❌ Validação falhou:", errors);
+                                    }
+                                )();
+                            }}
+                        />
                         <View style={styles.registerContainer}>
                             <Text style={styles.registerHelper}>Já possui uma conta?</Text>
                             <TouchableOpacity onPress={() => navigation.goBack()}>
