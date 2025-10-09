@@ -14,7 +14,7 @@ export function AuthProvider({children}) {
 
     function signIn( first_name, surname, cpf, cellphone, email, password, password_confirmation, address ) {
         const user = { first_name, surname, cpf, cellphone, email, address }
-        setUser(user)
+        login(user)
     }
     
     async function logout() {
