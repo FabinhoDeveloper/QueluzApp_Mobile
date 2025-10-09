@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { TouchableWithoutFeedback, StyleSheet, View, Text, Image, TouchableOpacity, Keyboard, ActivityIndicator } from "react-native"
+import { TouchableWithoutFeedback, StyleSheet, View, Text, Image, TouchableOpacity, Keyboard, ActivityIndicator, Alert } from "react-native"
 import { useForm, Controller } from 'react-hook-form'
 
 import FormInput from "../components/FormInput"
@@ -8,6 +8,8 @@ import { useAuth } from "../contexts/AuthContext"
 
 import applyCpfMask from "../utils/applyCpfMask"
 import getCpfDigits from "../utils/getCpfDigits"
+import isCpfValid from "../utils/isCpfValid"
+
 import api from "../services/api"
 
 export default function Login({ navigation }) {
@@ -24,7 +26,6 @@ export default function Login({ navigation }) {
 
     const onSubmit = async (data) => {
         setIsLoading(true)
-        console.log(data)
 
         try {
             const response = await api.post("/auth/login", {
@@ -35,17 +36,25 @@ export default function Login({ navigation }) {
             console.log(response.data)
 
             const { usuario, token } = response.data
-
-            if (usuario) {
-                login(usuario)
-            } else {
-                alert("Usuário ou senha incorretos!")
-            }
+            login(usuario)
         } catch (error) {
-            console.error("Erro ao fazer login: ", error)
-            alert("Erro ao fazer login!")
+            if (error.response) {
+            const { status, data } = error.response;
+
+            if (status === 401) {
+                Alert.alert("Erro", data.message || "CPF ou senha inválidos.");
+            } else if (status === 400) {
+                Alert.alert("Erro", data.message || "Dados inválidos.");
+            } else {
+                console.error("Erro inesperado:", error);
+                Alert.alert("Erro", data.message || "Erro ao fazer login.");
+            }
+            } else {
+                console.error("Erro de rede:", error);
+                Alert.alert("Erro de conexão", "Não foi possível conectar ao servidor.");
+            }
         } finally {
-            setIsLoading(false)
+            setIsLoading(false);
         }
     }
 
@@ -61,7 +70,9 @@ export default function Login({ navigation }) {
                         <Controller
                             control={control}
                             name="cpf"
-                            rules={[]}
+                            rules={{ 
+                                required: "Campo obrigatório", 
+                            }}
                             render={({ field: { value, onChange, onBlur } }) => (
                                 <FormInput
                                     name="CPF"
@@ -80,7 +91,7 @@ export default function Login({ navigation }) {
                         <Controller
                             control={control}
                             name="password"
-                            rules={[]}
+                            rules={{ required: "Campo obrigatório" }}
                             render={({ field: { value, onChange, onBlur } }) => (
                                 <FormInput
                                     name="Senha"
