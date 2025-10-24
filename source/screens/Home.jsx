@@ -74,8 +74,6 @@ export default function Home() {
                         </View>
                     </HomeSection>
                 )}
-                
-                
             </View>
 
         </ScrollViewWithMarginBottom>

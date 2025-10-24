@@ -9,7 +9,8 @@ export function AuthProvider({children}) {
 
     async function login(usuario) {
         const user = { 
-            first_name: usuario.primeiro_nome, 
+            userId: usuario.idUsuario,
+            first_name: usuario.primeiroNome, 
             surname: usuario.sobrenome, 
             cpf: usuario.cpf, 
             cellphone: usuario.telefone, 

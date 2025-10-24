@@ -15,7 +15,9 @@ import ConfirmationButton from "../components/ConfirmationButton";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../contexts/AuthContext";
 
-export default function TripForm() {
+import applyCpfMask from "../utils/applyCpfMask";
+
+export default function ConsultationForm() {
     const [selectedOption, setSelectedOption] = useState("Para mim")
     const [isAbleToPress, setIsAbleToPress] = useState(true) // Posteriormente, será trocado para false, sendo  possivel apenas confirmar a solicitacao preechendo todos os dados
     const [isUBSSelected, setIsUBSSelected] = useState(false)
@@ -45,7 +47,7 @@ export default function TripForm() {
                     <View style={styles.formSection}>
                         <FormInput name={"Primeiro nome"} value={selectedOption === "Para mim" ? user.first_name : ""}/>
                         <FormInput name={"Sobrenome"} value={selectedOption === "Para mim" ? user.surname : ""}/>
-                        <FormInput name={"CPF"} value={selectedOption === "Para mim" ? user.cpf : ""}/>
+                        <FormInput name={"CPF"} value={selectedOption === "Para mim" ? applyCpfMask(user.cpf) : ""}/>
                         <FormInput name={"Número de Cadastro do SUS"}/>
                         <FormPicker name="Unidade" list={["ESF - Palha", "ESF - União", "ESF - Porteira", "ESF - Figueira"]} onValueChange={() => setIsUBSSelected(true)}/>
                         

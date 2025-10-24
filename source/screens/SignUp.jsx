@@ -39,7 +39,7 @@ export default function SignUp() {
         
         try {
             const response = await api.post("/user/create", { 
-                primeiro_nome: data.first_name, 
+                primeiroNome: data.first_name, 
                 sobrenome: data.surname, 
                 cpf: getCpfDigits(data.cpf), 
                 telefone: getPhoneDigits(data.cellphone), 
@@ -47,9 +47,8 @@ export default function SignUp() {
                 senha: data.password, 
                 endereco: data.address 
             })
-    
-            const { usuario } = response.data
-            signIn(usuario)
+
+            signIn(response.data.usuario)
         } catch (error) {
             if (error.response) {
                 const { status, data } = error.response;

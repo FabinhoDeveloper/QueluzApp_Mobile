@@ -74,7 +74,6 @@ export default function TripForm() {
     };
 
     const onSubmit = (data) => {
-        console.log("Form Data:", data);
         navigation.navigate("TripReview", { formData: data });
     };
 
@@ -98,19 +97,17 @@ export default function TripForm() {
     };
 
     const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
         let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ['images', 'videos'],
-        allowsEditing: true,
-        aspect: [4, 3],
-        quality: 1,
+            mediaTypes: ['images', 'videos'],
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
         });
 
-        console.log(result);
-
-        if (!result.canceled) {
-            setImage(result.assets[0].uri);
+        if (!result.canceled && result.assets && result.assets.length > 0) {
+            return result.assets[0].uri;
         }
+        return null;
     };
 
     const takePhoto = async () => {
@@ -126,11 +123,10 @@ export default function TripForm() {
             quality: 0.8,
         });
 
-        console.log(result);
-
-        if (!result.canceled) {
-            setImage(result.assets[0].uri);
+        if (!result.canceled && result.assets && result.assets.length > 0) {
+            return result.assets[0].uri;
         }
+        return null;
     };
 
     return (
@@ -285,19 +281,23 @@ export default function TripForm() {
                                         name="Comprovante de agendamento"
                                         placeholder="Selecionar da galeria"
                                         onPress={async () => {
-                                        await pickImage();
-                                        onChange(image); // salva no form
+                                            const selectedImage = await pickImage();
+                                            if (selectedImage) {
+                                                onChange(selectedImage);
+                                            }
                                         }}
                                         value={value}
                                     />
                                     <NeutralButton
                                         text="Tirar Foto"
                                         onPress={async () => {
-                                        await takePhoto();
-                                        onChange(image); // salva no form
+                                            const selectedImage = await takePhoto();
+                                            if (selectedImage) {
+                                                onChange(selectedImage);
+                                            }
                                         }}
                                     />
-                                    {image && <Text>Imagem selecionada ✔️</Text>}
+                                    {value && <Text>Imagem selecionada ✔️</Text>}
                                     </>
                                 )}
                             />

@@ -32,15 +32,13 @@ export default function Login({ navigation }) {
                 cpf: getCpfDigits(data.cpf),
                 senha: data.password
             })
-
-            console.log(response.data)
-
+            
             const { usuario, token } = response.data
             login(usuario)
         } catch (error) {
             if (error.response) {
             const { status, data } = error.response;
-
+                
             if (status === 401) {
                 Alert.alert("Erro", data.message || "CPF ou senha inválidos.");
             } else if (status === 400) {

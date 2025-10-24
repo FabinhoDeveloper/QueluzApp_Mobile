@@ -13,6 +13,8 @@ export default function MainHeader({ onSearchFocused, onSearchBlur }) {
     const [searchFocused, setSearchFocused] = useState(false);
     const navigation = useNavigation()
 
+    console.log(`Usuario cadastrado: ${user}`)
+
     useEffect(() => {
         console.log(searchFocused)
     }, [searchFocused])
