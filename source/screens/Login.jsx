@@ -14,7 +14,7 @@ import api from "../services/api"
 
 export default function Login({ navigation }) {
     const [isLoading, setIsLoading] = useState(false)
-    const { login } = useAuth()
+    const { login, enterWithoutLogin } = useAuth()
 
     const { control, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
@@ -124,7 +124,7 @@ export default function Login({ navigation }) {
                             text={!isLoading ? 'Entrar' : <ActivityIndicator size={24} color={"#F5F5F7"}/>}
                             onPress={handleSubmit(onSubmit)}
                         />
-                        <PrimaryButton text='Continuar sem Cadastro' onPress={handleSubmit(onSubmit)}/>
+                        <PrimaryButton text='Continuar sem Cadastro' onPress={() => enterWithoutLogin()}/>
 
                         <View style={styles.registerContainer}>
                             <Text style={styles.registerHelper}>Ainda não possui uma conta?</Text>

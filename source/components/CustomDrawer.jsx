@@ -3,10 +3,12 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useAuth } from '../contexts/AuthContext';
+import { useNavigation } from '@react-navigation/native';
 
 export default function CustomDrawerContent(props) {
-  const { user, logout } = useAuth()
-  
+    const { user, logout } = useAuth()
+    const navigation = useNavigation()
+
     return (
     <DrawerContentScrollView
       {...props}
@@ -21,14 +23,14 @@ export default function CustomDrawerContent(props) {
             </>
         ) : (
             <>
-            <Text style={styles.userType}>Visitante</Text>
+            <Text style={styles.userType}>Olá, Visitante</Text>
 
             <View style={styles.linkArea}>
-                <TouchableOpacity onPress={() => console.log('Entrar')}>
+                <TouchableOpacity onPress={() => logout()}>
                 <Text style={styles.link}>Entrar</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => console.log('Cadastrar')}>
+                <TouchableOpacity onPress={() => logout()}>
                 <Text style={styles.link}>Fazer cadastro</Text>
                 </TouchableOpacity>
             </View>
@@ -44,12 +46,15 @@ export default function CustomDrawerContent(props) {
         <DrawerItemList {...props} />
       </View>
 
-      <View style={styles.exitArea}>
-        <TouchableOpacity style={{ flexDirection: 'row', gap: 5 }} onPress={() => logout()}>
-            <MaterialIcons name="exit-to-app" size={24} color="white" />
-            <Text style={styles.exitLink}>Sair</Text>
-        </TouchableOpacity>
-      </View>
+        { user && 
+            <View style={styles.exitArea}>
+                <TouchableOpacity style={{ flexDirection: 'row', gap: 5 }} onPress={() => logout()}>
+                    <MaterialIcons name="exit-to-app" size={24} color="white" />
+                    <Text style={styles.exitLink}>Sair</Text>
+                </TouchableOpacity>
+            </View>
+        }
+      
     </DrawerContentScrollView>
   )
 }

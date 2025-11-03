@@ -5,7 +5,7 @@ const AuthContext = createContext()
 
 export function AuthProvider({children}) {
     const [user, setUser] = useState(null)
-    const isSigned = !!user
+    const [isSigned, setIsSigned] = useState(!!user)
 
     async function login(usuario) {
         const user = usuario
@@ -17,14 +17,20 @@ export function AuthProvider({children}) {
     function signIn( usuario ) {
         login(usuario)
     }
+
+    function enterWithoutLogin() {
+        setIsSigned(true)
+    }
     
     async function logout() {
-        await AsyncStorage.removeItem("@user")
+        if (AsyncStorage.getItem("@user")) {
+            await AsyncStorage.removeItem("@user")
+        }
         setUser(null)
     }
 
     return (
-        <AuthContext.Provider value={{ isSigned, login, logout, signIn, user }}>
+        <AuthContext.Provider value={{ isSigned, login, logout, signIn, enterWithoutLogin, user }}>
             { children }
         </AuthContext.Provider>
     )
