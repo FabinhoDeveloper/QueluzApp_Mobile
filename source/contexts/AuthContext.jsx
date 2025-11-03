@@ -8,15 +8,7 @@ export function AuthProvider({children}) {
     const isSigned = !!user
 
     async function login(usuario) {
-        const user = { 
-            userId: usuario.idUsuario,
-            first_name: usuario.primeiroNome, 
-            surname: usuario.sobrenome, 
-            cpf: usuario.cpf, 
-            cellphone: usuario.telefone, 
-            email: usuario.email, 
-            address: usuario.endereco
-        }
+        const user = usuario
 
         setUser(user)
         await AsyncStorage.setItem('@user', JSON.stringify(user))

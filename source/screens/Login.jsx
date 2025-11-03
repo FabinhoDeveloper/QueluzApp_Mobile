@@ -28,13 +28,23 @@ export default function Login({ navigation }) {
         setIsLoading(true)
 
         try {
-            const response = await api.post("/auth/login", {
-                cpf: getCpfDigits(data.cpf),
-                senha: data.password
-            })
+            // const response = await api.post("/auth/login", {
+            //     cpf: getCpfDigits(data.cpf),
+            //     senha: data.password
+            // })
+
+            const userTest = {
+                userId: 1,
+                first_name: "Fábio", 
+                surname: "Ezequiel Teixeira dos Santos", 
+                cpf: "17741576755", 
+                cellphone: "24992753941", 
+                email: "fabioezequiel555@gmail.com", 
+                address: "Rua Dr. Mário Jardim Freire, 535"
+            }
             
-            const { usuario, token } = response.data
-            login(usuario)
+            // const { usuario, token } = response.data
+            login(userTest)
         } catch (error) {
             if (error.response) {
             const { status, data } = error.response;
