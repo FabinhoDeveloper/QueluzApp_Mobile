@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { TouchableWithoutFeedback, StyleSheet, View, Text, Image, TouchableOpacity, Keyboard, ActivityIndicator } from "react-native"
+import { TouchableWithoutFeedback, StyleSheet, View, Text, Image, TouchableOpacity, Keyboard, ActivityIndicator, Alert } from "react-native"
 import { useForm, Controller } from 'react-hook-form'
 
 import FormInput from "../components/FormInput"
@@ -7,10 +7,14 @@ import PrimaryButton from "../components/PrimaryButton"
 import { useAuth } from "../contexts/AuthContext"
 
 import applyCpfMask from "../utils/applyCpfMask"
+import getCpfDigits from "../utils/getCpfDigits"
+import isCpfValid from "../utils/isCpfValid"
+
+import api from "../services/api"
 
 export default function Login({ navigation }) {
     const [isLoading, setIsLoading] = useState(false)
-    const { login } = useAuth()
+    const { login, enterWithoutLogin } = useAuth()
 
     const { control, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
@@ -20,14 +24,46 @@ export default function Login({ navigation }) {
         mode: "onSubmit"
     })
 
-    const onSubmit = (data) => {
-        console.log(data) // aqui você vê o CPF e senha enviados pelo form
+    const onSubmit = async (data) => {
         setIsLoading(true)
-        const cpfDigits = data.cpf.replace(/\D/g, '') // remove máscara
-        setTimeout(() => {
-            login(cpfDigits, data.password)
-            setIsLoading(false)
-        }, 1000)
+
+        try {
+            // const response = await api.post("/auth/login", {
+            //     cpf: getCpfDigits(data.cpf),
+            //     senha: data.password
+            // })
+
+            const userTest = {
+                userId: 1,
+                first_name: "Fábio", 
+                surname: "Ezequiel Teixeira dos Santos", 
+                cpf: "17741576755", 
+                cellphone: "24992753941", 
+                email: "fabioezequiel555@gmail.com", 
+                address: "Rua Dr. Mário Jardim Freire, 535"
+            }
+            
+            // const { usuario, token } = response.data
+            login(userTest)
+        } catch (error) {
+            if (error.response) {
+            const { status, data } = error.response;
+                
+            if (status === 401) {
+                Alert.alert("Erro", data.message || "CPF ou senha inválidos.");
+            } else if (status === 400) {
+                Alert.alert("Erro", data.message || "Dados inválidos.");
+            } else {
+                console.error("Erro inesperado:", error);
+                Alert.alert("Erro", data.message || "Erro ao fazer login.");
+            }
+            } else {
+                console.error("Erro de rede:", error);
+                Alert.alert("Erro de conexão", "Não foi possível conectar ao servidor.");
+            }
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     return (
@@ -42,7 +78,9 @@ export default function Login({ navigation }) {
                         <Controller
                             control={control}
                             name="cpf"
-                            rules={[]}
+                            rules={{ 
+                                required: "Campo obrigatório", 
+                            }}
                             render={({ field: { value, onChange, onBlur } }) => (
                                 <FormInput
                                     name="CPF"
@@ -61,7 +99,7 @@ export default function Login({ navigation }) {
                         <Controller
                             control={control}
                             name="password"
-                            rules={[]}
+                            rules={{ required: "Campo obrigatório" }}
                             render={({ field: { value, onChange, onBlur } }) => (
                                 <FormInput
                                     name="Senha"
@@ -86,7 +124,7 @@ export default function Login({ navigation }) {
                             text={!isLoading ? 'Entrar' : <ActivityIndicator size={24} color={"#F5F5F7"}/>}
                             onPress={handleSubmit(onSubmit)}
                         />
-                        <PrimaryButton text='Continuar sem Cadastro' onPress={handleSubmit(onSubmit)}/>
+                        <PrimaryButton text='Continuar sem Cadastro' onPress={() => enterWithoutLogin()}/>
 
                         <View style={styles.registerContainer}>
                             <Text style={styles.registerHelper}>Ainda não possui uma conta?</Text>

@@ -1,25 +1,12 @@
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
-export default function FormInput(props) {
+export default function FormInputButton(props) {
     return (
         <View style={styles.container}>
             <Text style={styles.name}>{props.name}</Text>
-            <TextInput
-                style={[
-                    styles.textInput, 
-                    props.size ? {
-                        height: props.size, 
-                        textAlignVertical: 'top',
-                        paddingTop: 12 // adiciona espaço no topo quando input é maior
-                    } : {
-                        height: 41.31,
-                        textAlignVertical: 'center'
-                    }
-                ]}           
-                multiline={props.size ? true : false} // habilita múltiplas linhas quando tem size
-                textBreakStrategy="simple"     
-                {...props}
-        />
+            <TouchableOpacity style={styles.textInput} {...props}>
+                <Text style={styles.placeholder}>{props.placeholder}</Text>
+            </TouchableOpacity>
         </View>
     )
 }
@@ -35,10 +22,14 @@ const styles = StyleSheet.create({
     textInput: {
         width: '100%',
         borderWidth: 1,
-        fontFamily: 'Poppins_300Light',
+        justifyContent: 'center',
+        height: 41.31,
         borderColor: '#C4C4C4',
         borderRadius: 12,
-        paddingHorizontal: 18,
+        paddingHorizontal: 18,  
+    },
+    placeholder: {
+        fontFamily: 'Poppins_300Light',
         color: "#636364",
         fontSize: 14,
         // Propriedades para centralizar o placeholder

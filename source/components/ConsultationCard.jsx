@@ -1,42 +1,39 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
-
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Feather from '@expo/vector-icons/Feather';
 
-export default function TripCard({ status, local, data }) {
+export default function ConsultationCard({ status, specialistType, local, data }) {
     function getBackgroundColor(status) {
         switch (status) {
-            case "Cancelada":
+            case "Consulta cancelada":
                 return { backgroundColor: "#b11308" };
-            case "Realizada":
+            case "Consulta realizada":
                 return { backgroundColor: "#3E7F0C" };
-            case "Confirmada":
+            case "Consulta agendada":
                 return { backgroundColor: "#3E7F0C" };
-            case "Pendente":
+            case "Aguardando vaga":
                 return { backgroundColor: "#e6a100" };
             default:
-                return { backgroundColor: "#888" }; 
+                return { backgroundColor: "#888" };
         }
     }
 
     function getStatusIcon(status) {
         switch(status) {
-            case "Cancelada":
+            case "Consulta cancelada":
                 return ( <Feather name="x" size={32} color="white" /> )
-            case "Realizada":
+            case "Consulta realizada":0
                 return ( <Feather name="check" size={32} color="white" />)
-            case "Confirmada":
-                return ( <MaterialIcons name="directions-car" size={32} color="white" />)
-            case "Pendente":
-                return ( <MaterialIcons name="hourglass-top" size={32} color="white" />)
+            case "Consulta agendada":
+                return ( <Feather name="calendar" size={32} color="white" />)
+            case "Aguardando vaga":
+                return ( <Feather name="clock" size={32} color="white" />)
             default:
                 return ( undefined ) 
         }
     }
-    
+
     return (
-        <View style={styles.container}>
-            
+        <View style={styles.container}>        
             <View style={styles.iconArea}>
                 <View style={[
                     styles.icon, 
@@ -49,8 +46,8 @@ export default function TripCard({ status, local, data }) {
 
             <View style={styles.informationArea}>
                 <Text style={styles.statusText}>Status: {status}</Text>
-                <Text style={styles.localText}>{local}</Text>
-                <Text style={styles.dataText}>{data}</Text>
+                <Text style={styles.localText}>{specialistType}</Text>
+                <Text style={styles.dataText}>{local} - {data}</Text>
             </View>
             
             <View style={styles.linkArea}>
@@ -96,12 +93,12 @@ const styles = StyleSheet.create({
     statusText: {
         fontFamily: "Poppins_300Light",
         fontSize: 12,
-        lineHeight: 14
+        lineHeight: 16
     },
     localText: {
         fontFamily: 'Poppins_500Medium',
         fontSize: 13,
-        lineHeight: 16
+        lineHeight: 18
     },
     dataText: {
         fontFamily: "Poppins_300Light",

@@ -1,7 +1,8 @@
-import { StyleSheet, View, Text, Image, TouchableOpacity, Keyboard, TouchableWithoutFeedback } from "react-native"
+import { StyleSheet, View, Text, Image, TouchableOpacity, Keyboard, TouchableWithoutFeedback, ActivityIndicator, Alert } from "react-native"
 import { useForm, Controller } from "react-hook-form"
 import { useNavigation } from "@react-navigation/native"
 import { useAuth } from "../contexts/AuthContext"
+import { useState } from "react"
 
 import FormInput from "../components/FormInput"
 import PrimaryButton from "../components/PrimaryButton"
@@ -11,11 +12,15 @@ import applyCpfMask from "../utils/applyCpfMask"
 import applyPhoneMask from "../utils/applyPhoneMask"
 import isCpfValid from "../utils/isCpfValid"
 import getCpfDigits from "../utils/getCpfDigits"
+import getPhoneDigits from "../utils/getPhoneDigits"
+
+import api from "../services/api"
 
 export default function SignUp() {
+    const [isLoading, setIsLoading] = useState(false)
     const navigation = useNavigation()
-    const {} = useAuth()
-    const { control, handleSubmit, formState: { errors }} = useForm({
+    const { signIn } = useAuth()
+    const { control, handleSubmit, formState: { errors }, getValues } = useForm({
         defaultValues: { 
             first_name: "", 
             surname: "", 
@@ -29,10 +34,43 @@ export default function SignUp() {
         mode: "onSubmit"
     })
 
-    const handleSignUp = (data) => {
-        console.log(data)
-        navigation.navigate()
+    const onSubmitTest = async (data) => {
+        setIsLoading(true)
+        
+        try {
+            const response = await api.post("/user/create", { 
+                primeiroNome: data.first_name, 
+                sobrenome: data.surname, 
+                cpf: getCpfDigits(data.cpf), 
+                telefone: getPhoneDigits(data.cellphone), 
+                email: data.email, 
+                senha: data.password, 
+                endereco: data.address 
+            })
+
+            signIn(response.data.usuario)
+        } catch (error) {
+            if (error.response) {
+                const { status, data } = error.response;
+
+                if (status === 409) {
+                    Alert.alert("Erro", data.message || "Usuário já cadastrado com este CPF ou e-mail.");
+                } else if (status === 400) {
+                    Alert.alert("Erro", data.message || "Dados inválidos.");
+                } else {
+                    console.error("Erro inesperado:", error);
+                    Alert.alert("Erro", data.message || "Erro ao fazer login.");
+                }
+            } else {
+                console.error("Erro de rede:", error);
+                Alert.alert("Erro de conexão", "Não foi possível conectar ao servidor.");
+            }
+        } finally {
+            setIsLoading(false)
+        }                      
     }
+
+    const verifyPasswordConfirmation = (pswd1, pswd2) => pswd1 == pswd2
 
     return (
         <KeyboardAvoidingContainer>
@@ -77,21 +115,21 @@ export default function SignUp() {
                         <Controller
                             control={control}
                             name="cpf"
-                            rules={{ 
-                                required: "Campo obrigatório", 
-                                validate: (v) => isCpfValid(v.replace(/\D/g, "")) || "CPF inválido" 
+                            rules={{
+                                required: "Campo obrigatório",
                             }}
-                            render={({field: {value, onChange, onBlur}}) => (
+                            render={({ field: { value, onChange, onBlur } }) => (
                                 <FormInput
-                                    name="CPF"
-                                    placeholder="Digite seu CPF"
-                                    keyboardType="numeric"
-                                    value={value}
-                                    onChangeText={text => onChange(applyCpfMask(text))}
-                                    onBlur={onBlur}
+                                name="CPF"
+                                placeholder="Digite seu CPF"
+                                keyboardType="numeric"
+                                value={value}
+                                onChangeText={text => /*onChange(applyCpfMask(text))*/ onChange(applyCpfMask(text))}
+                                onBlur={onBlur}
                                 />
                             )}
                         />
+
                         {errors.cpf && <Text style={styles.errorMessage}>{errors.cpf.message}</Text>}
 
                         <Controller
@@ -99,7 +137,7 @@ export default function SignUp() {
                             name="cellphone"
                             rules={{
                                 required: "Campo obrigatório",
-                                validate: (v) => (v.replace(/\D/g, "").length === 11 || "Telefone inválido")
+                                // validate: (v) => (v.replace(/\D/g, "").length === 11 || "Telefone inválido")
                             }}
                             render={({field: {value, onChange, onBlur}}) => (
                                 <FormInput
@@ -155,7 +193,11 @@ export default function SignUp() {
                         <Controller
                             control={control}
                             name="password_confirmation"
-                            rules={{ required: "Campo obrigatório" }}
+                            rules={{ 
+                                required: "Campo obrigatório", 
+                                validate: (v) => verifyPasswordConfirmation(v, getValues("password")) || "A senhas não coincidem" 
+
+                            }}
                             render={({field: {value, onChange, onBlur}}) => (
                                 <FormInput
                                     name="Confirmação da Senha"
@@ -187,8 +229,21 @@ export default function SignUp() {
                     </View>
                 
                     <View style={styles.buttonContainer}>
-                        <PrimaryButton text='Cadastrar-se' onPress={handleSubmit(handleSignUp)}/>
-
+                        <PrimaryButton 
+                            text={!isLoading ? 'Cadastrar-se' : <ActivityIndicator size={24} color={"#F5F5F7"}/>}
+                            onPress={() => {
+                                
+                                handleSubmit(
+                                    (data) => {
+                                        onSubmitTest(data);
+                                    },
+                                    (errors) => {
+                                        Alert.alert("Validação falhou!")
+                                        console.log("❌ Validação falhou:", errors);
+                                    }
+                                )();
+                            }}
+                        />
                         <View style={styles.registerContainer}>
                             <Text style={styles.registerHelper}>Já possui uma conta?</Text>
                             <TouchableOpacity onPress={() => navigation.goBack()}>

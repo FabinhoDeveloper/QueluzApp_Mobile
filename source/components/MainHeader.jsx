@@ -1,40 +1,68 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Feather from '@expo/vector-icons/Feather';
-import SearchBox from "./SearchBox";
-import { useState } from "react";
-import NewsCarousel from "./NewsCarousel";
-import { useAuth } from "../contexts/AuthContext";
+import { useState, useEffect } from "react";
 
-export default function MainHeader() {
+import { useAuth } from "../contexts/AuthContext";
+import { useNavigation } from "@react-navigation/native";
+
+import SearchBox from "./SearchBox";
+import NewsCarousel from "./NewsCarousel";
+
+export default function MainHeader({ onSearchFocused, onSearchBlur }) {
     const {user} = useAuth()
+    const [searchFocused, setSearchFocused] = useState(false);
+    const navigation = useNavigation()
+
+    console.log(`Usuario cadastrado: ${user}`)
+
+    useEffect(() => {
+        console.log(searchFocused)
+    }, [searchFocused])
 
     return (
-        <View style={styles.container}>
+        <>
+        <View style={[styles.container, { height: searchFocused ? 250 : 434 }]}>
             <View style={styles.headerMainContent}>
                 <View style={styles.headerTop}>
                     <View style={styles.headerTextContainer}>
-                        <Text style={styles.headerHello}>Olá,</Text>
+                        <Text style={styles.headerHello}>Olá, </Text>
                         <Text style={styles.headerUserName}>{user ? user.first_name : "visitante"}!</Text>
                     </View>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.openDrawer()}>
                         <Feather name="menu" size={24} color="white" />
                     </TouchableOpacity>                                                           
                 </View>
 
-                <View style={styles.headerSearch}>
-                    <Text style={styles.questionText}>O que a Prefeitura de Queluz{'\n'}pode fazer por você hoje?</Text>
-                    <SearchBox/>
+                <View style={[styles.headerSearch, { marginBottom: searchFocused ? 40 : 100 }]}>
+                    {!searchFocused && (
+                        <Text style={styles.questionText}>O que a Prefeitura de Queluz{'\n'}pode fazer por você hoje?</Text>
+                    )}
+                    <SearchBox
+                        onFocus={() => {
+                            setSearchFocused(true)
+                            if (onSearchFocused) onSearchFocused()
+                        }}
+                        onBlur={() => {
+                            setSearchFocused(false)
+                            if (onSearchBlur) onSearchBlur()
+                        }}
+                    />
+                    
                 </View>
             </View>
-            
         </View>
+        {!searchFocused && (
+            <View style={styles.carouselWrapper}>
+                <NewsCarousel/>
+            </View>
+        )}
+        </>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#0C447F',
-        height: 434,
         borderBottomLeftRadius: 72,
         borderBottomRightRadius: 72,
         paddingTop: 55,
@@ -74,7 +102,6 @@ const styles = StyleSheet.create({
     },
     headerSearch: {
         gap: 15,
-        marginBottom: 100,
     },
     questionText: {
         fontSize: 16,
@@ -84,7 +111,6 @@ const styles = StyleSheet.create({
         letterSpacing: -0.02
     },
     carouselWrapper: {
-        marginTop: -60, // faz o carrossel subir por cima do header
-        paddingLeft: 20, // só pra alinhar
+        marginTop: -80, // faz o carrossel subir por cima do header
     },
 })

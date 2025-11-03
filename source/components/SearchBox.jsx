@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { View, StyleSheet, TextInput } from "react-native";
 import Feather from '@expo/vector-icons/Feather';
+import { useNavigation } from "@react-navigation/native";
 
-export default function SearchBox() {
+export default function SearchBox({ onFocus, onBlur }) {
     const [value, setValue] = useState("")
+    const navigation = useNavigation()
 
     return (
         <View style={styles.container}>
@@ -19,6 +21,8 @@ export default function SearchBox() {
                     value={value}
                     onChangeText={(text) => setValue(text)}
                     maxLength={35}
+                    onFocus={() => onFocus?.()}
+                    onBlur={() => onBlur?.()}
                 />
             </View>
         </View>

@@ -1,4 +1,6 @@
-import { StyleSheet, Text, View } from "react-native";
+import * as FileSystem from 'expo-file-system'
+import { ActivityIndicator, Alert, StyleSheet, Text, View } from "react-native";
+import { useRoute } from "@react-navigation/native";
 
 import SecondaryStackHeader from "../components/SecondaryStackHeader";
 import FormSection from "../components/FormSection";
@@ -7,9 +9,65 @@ import InfoCard from "../components/InfoCard";
 import NeutralButton from "../components/NeutralButton";
 import ConfirmationButton from "../components/ConfirmationButton";
 
-import { TextInput } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
+
+import api from "../services/api";
+import { useState } from 'react';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function TripReview() {
+    const [isLoading, setIsLoading] = useState(false)
+    const navigation = useNavigation()
+    const route = useRoute();
+    const { formData } = route.params;
+    const { user } = useAuth()
+
+    console.log("Contexto Auth:", user)
+
+    const handleConfirm = async (data) => {
+        setIsLoading(true)
+
+        try {
+            const responseUrl = await api.post("/viagem/generate-url", data);
+            const { uploadUrl } = responseUrl.data;
+
+            console.log("URL de upload gerada:", uploadUrl);
+
+            // 2️⃣ Faz upload da imagem direto pro S3
+            const fileUri = data.comprovante; // já é uma string
+            const fileType = "image/jpeg"; // você pode fixar, ou detectar com base no nome
+
+            const imageResponse = await fetch(fileUri); // lê o arquivo local
+            const blob = await imageResponse.blob(); // converte pra Blob
+
+            const uploadResponse = await fetch(uploadUrl, {
+            method: "PUT",
+            headers: { "Content-Type": fileType },
+            body: blob,
+            });
+
+            if (!uploadResponse.ok) throw new Error("Falha no upload para S3");
+
+            // 3️⃣ Extrai URL final (sem assinatura)
+            const filePath = uploadUrl.split("?")[0];
+            console.log("Arquivo salvo em:", filePath);
+
+            await api.post("/viagem/request", {
+                ...data,
+                idUsuario: user.userId,
+                comprovante: filePath,
+            });
+
+            Alert.alert("Sucesso", "Solicitação enviada com sucesso!");
+            navigation.navigate("TripSuccess")
+    } catch (error) {
+        console.error('Erro ao enviar:', error);
+        Alert.alert('Erro', 'Falha ao enviar solicitação.');
+    } finally {
+        setIsLoading(false)
+    }
+    };
+
     return (
         <ScrollViewWithMarginBottom size={100}>
             <SecondaryStackHeader title={"Solicitação\nde Viagem"} color={"#228D9C"}/>
@@ -19,36 +77,40 @@ export default function TripReview() {
                     <InfoCard
                         title={"PACIENTE"}
                         items={[
-                            { value: "Fábio Ezequiel Teixeira dos Santos", bold: true },
-                            { label: "E-mail", value: "fabioezequiel555@gmail.com" },
-                            { label: "Telefone", value: "(24) 99275-3941" },
-                            { label: "Endereço", value: "Rua Corifeu de Azevedo Marques, 435, São Miguel" },
-                        ]}
-                    />
-                    
-                    <InfoCard
-                        title={"CONSULTA"}
-                        items={[
-                            { value: "Santa Casa de Aparecida", bold: true },
-                            { label: "Endereço", value: "Rua Manoel de Santos Marques, 234, Centro, Aparecida/SP" },
-                            { label: "Data", value: "29/10/2025" },
-                            { label: "Horário", value: "15h30" },
+                            { value: `${formData.first_name} ${formData.surname}`, bold: true },
+                            { label: "E-mail", value: formData.email },
+                            { label: "Telefone", value: formData.cellphone },
+                            { label: "Endereço", value: formData.address },
                         ]}
                     />
 
                     <InfoCard
-                        title={"ACOMPANHANTE"}
+                        title={"CONSULTA"}
                         items={[
-                            { value: "Érika Aparecida Teixeira Francisco dos Santos", bold: true },
-                            { label: "Endereço", value: "Rua Manoel de Santos Marques, 234, Centro, Aparecida/SP" },
-                            { label: "Telefone", value: "(12) 99707-9759" },
+                            { value: formData.local, bold: true },
+                            { label: "Endereço", value: formData.local_address },
+                            { label: "Data", value: formData.data },
+                            { label: "Horário", value: formData.hora },
                         ]}
                     />
+
+                    {formData.companion_name ? (
+                        <InfoCard
+                            title={"ACOMPANHANTE"}
+                            items={[
+                            { value: formData.companion_name, bold: true },
+                            { label: "Telefone", value: formData.companion_phone },
+                            { label: "E-mail", value: formData.companion_email },
+                            { label: "Endereço", value: formData.companion_address },
+                            ]}
+                        />
+                    ) : null}
+
             </View>
             
             <View style={{gap: 10}}>
                 <NeutralButton text={"Não está certo"}/>
-                <ConfirmationButton text={"Confirmar solicitação"} isActive={true}/>
+                <ConfirmationButton text={!isLoading ? "Confirmar solicitação" : <ActivityIndicator size={24} color={"#F5F5F7"}/>} isActive={true} onPress={() => handleConfirm(formData)}/>
             </View>
             
             </View>
