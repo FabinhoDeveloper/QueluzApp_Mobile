@@ -34,11 +34,11 @@ export default function TripForm() {
 
     const { control, handleSubmit, formState: { errors }, reset } = useForm({
         defaultValues: {
-            first_name: user?.first_name || "",
-            surname: user?.surname || "",
+            first_name: user?.primeiroNome || "",
+            surname: user?.sobrenome || "",
             email: user?.email || "",
-            cellphone: user?.cellphone || "",
-            address: user?.address || "",
+            cellphone: user?.telefone || "",
+            address: user?.endereco || "",
             local: "",
             local_address: "",
             comprovante: null,
@@ -56,11 +56,11 @@ export default function TripForm() {
         setSelectedOption(option);
         if (option === "Para mim") {
             reset({
-                first_name: user?.first_name || "",
-                surname: user?.surname || "",
+                first_name: user?.primeiroNome || "",
+                surname: user?.sobrenome || "",
                 email: user?.email || "",
-                cellphone: user?.cellphone || "",
-                address: user?.address || "",
+                cellphone: user?.telefone || "",
+                address: user?.endereco || "",
             }, { keepErrors: true, keepDirty: true });
         } else {
             reset({

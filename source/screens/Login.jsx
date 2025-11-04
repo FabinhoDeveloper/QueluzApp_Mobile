@@ -33,8 +33,6 @@ export default function Login({ navigation }) {
                  senha: data.password
             })
             
-            console.log(response.data)
-
             const { usuario, token } = response.data
             login(usuario)
         } catch (error) {
