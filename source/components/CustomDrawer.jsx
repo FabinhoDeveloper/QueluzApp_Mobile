@@ -18,7 +18,7 @@ export default function CustomDrawerContent(props) {
       <View style={styles.header}>
         {user ? (
             <>
-            <Text style={styles.userType}>Olá, {user.first_name}</Text>
+            <Text style={styles.userType}>Olá, {user.primeiroNome}</Text>
             <Text style={styles.link}>Navegue pelas opções!</Text>
             </>
         ) : (

@@ -11,11 +11,8 @@ export function AuthProvider({children}) {
         const user = usuario
 
         setUser(user)
+        setIsSigned(true)
         await AsyncStorage.setItem('@user', JSON.stringify(user))
-    }
-
-    function signIn( usuario ) {
-        login(usuario)
     }
 
     function enterWithoutLogin() {
@@ -27,10 +24,11 @@ export function AuthProvider({children}) {
             await AsyncStorage.removeItem("@user")
         }
         setUser(null)
+        setIsSigned(false)
     }
 
     return (
-        <AuthContext.Provider value={{ isSigned, login, logout, signIn, enterWithoutLogin, user }}>
+        <AuthContext.Provider value={{ isSigned, login, logout, enterWithoutLogin, user }}>
             { children }
         </AuthContext.Provider>
     )

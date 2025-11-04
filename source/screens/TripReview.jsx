@@ -41,9 +41,9 @@ export default function TripReview() {
             const blob = await imageResponse.blob(); // converte pra Blob
 
             const uploadResponse = await fetch(uploadUrl, {
-            method: "PUT",
-            headers: { "Content-Type": fileType },
-            body: blob,
+                method: "PUT",
+                headers: { "Content-Type": fileType },
+                body: blob,
             });
 
             if (!uploadResponse.ok) throw new Error("Falha no upload para S3");
