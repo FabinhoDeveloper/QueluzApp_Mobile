@@ -20,8 +20,6 @@ export default function Home() {
     const [isSearchFocused, setIsSearchFocused] = useState(false)
     const { user } = useAuth()
 
-    console.log(user)
-
     return (
         <ScrollViewWithMarginBottom size={80}>
             <MainHeader

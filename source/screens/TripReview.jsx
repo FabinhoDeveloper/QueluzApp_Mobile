@@ -22,7 +22,6 @@ export default function TripReview() {
     const { formData } = route.params;
     const { user } = useAuth()
 
-    console.log("Contexto Auth:", user)
 
     const handleConfirm = async (data) => {
         setIsLoading(true)
@@ -31,7 +30,6 @@ export default function TripReview() {
             const responseUrl = await api.post("/viagem/generate-url", data);
             const { uploadUrl } = responseUrl.data;
 
-            console.log("URL de upload gerada:", uploadUrl);
 
             // 2️⃣ Faz upload da imagem direto pro S3
             const fileUri = data.comprovante; // já é uma string
@@ -41,20 +39,19 @@ export default function TripReview() {
             const blob = await imageResponse.blob(); // converte pra Blob
 
             const uploadResponse = await fetch(uploadUrl, {
-            method: "PUT",
-            headers: { "Content-Type": fileType },
-            body: blob,
+                method: "PUT",
+                headers: { "Content-Type": fileType },
+                body: blob,
             });
 
             if (!uploadResponse.ok) throw new Error("Falha no upload para S3");
 
             // 3️⃣ Extrai URL final (sem assinatura)
             const filePath = uploadUrl.split("?")[0];
-            console.log("Arquivo salvo em:", filePath);
 
             await api.post("/viagem/request", {
                 ...data,
-                idUsuario: user.userId,
+                idUsuario: user.idUsuario,
                 comprovante: filePath,
             });
 
