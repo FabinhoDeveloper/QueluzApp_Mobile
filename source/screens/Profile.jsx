@@ -13,6 +13,8 @@ import ScrollViewWithMarginBottom from "../components/ScrollViewWithMarginBottom
 export default function Profile() {
     const { user, logout } = useAuth()
 
+    const [firstName, setFirstName] = useState(user.primeiroNome)
+    const [surname, setSurname] = useState(user.sobrenome)
     const [email, setEmail] = useState(user.email)
     const [cellphone, setCellphone] = useState(user.telefone)
     const [cpf, setCpf] = useState(user.cpf)
@@ -21,6 +23,10 @@ export default function Profile() {
 
     const cancelarConta = () => {
         Alert.alert("Conta excluida com sucesso")
+    }
+
+    const editarConta = () => {
+        Alert.alert("Conta editada com sucesso")
     }
 
     return (
@@ -32,18 +38,23 @@ export default function Profile() {
                 </View>
                 <View style={styles.infoArea}>
                     <View style={styles.userInfoArea}>
+                        { editable && 
+                        <>
+                            <FormInput name="Primeiro Nome" value={firstName}/>
+                            <FormInput name="Sobrenome" value={surname}/>
+                        </>
+                        }
                         <FormInput name="Email" value={email} editable={editable}/>
                         <FormInput name="Telefone" value={applyPhoneMask(cellphone)} editable={editable}/>
                         <FormInput name="CPF" value={applyCpfMask(cpf)} editable={editable}/>
                         <FormInput name="Endereço" value={address} editable={editable}/>
                     </View>
                     <View style={styles.buttonArea}>
-                        <PrimaryButton text={ editable ? "Confirmar Alterações" : "Editar Informações"} onPress={() => setEditable(true)}/>
+                        <PrimaryButton text={ editable ? "Confirmar Alterações" : "Editar Informações"} onPress={() => editable ? editarConta() : setEditable(true)}/>
                         <PrimaryButton text={ editable ? "Cancelar Alterações" : "Excluir Conta"} onPress={() => editable ? setEditable(false) : cancelarConta()}/>
                         <PrimaryButton text={"Sair"} onPress={() => logout()}/>
                     </View>
                 </View>
-                
             </View>
         </ScrollViewWithMarginBottom>
     )
@@ -59,14 +70,14 @@ const styles = StyleSheet.create({
         gap: 20
     },
     profileArea: {
-        height: '30%',
-        marginTop: -40
+        height: 250,
+        marginTop: -60
     },
     infoArea: {
         gap: 50
     },
     userInfoArea: {
-        gap: 10
+        gap: 10,
     },
     buttonArea: {
         alignItems: 'center',
