@@ -208,7 +208,7 @@ export default function TripForm() {
                                 render={({ field: { value, onChange, onBlur } }) => (
                                     <FormInput
                                         name="Telefone"
-                                        value={value}
+                                        value={applyPhoneMask(value)}
                                         onBlur={onBlur}
                                         onChangeText={text => onChange(applyPhoneMask(text))}
                                         error={errors.cellphone?.message}

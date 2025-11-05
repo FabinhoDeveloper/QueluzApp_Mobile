@@ -18,7 +18,6 @@ const servicesList = [
 
 export default function Home() {
     const [isSearchFocused, setIsSearchFocused] = useState(false)
-    const { user } = useAuth()
 
     return (
         <ScrollViewWithMarginBottom size={80}>
@@ -49,7 +48,7 @@ export default function Home() {
                             <DepartmentCard departmentName={"Meio Ambiente\ne Agronegócio"} source={require("../../assets/images/icons/icon_meio_ambiente.png")} linkTarget={{stack: "Serviços", screen: "EnvironmentServices"}}/>
                         </View>
                     </HomeSection>
-
+    
                     <HomeSection title="Cursos Disponíveis" linkForMore={true}>
                         <View style={styles.coursesRow}>
                             <CourseCard courseName="Salgadeiro" source={require("../../assets/images/curso_salgadeiro.png")}/>
@@ -57,7 +56,7 @@ export default function Home() {
                             <CourseCard courseName="Informática" source={require("../../assets/images/curso_informatica.jpg")}/>
                         </View>
                     </HomeSection>
-
+    
                     <HomeSection title="Eventos" linkForMore={true} linkText="Acessar Calendário">
                         
                     </HomeSection>
@@ -73,7 +72,7 @@ export default function Home() {
                     </HomeSection>
                 )}
             </View>
-
+    
         </ScrollViewWithMarginBottom>
     )
 }

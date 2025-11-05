@@ -27,32 +27,28 @@ export default function TripReview() {
         setIsLoading(true)
 
         try {
-            const responseUrl = await api.post("/viagem/generate-url", data);
-            const { uploadUrl } = responseUrl.data;
+            const { data: urlResponse } = await api.post("/viagem/generate-url", {
+                fileType: "image/jpeg",
+                idUsuario: user.idUsuario
+            });
 
+            const { uploadUrl, fileUrl } = urlResponse;
 
-            // 2️⃣ Faz upload da imagem direto pro S3
-            const fileUri = data.comprovante; // já é uma string
-            const fileType = "image/jpeg"; // você pode fixar, ou detectar com base no nome
-
-            const imageResponse = await fetch(fileUri); // lê o arquivo local
+            const imageResponse = await fetch(data.comprovante); // lê o arquivo local
             const blob = await imageResponse.blob(); // converte pra Blob
 
             const uploadResponse = await fetch(uploadUrl, {
                 method: "PUT",
-                headers: { "Content-Type": fileType },
+                headers: { "Content-Type": "image/jpeg" },
                 body: blob,
             });
 
             if (!uploadResponse.ok) throw new Error("Falha no upload para S3");
 
-            // 3️⃣ Extrai URL final (sem assinatura)
-            const filePath = uploadUrl.split("?")[0];
-
             await api.post("/viagem/request", {
                 ...data,
                 idUsuario: user.idUsuario,
-                comprovante: filePath,
+                comprovante: fileUrl,
             });
 
             Alert.alert("Sucesso", "Solicitação enviada com sucesso!");
