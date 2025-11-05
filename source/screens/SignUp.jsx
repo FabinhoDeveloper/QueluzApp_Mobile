@@ -19,7 +19,7 @@ import api from "../services/api"
 export default function SignUp() {
     const [isLoading, setIsLoading] = useState(false)
     const navigation = useNavigation()
-    const { signIn } = useAuth()
+    const { login } = useAuth()
     const { control, handleSubmit, formState: { errors }, getValues } = useForm({
         defaultValues: { 
             first_name: "", 
@@ -36,10 +36,9 @@ export default function SignUp() {
 
     const onSubmitTest = async (data) => {
         setIsLoading(true)
-        
         try {
             const response = await api.post("/user/create", { 
-                primeiro_nome: data.first_name, 
+                primeiroNome: data.first_name, 
                 sobrenome: data.surname, 
                 cpf: getCpfDigits(data.cpf), 
                 telefone: getPhoneDigits(data.cellphone), 
@@ -47,9 +46,11 @@ export default function SignUp() {
                 senha: data.password, 
                 endereco: data.address 
             })
-    
-            const { usuario } = response.data
-            signIn(usuario)
+
+            console.log(response.data.usuario)
+
+
+            login(response.data.usuario)
         } catch (error) {
             if (error.response) {
                 const { status, data } = error.response;

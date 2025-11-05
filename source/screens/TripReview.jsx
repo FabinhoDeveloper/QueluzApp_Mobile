@@ -1,4 +1,5 @@
-import { StyleSheet, Text, View } from "react-native";
+import * as FileSystem from 'expo-file-system'
+import { ActivityIndicator, Alert, StyleSheet, Text, View } from "react-native";
 import { useRoute } from "@react-navigation/native";
 
 import SecondaryStackHeader from "../components/SecondaryStackHeader";
@@ -10,17 +11,59 @@ import ConfirmationButton from "../components/ConfirmationButton";
 
 import { useNavigation } from "@react-navigation/native";
 
+import api from "../services/api";
+import { useState } from 'react';
+import { useAuth } from '../contexts/AuthContext';
+
 export default function TripReview() {
+    const [isLoading, setIsLoading] = useState(false)
     const navigation = useNavigation()
     const route = useRoute();
     const { formData } = route.params;
-    console.log(formData);
+    const { user } = useAuth()
 
-    const handleConfirm = () => {
-        console.log("Confirmando solicitação");
-        console.log(formData);
-        navigation.navigate("TripSuccess");
+
+    const handleConfirm = async (data) => {
+        setIsLoading(true)
+
+        try {
+            const responseUrl = await api.post("/viagem/generate-url", data);
+            const { uploadUrl } = responseUrl.data;
+
+
+            // 2️⃣ Faz upload da imagem direto pro S3
+            const fileUri = data.comprovante; // já é uma string
+            const fileType = "image/jpeg"; // você pode fixar, ou detectar com base no nome
+
+            const imageResponse = await fetch(fileUri); // lê o arquivo local
+            const blob = await imageResponse.blob(); // converte pra Blob
+
+            const uploadResponse = await fetch(uploadUrl, {
+                method: "PUT",
+                headers: { "Content-Type": fileType },
+                body: blob,
+            });
+
+            if (!uploadResponse.ok) throw new Error("Falha no upload para S3");
+
+            // 3️⃣ Extrai URL final (sem assinatura)
+            const filePath = uploadUrl.split("?")[0];
+
+            await api.post("/viagem/request", {
+                ...data,
+                idUsuario: user.idUsuario,
+                comprovante: filePath,
+            });
+
+            Alert.alert("Sucesso", "Solicitação enviada com sucesso!");
+            navigation.navigate("TripSuccess")
+    } catch (error) {
+        console.error('Erro ao enviar:', error);
+        Alert.alert('Erro', 'Falha ao enviar solicitação.');
+    } finally {
+        setIsLoading(false)
     }
+    };
 
     return (
         <ScrollViewWithMarginBottom size={100}>
@@ -64,7 +107,7 @@ export default function TripReview() {
             
             <View style={{gap: 10}}>
                 <NeutralButton text={"Não está certo"}/>
-                <ConfirmationButton text={"Confirmar solicitação"} isActive={true} onPress={handleConfirm}/>
+                <ConfirmationButton text={!isLoading ? "Confirmar solicitação" : <ActivityIndicator size={24} color={"#F5F5F7"}/>} isActive={true} onPress={() => handleConfirm(formData)}/>
             </View>
             
             </View>

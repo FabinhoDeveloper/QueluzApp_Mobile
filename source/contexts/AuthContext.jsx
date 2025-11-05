@@ -5,33 +5,30 @@ const AuthContext = createContext()
 
 export function AuthProvider({children}) {
     const [user, setUser] = useState(null)
-    const isSigned = !!user
+    const [isSigned, setIsSigned] = useState(!!user)
 
     async function login(usuario) {
-        const user = { 
-            first_name: usuario.primeiro_nome, 
-            surname: usuario.sobrenome, 
-            cpf: usuario.cpf, 
-            cellphone: usuario.telefone, 
-            email: usuario.email, 
-            address: usuario.endereco
-        }
+        const user = usuario
 
         setUser(user)
+        setIsSigned(true)
         await AsyncStorage.setItem('@user', JSON.stringify(user))
     }
 
-    function signIn( usuario ) {
-        login(usuario)
+    function enterWithoutLogin() {
+        setIsSigned(true)
     }
     
     async function logout() {
-        await AsyncStorage.removeItem("@user")
+        if (AsyncStorage.getItem("@user")) {
+            await AsyncStorage.removeItem("@user")
+        }
         setUser(null)
+        setIsSigned(false)
     }
 
     return (
-        <AuthContext.Provider value={{ isSigned, login, logout, signIn, user }}>
+        <AuthContext.Provider value={{ isSigned, login, logout, enterWithoutLogin, user }}>
             { children }
         </AuthContext.Provider>
     )

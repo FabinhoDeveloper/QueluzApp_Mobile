@@ -24,7 +24,7 @@ export default function MainHeader({ onSearchFocused, onSearchBlur }) {
                 <View style={styles.headerTop}>
                     <View style={styles.headerTextContainer}>
                         <Text style={styles.headerHello}>Olá, </Text>
-                        <Text style={styles.headerUserName}>{user ? user.first_name : "visitante"}!</Text>
+                        <Text style={styles.headerUserName}>{user ? user.primeiroNome : "visitante"}!</Text>
                     </View>
                     <TouchableOpacity onPress={() => navigation.openDrawer()}>
                         <Feather name="menu" size={24} color="white" />

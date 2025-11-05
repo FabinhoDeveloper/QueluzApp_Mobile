@@ -6,13 +6,18 @@ import ScrollViewWithMarginBottom from "../components/ScrollViewWithMarginBottom
 import SecondaryButton from "../components/SecondaryButton";
 import SecondaryTabHeader from "../components/SecondaryTabHeader";
 import HomeSection from "../components/HomeSection";
+import ProfilePic from "../components/ProfilePic";
 
 export default function Requests() {
     return (
         <ScrollViewWithMarginBottom size={100}>
             <SecondaryTabHeader/>
-            <View style={styles.mainContent}>
-                <HomeSection title={"Minhas solicitações"}>
+            <View style={styles.mainContent}>   
+                <FormSection marginBottom={true}>
+                    <ProfilePic/>
+                </FormSection>
+             
+                <FormSection title={"Minhas solicitações"}>
                     <View style={styles.tripRecords}>
                         <TripCard status={"Confirmada"} local={"Santa Casa de Aparecida"} data={"02/02/2025"}/>
                         <TripCard status={"Cancelada"} local={"Hemocentro de Taubaté"} data={"02/02/2025"}/>
@@ -21,7 +26,7 @@ export default function Requests() {
                         <TripCard status={"Cancelada"} local={"Hemocentro de Taubaté"} data={"02/02/2025"}/>
                         <TripCard status={"Pendente"} local={"Santa Casa de Aparecida"} data={"02/02/2025"}/>
                     </View>
-                </HomeSection>
+                </FormSection>
             </View>
         </ScrollViewWithMarginBottom>
     )
@@ -33,8 +38,10 @@ const styles = StyleSheet.create({
     },
     mainContent: {
         marginHorizontal: 20,
+        marginTop: -70
     },
     tripRecords: {
+        marginTop: 10,
         gap: 8    
     }
 })

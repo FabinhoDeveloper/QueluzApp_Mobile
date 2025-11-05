@@ -14,7 +14,7 @@ import api from "../services/api"
 
 export default function Login({ navigation }) {
     const [isLoading, setIsLoading] = useState(false)
-    const { login } = useAuth()
+    const { login, enterWithoutLogin } = useAuth()
 
     const { control, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
@@ -29,18 +29,16 @@ export default function Login({ navigation }) {
 
         try {
             const response = await api.post("/auth/login", {
-                cpf: getCpfDigits(data.cpf),
-                senha: data.password
+                 cpf: getCpfDigits(data.cpf),
+                 senha: data.password
             })
-
-            console.log(response.data)
-
+            
             const { usuario, token } = response.data
             login(usuario)
         } catch (error) {
             if (error.response) {
             const { status, data } = error.response;
-
+                
             if (status === 401) {
                 Alert.alert("Erro", data.message || "CPF ou senha inválidos.");
             } else if (status === 400) {
@@ -116,7 +114,7 @@ export default function Login({ navigation }) {
                             text={!isLoading ? 'Entrar' : <ActivityIndicator size={24} color={"#F5F5F7"}/>}
                             onPress={handleSubmit(onSubmit)}
                         />
-                        <PrimaryButton text='Continuar sem Cadastro' onPress={handleSubmit(onSubmit)}/>
+                        <PrimaryButton text='Continuar sem Cadastro' onPress={() => enterWithoutLogin()}/>
 
                         <View style={styles.registerContainer}>
                             <Text style={styles.registerHelper}>Ainda não possui uma conta?</Text>
