@@ -27,8 +27,39 @@ export default function Profile() {
     });
     const [editable, setEditable] = useState(false)
 
-    const excluirConta = () => {
-        Alert.alert("Conta excluida com sucesso")
+    const excluirConta = async () => {
+        Alert.alert(
+            "Confirmar exclusão",
+            "Tem certeza que deseja excluir sua conta? Esta ação não pode ser desfeita.",
+            [
+                {
+                    text: "Cancelar",
+                    style: "cancel"
+                },
+                {
+                    text: "Excluir",
+                    onPress: async () => {
+                        try {
+                            const response = await api.delete(`/user/delete/${user.idUsuario}`)
+                            
+                            if (!response.error) {
+                                Alert.alert("Sucesso", "Conta excluída com sucesso")
+                                logout()
+                            } else {
+                                Alert.alert("Erro", "Não foi possível excluir a conta")
+                            }
+                        } catch (error) {
+                            console.error('Erro ao excluir conta:', error)
+                            Alert.alert(
+                                "Erro",
+                                "Ocorreu um erro ao excluir a conta. Tente novamente mais tarde."
+                            )
+                        }
+                    },
+                    style: "destructive"
+                }
+            ]
+        )
     }
 
     const editarConta = async (data) => {
@@ -133,7 +164,7 @@ export default function Profile() {
                                     setValue('endereco', user.endereco);
                                     setEditable(false);
                                 }
-                                : excluirConta()
+                                : () => excluirConta()
                             }
                         />
                         <PrimaryButton text={"Sair"} onPress={() => logout()}/>
