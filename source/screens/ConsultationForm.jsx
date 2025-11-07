@@ -45,8 +45,8 @@ export default function ConsultationForm() {
 
                 <FormSection marginBottom={true}>
                     <View style={styles.formSection}>
-                        <FormInput name={"Primeiro nome"} value={selectedOption === "Para mim" ? user.first_name : ""}/>
-                        <FormInput name={"Sobrenome"} value={selectedOption === "Para mim" ? user.surname : ""}/>
+                        <FormInput name={"Primeiro nome"} value={selectedOption === "Para mim" ? user.primeiroNome : ""}/>
+                        <FormInput name={"Sobrenome"} value={selectedOption === "Para mim" ? user.sobrenome : ""}/>
                         <FormInput name={"CPF"} value={selectedOption === "Para mim" ? applyCpfMask(user.cpf) : ""}/>
                         <FormInput name={"Número de Cadastro do SUS"}/>
                         <FormPicker name="Unidade" list={["ESF - Palha", "ESF - União", "ESF - Porteira", "ESF - Figueira"]} onValueChange={() => setIsUBSSelected(true)}/>
