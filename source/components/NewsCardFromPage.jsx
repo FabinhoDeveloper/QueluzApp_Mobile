@@ -13,7 +13,7 @@ export default function NewsCardFromPage({ title, source, category, date }) {
             
             <View style={styles.contentArea}>
                 <View style={styles.categoryTag}>
-                    <Text style={styles.categoryText}>Educação</Text>
+                    <Text style={styles.categoryText}></Text>
                 </View>
                 
                 <Text style={styles.title} numberOfLines={4}>
