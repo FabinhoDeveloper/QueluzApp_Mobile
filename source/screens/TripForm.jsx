@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Platform, Button } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Platform, Modal } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../contexts/AuthContext";
@@ -314,30 +314,73 @@ export default function TripForm() {
                                         <View>
                                             <Text style={styles.inputLabel}>Data</Text>
                                             <TouchableOpacity
-                                                onPress={() => setShowDatePicker(true)}
+                                                onPress={() => { setShowDatePicker(true); setShowTimePicker(false); }}
                                                 style={styles.pickerInput}
                                             >
                                                 <Text style={styles.pickerValue}>
                                                     {value ? value : ""}
                                                 </Text>
                                             </TouchableOpacity>
+
                                             {showDatePicker && (
-                                                <DateTimePicker
-                                                    value={dateObj || new Date()}
-                                                    mode="date"
-                                                    display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-                                                    minimumDate={getTodayStart()}
-                                                    onChange={(event, selectedDate) => {
-                                                        if (Platform.OS !== 'ios') {
-                                                            setShowDatePicker(false);
-                                                            if (event?.type !== 'set') return; // dismissed
-                                                        }
-                                                        const currentDate = selectedDate || dateObj || new Date();
-                                                        setDateObj(currentDate);
-                                                        onChange(formatDate(currentDate));
-                                                    }}
-                                                />
+                                                Platform.OS === 'ios' ? (
+                                                    <Modal
+                                                        transparent
+                                                        animationType="slide"
+                                                        visible={showDatePicker}
+                                                        onRequestClose={() => setShowDatePicker(false)}
+                                                    >
+                                                        <View style={styles.modalOverlay}>
+                                                            <View style={styles.modalContent}>
+                                                                <DateTimePicker
+                                                                    value={dateObj || new Date()}
+                                                                    mode="date"
+                                                                    display="spinner"
+                                                                    minimumDate={getTodayStart()}
+                                                                    onChange={(event, selectedDate) => {
+                                                                        // no iOS deixamos o picker visível até o usuário confirmar
+                                                                        const currentDate = selectedDate || dateObj || new Date();
+                                                                        setDateObj(currentDate);
+                                                                        onChange(formatDate(currentDate));
+                                                                    }}
+                                                                    style={styles.iosPicker}
+                                                                />
+                                                                <View style={styles.modalButtons}>
+                                                                    <TouchableOpacity
+                                                                        onPress={() => { setShowDatePicker(false); }}
+                                                                        style={styles.modalButton}
+                                                                    >
+                                                                        <Text>Cancelar</Text>
+                                                                    </TouchableOpacity>
+                                                                    <TouchableOpacity
+                                                                        onPress={() => { setShowDatePicker(false); }}
+                                                                        style={styles.modalButton}
+                                                                    >
+                                                                        <Text>OK</Text>
+                                                                    </TouchableOpacity>
+                                                                </View>
+                                                            </View>
+                                                        </View>
+                                                    </Modal>
+                                                ) : (
+                                                    <DateTimePicker
+                                                        value={dateObj || new Date()}
+                                                        mode="date"
+                                                        display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+                                                        minimumDate={getTodayStart()}
+                                                        onChange={(event, selectedDate) => {
+                                                            if (Platform.OS !== 'ios') {
+                                                                setShowDatePicker(false);
+                                                                if (event?.type !== 'set') return; // dismissed
+                                                            }
+                                                            const currentDate = selectedDate || dateObj || new Date();
+                                                            setDateObj(currentDate);
+                                                            onChange(formatDate(currentDate));
+                                                        }}
+                                                    />
+                                                )
                                             )}
+
                                             {errors.data && <Text style={styles.errorMessage}>{errors.data.message}</Text>}
                                         </View>
                                     )}
@@ -353,29 +396,71 @@ export default function TripForm() {
                                         <View>
                                             <Text style={styles.inputLabel}>Hora</Text>
                                             <TouchableOpacity
-                                                onPress={() => setShowTimePicker(true)}
+                                                onPress={() => { setShowTimePicker(true); setShowDatePicker(false); }}
                                                 style={styles.pickerInput}
                                             >
                                                 <Text style={styles.pickerValue}>
                                                     {value ? value : ""}
                                                 </Text>
                                             </TouchableOpacity>
+
                                             {showTimePicker && (
-                                                <DateTimePicker
-                                                    value={timeObj || new Date()}
-                                                    mode="time"
-                                                    display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-                                                    onChange={(event, selectedTime) => {
-                                                        if (Platform.OS !== 'ios') {
-                                                            setShowTimePicker(false);
-                                                            if (event?.type !== 'set') return; // dismissed
-                                                        }
-                                                        const currentTime = selectedTime || timeObj || new Date();
-                                                        setTimeObj(currentTime);
-                                                        onChange(formatTime(currentTime));
-                                                    }}
-                                                />
+                                                Platform.OS === 'ios' ? (
+                                                    <Modal
+                                                        transparent
+                                                        animationType="slide"
+                                                        visible={showTimePicker}
+                                                        onRequestClose={() => setShowTimePicker(false)}
+                                                    >
+                                                        <View style={styles.modalOverlay}>
+                                                            <View style={styles.modalContent}>
+                                                                <DateTimePicker
+                                                                    value={timeObj || new Date()}
+                                                                    mode="time"
+                                                                    display="spinner"
+                                                                    onChange={(event, selectedTime) => {
+                                                                        // no iOS deixamos o picker visível até o usuário confirmar
+                                                                        const currentTime = selectedTime || timeObj || new Date();
+                                                                        setTimeObj(currentTime);
+                                                                        onChange(formatTime(currentTime));
+                                                                    }}
+                                                                    style={styles.iosPicker}
+                                                                />
+                                                                <View style={styles.modalButtons}>
+                                                                    <TouchableOpacity
+                                                                        onPress={() => { setShowTimePicker(false); }}
+                                                                        style={styles.modalButton}
+                                                                    >
+                                                                        <Text>Cancelar</Text>
+                                                                    </TouchableOpacity>
+                                                                    <TouchableOpacity
+                                                                        onPress={() => { setShowTimePicker(false); }}
+                                                                        style={styles.modalButton}
+                                                                    >
+                                                                        <Text>OK</Text>
+                                                                    </TouchableOpacity>
+                                                                </View>
+                                                            </View>
+                                                        </View>
+                                                    </Modal>
+                                                ) : (
+                                                    <DateTimePicker
+                                                        value={timeObj || new Date()}
+                                                        mode="time"
+                                                        display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+                                                        onChange={(event, selectedTime) => {
+                                                            if (Platform.OS !== 'ios') {
+                                                                setShowTimePicker(false);
+                                                                if (event?.type !== 'set') return; // dismissed
+                                                            }
+                                                            const currentTime = selectedTime || timeObj || new Date();
+                                                            setTimeObj(currentTime);
+                                                            onChange(formatTime(currentTime));
+                                                        }}
+                                                    />
+                                                )
                                             )}
+
                                             {errors.hora && <Text style={styles.errorMessage}>{errors.hora.message}</Text>}
                                         </View>
                                     )}
@@ -520,5 +605,31 @@ const styles = StyleSheet.create({
         color: "#636364",
         fontSize: 14,
         fontFamily: 'Poppins_300Light'
+    },
+    modalOverlay: {
+        flex: 1,
+        backgroundColor: 'rgba(0,0,0,0.4)',
+        justifyContent: 'flex-end' /* slide from bottom */,
+    },
+    modalContent: {
+        backgroundColor: '#fff',
+        borderTopLeftRadius: 12,
+        borderTopRightRadius: 12,
+        paddingTop: 12,
+        paddingBottom: 24,
+        alignItems: 'center'
+    },
+    iosPicker: {
+        width: '100%',
+    },
+    modalButtons: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '90%',
+        marginTop: 8
+    },
+    modalButton: {
+        paddingHorizontal: 16,
+        paddingVertical: 8
     }
 });
