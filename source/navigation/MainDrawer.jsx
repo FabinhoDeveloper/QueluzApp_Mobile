@@ -41,6 +41,16 @@ export default function MainDrawer() {
                 
             />
             <Drawer.Screen 
+                name="Endereços Úteis" 
+                component={UsefulPhoneNumbers}
+                options={{
+                    drawerIcon: ({ color, size }) => (
+                        <Ionicons name="map-outline" color={'white'} size={24} />
+                    )
+                }}    
+                
+            />
+            <Drawer.Screen 
                 name="Perfil" 
                 component={Profile}
                 options={{
