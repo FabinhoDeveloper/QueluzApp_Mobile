@@ -2,6 +2,7 @@ import { useState } from "react";
 import { StyleSheet, View, Text, TouchableOpacity, Linking } from "react-native";
 
 import Ionicons from '@expo/vector-icons/Ionicons';
+import Feather from '@expo/vector-icons/Feather';
 
 export default function PhoneCard({ name, address, phone }) {
     const [isOpened, setIsOpened] = useState(false) 
@@ -16,6 +17,7 @@ export default function PhoneCard({ name, address, phone }) {
                 <View style={styles.informationArea}>
                     <Text style={styles.informationText}>{address}</Text>
                     <TouchableOpacity style={styles.phoneButton}>
+                        <Feather name="phone" size={13} color="white" />
                         <Text onPress={() => Linking.openURL(`tel:${phone}`)} style={styles.phoneText}>{phone}</Text>
                     </TouchableOpacity>
                 </View>
@@ -60,9 +62,11 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         backgroundColor: '#3E7F0C',
         height: 25,
-        width: '40%',
+        width: '50%',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        flexDirection: 'row',
+        gap: 6
     },
     phoneText: {
         fontFamily: 'Poppins_600SemiBold',
