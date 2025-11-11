@@ -518,7 +518,8 @@ export default function TripForm() {
                                     name="companion_email"
                                     rules={{
                                         required: "E-mail do acompanhante é obrigatório",
-                                        pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "E-mail inválido" }
+                                        pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "E-mail inválido" },
+                                        setValueAs: v => (typeof v === 'string' ? v.trim() : v)
                                     }}
                                     render={({ field: { value, onChange, onBlur } }) => (
                                         <FormInput

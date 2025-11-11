@@ -6,13 +6,13 @@ import Feather from '@expo/vector-icons/Feather';
 export default function TripCard({ status, local, data }) {
     function getBackgroundColor(status) {
         switch (status) {
-            case "Cancelada":
+            case "CANCELADA":
                 return { backgroundColor: "#b11308" };
-            case "Realizada":
+            case "REALIZADA":
                 return { backgroundColor: "#3E7F0C" };
-            case "Confirmada":
+            case "CONFIRMADA":
                 return { backgroundColor: "#3E7F0C" };
-            case "Pendente":
+            case "PENDENTE":
                 return { backgroundColor: "#e6a100" };
             default:
                 return { backgroundColor: "#888" }; 
@@ -21,13 +21,13 @@ export default function TripCard({ status, local, data }) {
 
     function getStatusIcon(status) {
         switch(status) {
-            case "Cancelada":
+            case "CANCELADA":
                 return ( <Feather name="x" size={32} color="white" /> )
-            case "Realizada":
+            case "REALIZADA":
                 return ( <Feather name="check" size={32} color="white" />)
-            case "Confirmada":
+            case "CONFIRMADA":
                 return ( <MaterialIcons name="directions-car" size={32} color="white" />)
-            case "Pendente":
+            case "PENDENTE":
                 return ( <MaterialIcons name="hourglass-top" size={32} color="white" />)
             default:
                 return ( undefined ) 

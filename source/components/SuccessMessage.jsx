@@ -17,8 +17,6 @@ export default function SuccessMessage(props) {
             <Text style={styles.mainText}>
                 {props.text}
             </Text>
-            
-            <NeutralButton text={"Voltar"} onPress={() => navigation.navigate("ServicesNavigation")}/>
         </View>
     )
 }

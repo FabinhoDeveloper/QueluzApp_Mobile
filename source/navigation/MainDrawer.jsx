@@ -31,17 +31,7 @@ export default function MainDrawer() {
                 }}    
             />
             <Drawer.Screen 
-                name="Telefones Úteis" 
-                component={UsefulPhoneNumbers}
-                options={{
-                    drawerIcon: ({ color, size }) => (
-                        <Ionicons name="call-outline" color={'white'} size={24} />
-                    )
-                }}    
-                
-            />
-            <Drawer.Screen 
-                name="Endereços Úteis" 
+                name="Locais Importantes" 
                 component={UsefulPhoneNumbers}
                 options={{
                     drawerIcon: ({ color, size }) => (

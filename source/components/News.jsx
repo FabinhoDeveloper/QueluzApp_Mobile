@@ -1,15 +1,15 @@
 import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
 
-export default function News({ title, source }) { // Posteriormente, a imagem será dinamica
+export default function News(props) { // Posteriormente, a imagem será dinamica
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={() => console.log("Noticia selecionada")}>
+            <TouchableOpacity {...props}>
                 <Image  
-                    source={source}
+                    source={props.source}
                     style={styles.image}    
                 />
 
-                <Text style={styles.title}>{ title }</Text>
+                <Text style={styles.title}>{ props.title }</Text>
             </TouchableOpacity>
         </View>
     )

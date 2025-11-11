@@ -11,41 +11,9 @@ export default function UsefulPhoneNumbers() {
             <SecondaryTabHeader/>
             <View style={styles.container}>
                 <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Emergência (SAMU)"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
-                <PhoneCard name={"Prefeitura Municipal"} address={"Rua Prudente de Moraes, 100, Centro"} phone={"(12) 3147-9020"}/>
+                <PhoneCard name={"Emergência (SAMU)"} address={"R. Horácio de Oliveira, 122, Centro"} phone={"192"}/>
+                <PhoneCard name={"Secretaria de Saúde"} address={"Rua Prudente de Moraes, 158, Centro"} phone={"(12) 3147-1811"}/>
+
             </View>
         </ScrollViewWithMarginBottom>
     )
