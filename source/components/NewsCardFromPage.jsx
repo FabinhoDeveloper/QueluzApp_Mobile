@@ -1,8 +1,8 @@
 import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
 
-export default function NewsCardFromPage({ title, source, category, date }) {
+export default function NewsCardFromPage({ title, source, category, date, onPress }) {
     return (
-        <TouchableOpacity style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={onPress}>
             <View style={styles.imageArea}>
                 <Image 
                     source={source} 
