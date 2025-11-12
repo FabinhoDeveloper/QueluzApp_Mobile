@@ -6,6 +6,7 @@ import TripCard from "../components/TripCard";
 import FormSection from "../components/FormSection";
 import ScrollViewWithMarginBottom from "../components/ScrollViewWithMarginBottom";
 import SecondaryButton from "../components/SecondaryButton";
+import LoginRequired from "../components/LoginRequired";
 
 import api from "../services/api";
 import { useAuth } from "../contexts/AuthContext";
@@ -15,7 +16,7 @@ export default function TripMainPage() {
     const [tripList, setTripList] = useState([])
     const [isLoading, setIsLoading] = useState(true)
 
-    useEffect(() => {
+    { user ? useEffect(() => {
         async function fetchTrips() {
             try {
                 const response = await api.get(`/viagem/getRequests/${user.idUsuario}`)
@@ -31,13 +32,14 @@ export default function TripMainPage() {
         }
 
         fetchTrips()
-    }, [])
+    }, []) : null }
 
 
     return (
         <ScrollViewWithMarginBottom size={100}>
             <SecondaryStackHeader title={"Solicitação\nde Viagem"} color={"#228D9C"}/>
-            <View style={styles.mainContent}>
+            {user ? (
+                <View style={styles.mainContent}>
                 <FormSection marginBottom={true}>
                     <SecondaryButton title={"Solicitar viagem"} linkTarget={"TripForm"}/>
                 </FormSection>
@@ -64,6 +66,10 @@ export default function TripMainPage() {
                     </View>
                 </FormSection>
             </View>
+            ) : (
+                <LoginRequired/>
+            )}  
+            
         </ScrollViewWithMarginBottom>
     )
 }

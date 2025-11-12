@@ -9,6 +9,8 @@ import { useAuth } from "../contexts/AuthContext";
 import applyCpfMask from "../utils/applyCpfMask";
 import applyPhoneMask from "../utils/applyPhoneMask";
 import ScrollViewWithMarginBottom from "../components/ScrollViewWithMarginBottom";
+import LoginRequired from "../components/LoginRequired.jsx";
+
 import { Controller, useForm } from "react-hook-form";
 import api from '../services/api.js'
 
@@ -17,12 +19,12 @@ export default function Profile() {
 
     const { register, handleSubmit, control, setValue } = useForm({
         defaultValues: {
-            primeiroNome: user.primeiroNome,
-            sobrenome: user.sobrenome,
-            email: user.email,
-            telefone: user.telefone,
-            cpf: user.cpf,
-            endereco: user.endereco
+            primeiroNome: user ? user.primeiroNome : undefined,
+            sobrenome: user ? user.sobrenome : undefined,
+            email: user ? user.email : undefined,
+            telefone: user ? user.telefone : undefined,
+            cpf: user ? user.cpf : undefined,
+            endereco: user ? user.endereco : undefined
         }
     });
     const [editable, setEditable] = useState(false)
@@ -83,7 +85,8 @@ export default function Profile() {
     return (
         <ScrollViewWithMarginBottom style={styles.container} size={100}>
             <SecondaryTabHeader/>
-            <View style={styles.mainContent}>
+            { user ? (
+                <View style={styles.mainContent}>
                 <View style={styles.profileArea}>
                     <ProfilePic/>    
                 </View>
@@ -171,6 +174,9 @@ export default function Profile() {
                     </View>
                 </View>
             </View>
+            ) : (
+                <LoginRequired/>
+            )}
         </ScrollViewWithMarginBottom>
     )
 }

@@ -27,11 +27,11 @@ export default function CustomDrawerContent(props) {
 
             <View style={styles.linkArea}>
                 <TouchableOpacity onPress={() => logout()}>
-                <Text style={styles.link}>Entrar</Text>
+                  <Text style={styles.link}>Entrar</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={() => logout()}>
-                <Text style={styles.link}>Fazer cadastro</Text>
+                  <Text style={styles.link}>Fazer cadastro</Text>
                 </TouchableOpacity>
             </View>
             </>
