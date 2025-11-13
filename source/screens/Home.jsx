@@ -11,12 +11,13 @@ import ServicesFromDepartment from "../components/ServicesFromDepartment"
 import { useAuth } from "../contexts/AuthContext"
 
 import servicesList from "../constants/servicesList"
+import EventCardHomePage from "../components/EventCardHomePage"
 
 export default function Home() {
     const [isSearchFocused, setIsSearchFocused] = useState(false)
 
     return (
-        <ScrollViewWithMarginBottom size={80}>
+        <ScrollViewWithMarginBottom size={100}>
             <MainHeader
                 onSearchFocused={() => setIsSearchFocused(true)}
                 onSearchBlur={() => setIsSearchFocused(false)}
@@ -54,7 +55,10 @@ export default function Home() {
                     </HomeSection>
     
                     <HomeSection title="Eventos" linkForMore={true} linkText="Acessar Calendário">
-                        
+                        <View style={{flexDirection: 'row', justifyContent: 'space-between', gap: 10}}>
+                            <EventCardHomePage/>
+                            <EventCardHomePage/>
+                        </View>
                     </HomeSection>
                 </View>
                 )}
